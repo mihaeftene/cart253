@@ -15,12 +15,23 @@ let squareX;
 let squareY;
 let squareSize = 100;
 
+//The current position and size of the First picture which is a texture//
+let textureX;
+let textureY;
+let textureSize = 20;
+
+//Texture Image variable//
+let textureMove;
+
 
 // preload()
 //
 // Nothing here
 
 function preload() {
+  // we are going to preload the image texture bar and make it go left to right
+  textureMove = loadImage("assets/images/texture.png");
+  }
 
 
 // setup()
@@ -45,6 +56,10 @@ function setup() {
   rectMode(CENTER);
   // We won't have a stroke in this
   noStroke();
+
+  //lets start our texture image at the left-center and goes to the right after//
+  textureX = 0;
+  textureY = height/2;
 }
 
 
@@ -71,4 +86,9 @@ function draw() {
   fill(0,0,255,10);
   // Display the square
   rect(squareX,squareY,squareSize,squareSize);
+
+  //Move texture image to the right//
+  textureX += 1;
+   // Display the image
+   image(textureMove, textureX, textureY);
 }
