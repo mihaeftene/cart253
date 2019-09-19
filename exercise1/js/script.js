@@ -23,6 +23,11 @@ let textureSize = 20;
 //Texture Image variable//
 let textureMove;
 
+// Text variable and declaring x and y variables to give the current position//
+let studytext = "more 4am studying!";
+let studytextX;
+let studytextY;
+
 
 // preload()
 //
@@ -91,4 +96,14 @@ function draw() {
   textureX += 1;
    // Display the image
    image(textureMove, textureX, textureY);
+
+   // Display our "studytext" at the current mouse location//
+   studytextX = mouseX;
+   studytextY = mouseY;
+   //fill our text in a coral color//
+   fill(255,99,71);
+   textSize(30);
+   //variables that we want to display//
+   text (studytext, studytextX, studytextY);
+
 }
