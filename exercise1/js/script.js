@@ -28,6 +28,11 @@ let studytext = "more 4am studying!";
 let studytextX;
 let studytextY;
 
+// The current position and size of the brown rectangle//
+let thickrectangleX;
+let thickrectangleY;
+let thickrectangleSize = 150;
+
 
 // preload()
 //
@@ -65,6 +70,10 @@ function setup() {
   //lets start our texture image at the left-center and goes to the right after//
   textureX = 0;
   textureY = height/2;
+
+  // Start the brown rectangle from bottom to top
+  thickrectangleX = 350;
+  thickrectangleY = 660;
 }
 
 
@@ -92,7 +101,7 @@ function draw() {
   // Display the square
   rect(squareX,squareY,squareSize,squareSize);
 
-  //Move texture image to the right//
+  //Move texture image from left to right//
   textureX += 1;
    // Display the image
    image(textureMove, textureX, textureY);
@@ -105,5 +114,13 @@ function draw() {
    textSize(30);
    //variables that we want to display//
    text (studytext, studytextX, studytextY);
+
+   // Move brown rectangle from bottom to Top//
+   thickrectangleY -= 1;
+// Make the fill of the rectangle brown//
+  fill(150,100,0);
+// Display brown rectangle in canvas//
+  rect(thickrectangleX,thickrectangleY,thickrectangleSize,thickrectangleSize);
+
 
 }
