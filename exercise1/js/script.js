@@ -22,8 +22,6 @@ let squareSize = 100;
 
 function preload() {
 
-}
-
 
 // setup()
 //
