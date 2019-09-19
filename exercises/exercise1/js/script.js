@@ -16,12 +16,12 @@ let squareY;
 let squareSize = 100;
 
 //The current position and size of the First picture which is a texture//
-let textureX;
-let textureY;
-let textureSize = 20;
+let texturePictureX;
+let texturePictureY;
+let texturePictureSize = 20;
 
 //Texture Image variable//
-let textureMove;
+let texturePictureMove;
 
 // Text variable and declaring x and y variables to give the current position//
 let studytext = "more 4am studying!";
@@ -40,7 +40,7 @@ let thickrectangleSize = 150;
 
 function preload() {
   // we are going to preload the image texture bar and make it go left to right
-  textureMove = loadImage("assets/images/texture.png");
+  texturePictureMove = loadImage("assets/images/texture.png");
   }
 
 
@@ -68,8 +68,8 @@ function setup() {
   noStroke();
 
   //lets start our texture image at the left-center and goes to the right after//
-  textureX = 0;
-  textureY = height/2;
+  texturePictureX = 0;
+  texturePictureY = height/2;
 
   // Start the brown rectangle from bottom to top
   thickrectangleX = 350;
@@ -102,9 +102,9 @@ function draw() {
   rect(squareX,squareY,squareSize,squareSize);
 
   //Move texture image from left to right//
-  textureX += 1;
+  texturePictureX += 1;
    // Display the image
-   image(textureMove, textureX, textureY);
+   image(texturePictureMove, texturePictureX, texturePictureY);
 
    // Display our "studytext" at the current mouse location//
    studytextX = mouseX;
