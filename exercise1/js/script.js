@@ -1,5 +1,5 @@
 // Exercise 1 - Movement
-// Pippin Barr
+// Mihaela Eftene
 //
 // Starter code for exercise 1.
 // Draws a moving square and circle that intersect
