@@ -26,6 +26,10 @@ let enemyX;
 let enemyY;
 let enemySize = 50;
 
+// Speed and size of the enemy
+let enemyIncreaseSpeed = 1;
+let enemySizeIncrease = 3;
+
 // The speed and velocity of our enemy circle
 let enemySpeed = 5;
 let enemyVX = 5;
@@ -65,7 +69,7 @@ function draw() {
   // A pink background
   background(255,220,220);
 
-  //  Draw the number of minutes slept(score)
+  //  Draw the number of minutes slept(score)-Center top
       fill(0);
       text(minutes, width/2-8, height/8, width/20, height/8);
       textFont("impact");
@@ -118,6 +122,9 @@ function draw() {
     avatarY = height/2;
     // Reset the dodge counter
     minutes = 0;
+    //Reset the enemy size and Speed
+    enemySpeed = 5;
+    enemySize = 50;
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -140,6 +147,9 @@ function draw() {
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
+    //Increase the speed and size after a number certain number of minutes
+    enemySpeed += enemyIncreaseSpeed;
+    enemySize += enemySizeIncrease;
   }
 
   // Display the number of successful minutes in the console
