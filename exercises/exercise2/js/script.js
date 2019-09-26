@@ -38,12 +38,12 @@ let enemyVX = 5;
 let displayText;
 let displayScore;
 
-// How many minutes the player has made (Minutes of Sleep)
-let minutes = 0;
+// How many hours the player has made (hours of Sleep)
+let hours = 0;
 
 //Declare background Images
 let dayBg;
-let sunsetBg;
+let sunriseBg;
 let nightBg
 
 //Declare our characters
@@ -56,7 +56,7 @@ function preload() {
   rabbitPlayer = loadImage("assets/images/SleepPlayer.png");
   rabbitEnemy = loadImage("assets/images/EnemyRabbit.png");
   dayBg = loadImage("assets/images/backgroundDay.png");
-  sunsetBg = loadImage("assets/images/backgroundSunset.png");
+  sunriseBg = loadImage("assets/images/backgroundSunrise.png");
   nightBg = loadImage("assets/images/backgroundNight.png");
 }
 // setup()
@@ -81,11 +81,13 @@ function setup() {
 
 // draw()
 //
-// Handle moving the rabbit player, rabbit enemy and checking for minutes and
+// Handle moving the rabbit player, rabbit enemy and checking for hours and
 // game over situations.
 function draw() {
   // Adds the initial image (day)
   //background(255,220,220);
+
+  //
 
 
   // Default the rabbit player's velocity to 0 in case no key is pressed this frame
@@ -134,7 +136,7 @@ function draw() {
     avatarX = width/2;
     avatarY = height/2;
     // Reset the dodge counter
-    minutes = 0;
+    hours = 0;
     //Reset the rabbit enemy's size and Speed
     enemySpeed = 2;
     enemySize = 50;
@@ -148,32 +150,44 @@ function draw() {
     enemyY = random(0,height);
     avatarX = width/2;
     avatarY = height/2;
-    minutes = 0;
+    hours = 0;
   }
 
   // Check if the enemy has moved all the way across the screen
   if (enemyX > width) {
     // This means the rabbit player dodged so update its dodge statistic
-    minutes = minutes + 1;
-    // Tell them how many minutes they have made
-    console.log(minutes + " minutes!");
+    hours = hours + 1;
+    // Tell them how many hours they have made
+    console.log(hours + " hours!");
     // Reset the rabbit enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
-    //Increase the speed and size after a number certain number of minutes
+    //Increase the speed and size after a number certain number of hours
     enemySpeed += enemyIncreaseSpeed;
     enemySize += enemySizeIncrease;
   }
 
-  // Display the number of successful minutes in the console
-  console.log(minutes);
+  // Display the number of successful hours in the console
+  console.log(hours);
 
   // Adds the initial image (day)
   image(nightBg, 0, 0, width, height);
 
-  //  Draw the number of minutes slept(score)-Center top
+  // Adds a condition: Once the player reaches a number of hours the scene changes...
+
+  //Scene is being switched to sunrise
+  if(hours>=6){
+  image(sunriseBg, 0,0, width, height);
+}
+//Scene is being switched to day
+if(hours>=10){
+  image(dayBg, 0, 0, width, height);
+}
+
+
+  //  Draw the number of hours slept(score)-Center top
       fill(0);
-      text(minutes, width/2-8, height/8, width/20, height/8);
+      text(hours, width/2-8, height/8, width/20, height/8);
       textFont("impact");
       textSize(50);
 
