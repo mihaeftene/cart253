@@ -1,7 +1,9 @@
 /******************************************************
 
 Game - The Artful Dodger
-Pippin Barr
+Mihaela Eftene
+
+-help Cynical Rabbit to stay out of trouble! (By making him sleep all day) :(
 
 A simple dodging game with keyboard controls
 
@@ -11,6 +13,8 @@ A simple dodging game with keyboard controls
 let avatarX;
 let avatarY;
 let avatarSize = 50;
+
+//Setting the background
 
 // The speed and velocity of our avatar circle
 let avatarSpeed = 10;
@@ -26,8 +30,12 @@ let enemySize = 50;
 let enemySpeed = 5;
 let enemyVX = 5;
 
-// How many dodges the player has made
-let dodges = 0;
+//The text and score that will be displayed//
+let displayText;
+let displayScore;
+
+// How many minutes the player has made (Minutes of Sleep)
+let minutes = 0;
 
 // setup()
 //
@@ -46,15 +54,22 @@ function setup() {
 
   // No stroke so it looks cleaner
   noStroke();
+
 }
 
 // draw()
 //
-// Handle moving the avatar and enemy and checking for dodges and
+// Handle moving the avatar and enemy and checking for minutes and
 // game over situations.
 function draw() {
   // A pink background
   background(255,220,220);
+
+  //  Draw the number of minutes slept(score)
+      fill(0);
+      text(minutes, width/2-8, height/8, width/20, height/8);
+      textFont("impact");
+      textSize(50);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -102,7 +117,7 @@ function draw() {
     avatarX = width/2;
     avatarY = height/2;
     // Reset the dodge counter
-    dodges = 0;
+    minutes = 0;
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -113,22 +128,22 @@ function draw() {
     enemyY = random(0,height);
     avatarX = width/2;
     avatarY = height/2;
-    dodges = 0;
+    minutes = 0;
   }
 
   // Check if the enemy has moved all the way across the screen
   if (enemyX > width) {
     // This means the player dodged so update its dodge statistic
-    dodges = dodges + 1;
-    // Tell them how many dodges they have made
-    console.log(dodges + " DODGES!");
+    minutes = minutes + 1;
+    // Tell them how many minutes they have made
+    console.log(minutes + " minutes!");
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
   }
 
-  // Display the number of successful dodges in the console
-  console.log(dodges);
+  // Display the number of successful minutes in the console
+  console.log(minutes);
 
   // The player is black
   fill(0);
