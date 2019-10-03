@@ -26,7 +26,7 @@ let targetShowX;
 let targetShowY = 70;
 
 //texts to show game information
-let topInfo = "Find that Sausage!";
+let topInfo = "Find Sausage!";
 
 //Declare speed and velocity of the Sausage Dog if its being clicked
 let targetImageVelocityX = 0;
@@ -47,7 +47,7 @@ let decoyImage10;
 
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
-let numDecoys = 100;
+let numDecoys = 200;
 
 // Keep track of whether they've won
 let gameOver = false;
@@ -70,8 +70,7 @@ function preload() {
   decoyImage10 = loadImage("assets/images/animals-10.png");
 }
 
-// setup()
-//
+
 // Creates the canvas, sets basic modes, draws correct number
 // of decoys in random positions, then the target
 function setup() {
@@ -92,7 +91,7 @@ function setup() {
     // We'll talk more about this nice quality of random soon enough.
     // But basically each "if" and "else if" has a 10% chance of being true
     if (r < 0.1) {
-      image(decoyImage1, x, y);
+      image(decoyImage1, x, y, decoyImage1.width * 2, decoyImage1.height * 2);
     } else if (r < 0.2) {
       image(decoyImage2, x, y);
     } else if (r < 0.3) {
@@ -100,15 +99,15 @@ function setup() {
     } else if (r < 0.4) {
       image(decoyImage4, x, y);
     } else if (r < 0.5) {
-      image(decoyImage5, x, y);
+      image(decoyImage5, x, y, decoyImage5.width * 2, decoyImage5.height * 2);
     } else if (r < 0.6) {
-      image(decoyImage6, x, y);
+      image(decoyImage6, x, y, decoyImage6.width * 2, decoyImage6.height * 2);
     } else if (r < 0.7) {
       image(decoyImage7, x, y);
     } else if (r < 0.8) {
       image(decoyImage8, x, y);
     } else if (r < 0.9) {
-      image(decoyImage9, x, y);
+      image(decoyImage9, x, y, decoyImage9.width * 2, decoyImage9.height * 2);
     } else if (r < 1.0) {
       image(decoyImage10, x, y);
     }
@@ -119,8 +118,11 @@ function setup() {
   targetY = random(0, height);
 
   // And draw it (because it's the last thing drawn, it will always be on top)
-  targetShow = targetImage; // display the image of the dog that plays are supposed to find
+  noStroke();
+  //display the image of the dog that we are trying to find
+  targetShow = targetImage;
 }
+
 
 // draw()
 //
@@ -157,8 +159,7 @@ function draw() {
     background(random(255), random(255), random(255));
     text("HOHO, FOUND YOU!", width / 2, height / 2);
 
-
-    // Draw a circle around the sausage dog to show where it is (even though
+    // Draw a rectangle around the sausage dog to show where it is (even though
     // they already know because they found it!)
     noFill();
     stroke(random(255));
