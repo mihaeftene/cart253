@@ -29,8 +29,8 @@ let targetShowY = 70;
 let topInfo = "Find that Sausage!";
 
 //Declare speed and velocity of the Sausage Dog if its being clicked
-let targetImageVelocityX=0;
-let targetImageVelocityY=0;
+let targetImageVelocityX = 0;
+let targetImageVelocityY = 0;
 let targetImageSpeed = 4;
 
 // The ten decoy images
@@ -76,8 +76,9 @@ function preload() {
 // of decoys in random positions, then the target
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background("#ffff00");
+  background("#98FB98");
   imageMode(CENTER);
+
 
   // Use a for loop to draw as many decoys as we need
   for (let i = 0; i < numDecoys; i++) {
@@ -121,7 +122,6 @@ function setup() {
   targetShow = targetImage; // display the image of the dog that plays are supposed to find
 }
 
-
 // draw()
 //
 // Displays the game over screen if the player has won,
@@ -130,7 +130,7 @@ function draw() {
   image(targetImage, targetX, targetY, targetSize, targetSize); //targetimage
 
   // display the info image with a background colour
-  fill("#FF5050");
+  fill("#32CD32");
   rectMode(CENTER);
   rect(width - 100, targetShowY, 200, 150);
 
@@ -154,18 +154,20 @@ function draw() {
     fill(random(255));
 
     // Tell them they won!
-    text("YOU WINNED!", width / 2, height / 2);
+    background(random(255), random(255), random(255));
+    text("HOHO, FOUND YOU!", width / 2, height / 2);
+
 
     // Draw a circle around the sausage dog to show where it is (even though
     // they already know because they found it!)
     noFill();
     stroke(random(255));
     strokeWeight(10);
-    ellipse(targetX, targetY, targetImage.width, targetImage.height);
+    rect(targetX, targetY, targetImage.width, targetImage.height);
 
     //if you win, move the target on the screen
     targetImageVelocityX += targetImageSpeed * random(-4, 3);
-    targetImageVelocityY += targetImageSpeed * random(-4,3);
+    targetImageVelocityY += targetImageSpeed * random(-4, 3);
     targetX += targetImageVelocityX;
     targetY += targetImageVelocityY;
   }
