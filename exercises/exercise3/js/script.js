@@ -25,6 +25,9 @@ let targetShow;
 let targetShowX;
 let targetShowY = 70;
 
+//texts to show game information
+let topInfo = "Find that Sausage!";
+
 // The ten decoy images
 let decoyImage1;
 let decoyImage2;
@@ -125,6 +128,14 @@ function draw() {
   fill("#FF5050");
   rectMode(CENTER);
   rect(width - 100, targetShowY, 200, 150);
+
+  //Text for Info at the right top corner
+  textSize(20);
+  textAlign(CENTER, CENTER);
+  noStroke();
+  fill(255);
+  //display info top right corner
+  text(topInfo, width - 105, targetShowY - 50);
 
   //positioning/size of the shown target top right corner
   image(targetShow, width - 102, targetShowY, 100, 100);
