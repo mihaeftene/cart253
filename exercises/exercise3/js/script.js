@@ -28,6 +28,11 @@ let targetShowY = 70;
 //texts to show game information
 let topInfo = "Find that Sausage!";
 
+//Declare speed and velocity of the Sausage Dog if its being clicked
+let targetImageVelocityX=0;
+let targetImageVelocityY=0;
+let targetImageSpeed = 4;
+
 // The ten decoy images
 let decoyImage1;
 let decoyImage2;
@@ -157,6 +162,12 @@ function draw() {
     stroke(random(255));
     strokeWeight(10);
     ellipse(targetX, targetY, targetImage.width, targetImage.height);
+
+    //if you win, move the target on the screen
+    targetImageVelocityX += targetImageSpeed * random(-4, 3);
+    targetImageVelocityY += targetImageSpeed * random(-4,3);
+    targetX += targetImageVelocityX;
+    targetY += targetImageVelocityY;
   }
 }
 
