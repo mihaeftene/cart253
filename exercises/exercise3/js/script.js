@@ -15,7 +15,15 @@ https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal
 // Position and image of the sausage dog we're searching for
 let targetX;
 let targetY;
+
+//Declare our target Size and Image
 let targetImage;
+let targetSize;
+
+// Declare to diplay the image at the right top corner
+let targetShow;
+let targetShowX;
+let targetShowY = 70;
 
 // The ten decoy images
 let decoyImage1;
@@ -59,15 +67,15 @@ function preload() {
 // Creates the canvas, sets basic modes, draws correct number
 // of decoys in random positions, then the target
 function setup() {
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(windowWidth, windowHeight);
   background("#ffff00");
   imageMode(CENTER);
 
   // Use a for loop to draw as many decoys as we need
   for (let i = 0; i < numDecoys; i++) {
     // Choose a random location on the canvas for this decoy
-    let x = random(0,width);
-    let y = random(0,height);
+    let x = random(0, width);
+    let y = random(0, height);
     // Generate a random number we can use for probability
     let r = random();
     // Use the random number to display one of the ten decoy
@@ -75,43 +83,34 @@ function setup() {
     // We'll talk more about this nice quality of random soon enough.
     // But basically each "if" and "else if" has a 10% chance of being true
     if (r < 0.1) {
-      image(decoyImage1,x,y);
-    }
-    else if (r < 0.2) {
-      image(decoyImage2,x,y);
-    }
-    else if (r < 0.3) {
-      image(decoyImage3,x,y);
-    }
-    else if (r < 0.4) {
-      image(decoyImage4,x,y);
-    }
-    else if (r < 0.5) {
-      image(decoyImage5,x,y);
-    }
-    else if (r < 0.6) {
-      image(decoyImage6,x,y);
-    }
-    else if (r < 0.7) {
-      image(decoyImage7,x,y);
-    }
-    else if (r < 0.8) {
-      image(decoyImage8,x,y);
-    }
-    else if (r < 0.9) {
-      image(decoyImage9,x,y);
-    }
-    else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage1, x, y);
+    } else if (r < 0.2) {
+      image(decoyImage2, x, y);
+    } else if (r < 0.3) {
+      image(decoyImage3, x, y);
+    } else if (r < 0.4) {
+      image(decoyImage4, x, y);
+    } else if (r < 0.5) {
+      image(decoyImage5, x, y);
+    } else if (r < 0.6) {
+      image(decoyImage6, x, y);
+    } else if (r < 0.7) {
+      image(decoyImage7, x, y);
+    } else if (r < 0.8) {
+      image(decoyImage8, x, y);
+    } else if (r < 0.9) {
+      image(decoyImage9, x, y);
+    } else if (r < 1.0) {
+      image(decoyImage10, x, y);
     }
   }
 
   // Once we've displayed all decoys, we choose a random location for the target
-  targetX = random(0,width);
-  targetY = random(0,height);
+  targetX = random(0, width);
+  targetY = random(0, height);
 
   // And draw it (because it's the last thing drawn, it will always be on top)
-  image(targetImage,targetX,targetY);
+  targetShow = targetImage; // display the image of the dog that plays are supposed to find
 }
 
 
@@ -120,23 +119,33 @@ function setup() {
 // Displays the game over screen if the player has won,
 // otherwise nothing (all the gameplay stuff is in mousePressed())
 function draw() {
+  image(targetImage, targetX, targetY, targetSize, targetSize); //targetimage
+
+  // display the info image with a background colour
+  fill("#FF5050");
+  rectMode(CENTER);
+  rect(width - 100, targetShowY, 200, 150);
+
+  //positioning/size of the shown target top right corner
+  image(targetShow, width - 102, targetShowY, 100, 100);
+
   if (gameOver) {
     // Prepare our typography
     textFont("Helvetica");
     textSize(128);
-    textAlign(CENTER,CENTER);
+    textAlign(CENTER, CENTER);
     noStroke();
     fill(random(255));
 
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    text("YOU WINNED!", width / 2, height / 2);
 
     // Draw a circle around the sausage dog to show where it is (even though
     // they already know because they found it!)
     noFill();
     stroke(random(255));
     strokeWeight(10);
-    ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    ellipse(targetX, targetY, targetImage.width, targetImage.height);
   }
 }
 
@@ -148,10 +157,10 @@ function mousePressed() {
   // Check if the cursor is in the x range of the target
   // (We're subtracting the image's width/2 because we're using imageMode(CENTER) -
   // the key is we want to determine the left and right edges of the image.)
-  if (mouseX > targetX - targetImage.width/2 && mouseX < targetX + targetImage.width/2) {
+  if (mouseX > targetX - targetImage.width / 2 && mouseX < targetX + targetImage.width / 2) {
     // Check if the cursor is also in the y range of the target
     // i.e. check if it's within the top and bottom of the image
-    if (mouseY > targetY - targetImage.height/2 && mouseY < targetY + targetImage.height/2) {
+    if (mouseY > targetY - targetImage.height / 2 && mouseY < targetY + targetImage.height / 2) {
       gameOver = true;
     }
   }
