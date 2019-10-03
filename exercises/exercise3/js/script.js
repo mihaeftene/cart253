@@ -52,12 +52,12 @@ let numDecoys = 200;
 // Keep track of whether they've won
 let gameOver = false;
 
+
 // preload()
 //
 // Loads the target and decoy images before the program starts
 function preload() {
   targetImage = loadImage("assets/images/animals-target.png");
-
   decoyImage1 = loadImage("assets/images/animals-01.png");
   decoyImage2 = loadImage("assets/images/animals-02.png");
   decoyImage3 = loadImage("assets/images/animals-03.png");
@@ -77,7 +77,6 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#98FB98");
   imageMode(CENTER);
-
 
   // Use a for loop to draw as many decoys as we need
   for (let i = 0; i < numDecoys; i++) {
@@ -129,6 +128,7 @@ function setup() {
 // Displays the game over screen if the player has won,
 // otherwise nothing (all the gameplay stuff is in mousePressed())
 function draw() {
+
   image(targetImage, targetX, targetY, targetSize, targetSize); //targetimage
 
   // display the info image with a background colour
@@ -173,7 +173,6 @@ function draw() {
     targetY += targetImageVelocityY;
   }
 }
-
 // mousePressed()
 //
 // Checks if the player clicked on the target and if so tells them they won
