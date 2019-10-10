@@ -47,6 +47,8 @@ let preyFill = 200;
 
 // Amount of health obtained per frame of "eating" (overlapping) the prey
 let eatHealth = 10;
+//Declare our Energy Stamina bar variable
+let energyStamina;
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
@@ -131,6 +133,7 @@ function draw() {
     movePrey();
 
     updateHealth();
+    StaminaBar();
     checkEating();
 
     drawPrey();
@@ -374,6 +377,16 @@ function drawPlayer() {
   image(peachPlayer, playerX, playerY, playerRadius * 2, playerRadius * 2);
   //setting some kind of lag (the peach is panicking because she is looking for her makeup before Ryan (The bear / Boyfriend) comes
   tint(255, 40);
+}
+
+//StaminaBar()
+//Draw a Health/Stamina bar. It facilitates the gameplay and the player can see how's Peach stamina is doing
+function StaminaBar(){
+  energyStamina = map(playerHealth, 0, 255, 0, 300);
+  fill (255, 160, 136);
+  rect(10, 20, 300, 20);
+  fill(240, 248, 255);
+  rect(10, 20,energyStamina, 20);
 }
 
 // showGameOver()
