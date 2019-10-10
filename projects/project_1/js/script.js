@@ -21,7 +21,7 @@ let gameOver = false;
 // Player position, size, velocity
 let playerX;
 let playerY;
-let playerRadius = 25;
+let playerRadius = 40;
 let playerVX = 0;
 let playerVY = 0;
 //changed the speed to 6. 2 was way too slow and it would be hard to win the game.
@@ -363,10 +363,12 @@ function drawPrey() {
 
 // drawPlayer()
 //
-// Draw the player as an ellipse with alpha value based on health
+// Draw the player as a peach character and give it some kind of behaviour (PANIC)
 function drawPlayer() {
-  fill(playerFill, playerHealth);
-  ellipse(playerX, playerY, playerRadius * 2);
+  tint(255, playerHealth);
+  image(peachPlayer, playerX, playerY, playerRadius * 2, playerRadius * 2);
+  //setting some kind of lag (the peach is panicking because she is looking for her makeup before Ryan (The bear / Boyfriend) comes
+  tint(255, 50);
 }
 
 // showGameOver()
