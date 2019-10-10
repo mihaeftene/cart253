@@ -138,6 +138,15 @@ function handleInput() {
   else {
     playerVY = 0;
   }
+  //adding the sprint functionality. If the player presses shift key they will be able to sprint. However! Their health will be down by 1.0
+  if (keyIsDown(SHIFT)) {
+    playerMaxSpeed = playerMaxSpeed + 0.04;
+    playerHealth = playerHealth - 1.5;
+  }
+  //if the player is not sprinting then keep it normal speed (2)
+  else {
+    playerMaxSpeed = 2;
+  }
 }
 
 // movePlayer()
