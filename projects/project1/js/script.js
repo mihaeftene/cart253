@@ -138,6 +138,15 @@ function handleInput() {
   else {
     playerVY = 0;
   }
+  //adding the sprint functionality. If the player presses shift key they will be able to sprint. However! Their health will be down by 1.0
+  if (keyIsDown(SHIFT)){
+    playerMaxSpeed = playerMaxSpeed + 0.02;
+    playerHealth=playerHealth-1.0;
+  }
+  //if the player is not sprinting then keep it normal speed (2)
+  else {
+    playerMaxSpeed = 2;
+  }
 }
 
 // movePlayer()
@@ -238,7 +247,7 @@ function movePrey() {
   // Update prey position based on velocity. Adding a noise multiplier
   preyX = noise(noiseValueX)+preyX + noise(noiseValueX)+preyVX;
   preyY = noise(noiseValueY)+preyY + noise(noiseValueY)+preyVY;
-  //multiplying
+  //noise increases
   noiseValueX = noiseValueX + 0.02;
   noiseValueY = noiseValueY + 0.02;
 
