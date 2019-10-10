@@ -46,6 +46,7 @@ let preyFill = 200;
 
 // Amount of health obtained per frame of "eating" (overlapping) the prey
 let eatHealth = 10;
+
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
@@ -107,8 +108,7 @@ function draw() {
 
     drawPrey();
     drawPlayer();
-  }
-  else {
+  } else {
     showGameOver();
   }
 }
@@ -120,28 +120,24 @@ function handleInput() {
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
+  } else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerMaxSpeed;
-  }
-  else {
+  } else {
     playerVX = 0;
   }
 
   // Check for vertical movement
   if (keyIsDown(UP_ARROW)) {
     playerVY = -playerMaxSpeed;
-  }
-  else if (keyIsDown(DOWN_ARROW)) {
+  } else if (keyIsDown(DOWN_ARROW)) {
     playerVY = playerMaxSpeed;
-  }
-  else {
+  } else {
     playerVY = 0;
   }
   //adding the sprint functionality. If the player presses shift key they will be able to sprint. However! Their health will be down by 1.0
-  if (keyIsDown(SHIFT)){
+  if (keyIsDown(SHIFT)) {
     playerMaxSpeed = playerMaxSpeed + 0.04;
-    playerHealth=playerHealth-1.0;
+    playerHealth = playerHealth - 1.0;
   }
   //if the player is not sprinting then keep it normal speed (2)
   else {
@@ -162,8 +158,7 @@ function movePlayer() {
   if (playerX < 0) {
     // Off the left side, so add the width to reset to the right
     playerX = playerX + width;
-  }
-  else if (playerX > width) {
+  } else if (playerX > width) {
     // Off the right side, so subtract the width to reset to the left
     playerX = playerX - width;
   }
@@ -171,8 +166,7 @@ function movePlayer() {
   if (playerY < 0) {
     // Off the top, so add the height to reset to the bottom
     playerY = playerY + height;
-  }
-  else if (playerY > height) {
+  } else if (playerY > height) {
     // Off the bottom, so subtract the height to reset to the top
     playerY = playerY - height;
   }
@@ -245,8 +239,8 @@ function movePrey() {
   }
 
   // Update prey position based on velocity. Adding a noise multiplier
-  preyX = noise(noiseValueX)+preyX + noise(noiseValueX)+preyVX;
-  preyY = noise(noiseValueY)+preyY + noise(noiseValueY)+preyVY;
+  preyX = noise(noiseValueX) + preyX + noise(noiseValueX) + preyVX;
+  preyY = noise(noiseValueY) + preyY + noise(noiseValueY) + preyVY;
   //noise increases
   noiseValueX = noiseValueX + 0.02;
   noiseValueY = noiseValueY + 0.02;
@@ -254,15 +248,13 @@ function movePrey() {
   // Screen wrapping
   if (preyX < 0) {
     preyX = preyX + width;
-  }
-  else if (preyX > width) {
+  } else if (preyX > width) {
     preyX = preyX - width;
   }
 
   if (preyY < 0) {
     preyY = preyY + height;
-  }
-  else if (preyY > height) {
+  } else if (preyY > height) {
     preyY = preyY - height;
   }
 }
