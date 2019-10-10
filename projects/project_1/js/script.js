@@ -120,7 +120,6 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100, 100, 200);
 
   if (!gameOver) {
     handleInput();
@@ -222,6 +221,10 @@ function makePlayerSlower(){
 //
 function backgroundChange(){
   //Changing the game background. After a certain number of catches, the background will change
+  //the main background
+  if (preyEaten < 3){
+    image(mainBg, 0, 0, width, height);
+  }
   if (preyEaten >= 3) {
   image(semiPeekingBg, 0, 0, width, height);
 }
@@ -229,7 +232,7 @@ function backgroundChange(){
   image(faceBearBg, 0, 0, width, height);
 }
   if (preyEaten >= 11){
-  image(bearHereBg, 0, 0, width, height);    
+  image(bearHereBg, 0, 0, width, height);
   }
 }
 // movePlayer()
