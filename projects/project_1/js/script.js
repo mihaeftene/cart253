@@ -209,22 +209,26 @@ function changeSizeItem(){
 function makePlayerSlower(){
   if (preyEaten >= 5) {
   playerMaxSpeed = playerMaxSpeed - 0.06;
+  noTint()
 }
   if (preyEaten >= 9) {
   playerMaxSpeed = playerMaxSpeed - 0.08;
+  noTint()
 }
   if (preyEaten >= 11){
   playerMaxSpeed = playerMaxSpeed - 0.10;
+  noTint()
   }
 }
 
 //
 function backgroundChange(){
   //Changing the game background. After a certain number of catches, the background will change
-  //the main background
+  // Setting up the main background
   if (preyEaten < 3){
-    image(mainBg, 0, 0, width, height);
-  }
+  image(mainBg, 0, 0, width, height);
+  //we do not want any tint on backgrounds
+}
   if (preyEaten >= 3) {
   image(semiPeekingBg, 0, 0, width, height);
 }
@@ -357,8 +361,9 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  fill(preyFill, preyHealth);
-  ellipse(preyX, preyY, preyRadius * 2);
+  tint(255, preyHealth);
+  image(itemEnemy, preyX, preyY, preyRadius * 2, preyRadius * 2);
+  tint(255);
 }
 
 // drawPlayer()
@@ -368,7 +373,7 @@ function drawPlayer() {
   tint(255, playerHealth);
   image(peachPlayer, playerX, playerY, playerRadius * 2, playerRadius * 2);
   //setting some kind of lag (the peach is panicking because she is looking for her makeup before Ryan (The bear / Boyfriend) comes
-  tint(255, 50);
+  tint(255, 40);
 }
 
 // showGameOver()
