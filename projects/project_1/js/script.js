@@ -100,6 +100,7 @@ function draw() {
   if (!gameOver) {
     handleInput();
     changeSizeItem();
+    makePlayerSlower();
     backgroundChange();
 
     movePlayer();
@@ -151,6 +152,7 @@ function handleInput() {
     playerMaxSpeed = 6;
   }
 }
+
 //After a number of catching preys the prey gets smaller and faster.
 function changeSizeItem(){
   if (preyEaten === 1){
@@ -178,6 +180,20 @@ function changeSizeItem(){
     preyMaxSpeed = 11;
   }
 }
+
+//After a number of caught items, the player gets tired.
+function makePlayerSlower(){
+  if (preyEaten >= 5) {
+  playerMaxSpeed = playerMaxSpeed - 0.06;
+}
+  if (preyEaten >= 9) {
+  playerMaxSpeed = playerMaxSpeed - 0.08;
+}
+  if (preyEaten >= 11){
+  playerMaxSpeed = playerMaxSpeed - 0.10;
+  }
+}
+
 //
 function backgroundChange(){
   //Changing the game background. After a certain number of catches, the background will change
