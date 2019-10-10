@@ -149,6 +149,7 @@ function handleInput() {
   else {
     playerMaxSpeed = 6;
   }
+}
   //After a number of catching preys the prey gets smaller and faster.
   if (preyEaten === 1){
     preyRadius = 20;
@@ -188,7 +189,6 @@ function backgroundChange(){
     background (0, 158, 115);
   }
 }
-
 // movePlayer()
 //
 // Updates player position based on velocity,
