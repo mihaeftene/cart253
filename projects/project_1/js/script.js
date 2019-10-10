@@ -54,6 +54,31 @@ let preyEaten = 0;
 let noiseValueX = 0;
 let noiseValueY = 0;
 
+//Declare background Images
+let mainBg;
+let semiPeekingBg
+let faceBearBg;
+let bearHereBg;
+let winBg;
+let loseBg;
+
+//Declare our player
+let peachPlayer;
+let itemEnemy;
+
+//meant to load images inside the game already
+function preload() {
+  // Load in all images
+  peachPlayer = loadImage("assets/images/playerPeach.png");
+  itemEnemy = loadImage("assets/images/item.png");
+  mainBg = loadImage("assets/images/goneRyanBg.png");
+  semiPeekingBg = loadImage("assets/images/SemiHeadRyanBg.png");
+  faceBearBg = loadImage("assets/images/ryanPeekingBg.png");
+  bearHereBg = loadImage("assets/images/gotHereRyanBg.png");
+  winBg = loadImage("assets/images/BgWin.png");
+  loseBg = loadImage("assets/images/BgLose.png");
+}
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -198,13 +223,13 @@ function makePlayerSlower(){
 function backgroundChange(){
   //Changing the game background. After a certain number of catches, the background will change
   if (preyEaten >= 3) {
-  background(100, 0, 100);
+  image(semiPeekingBg, 0, 0, width, height);
 }
   if (preyEaten >= 7) {
-  background(0, 0 ,0);
+  image(faceBearBg, 0, 0, width, height);
 }
   if (preyEaten >= 11){
-    background (0, 158, 115);
+  image(bearHereBg, 0, 0, width, height);    
   }
 }
 // movePlayer()
