@@ -150,7 +150,32 @@ function handleInput() {
     playerMaxSpeed = 6;
   }
 }
+//After a number of catching preys the prey gets smaller and faster.
+function changeSizeItem(){
   if (preyEaten === 1){
+    preyRadius = 20;
+    preyMaxSpeed = 5;
+  }
+  if (preyEaten === 3){
+    preyRadius = 18;
+    preyMaxSpeed = 7;
+  }
+  if (preyEaten === 5){
+    preyRadius = 16;
+    preyMaxSpeed = 8;
+  }
+  if (preyEaten === 7){
+    preyRadius = 14;
+    preyMaxSpeed = 9;
+  }
+  if (preyEaten === 9){
+    preyRadius = 12;
+    preyMaxSpeed = 10;
+  }
+  if (preyEaten === 11){
+    preyRadius = 10;
+    preyMaxSpeed = 11;
+  }
 }
 //
 function backgroundChange(){
