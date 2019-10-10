@@ -24,7 +24,8 @@ let playerY;
 let playerRadius = 25;
 let playerVX = 0;
 let playerVY = 0;
-let playerMaxSpeed = 2;
+//changed the speed to 6. 2 was way too slow and it would be hard to win the game.
+let playerMaxSpeed = 6;
 // Player health
 let playerHealth;
 let playerMaxHealth = 255;
@@ -143,37 +144,36 @@ function handleInput() {
     playerMaxSpeed = playerMaxSpeed + 0.04;
     playerHealth = playerHealth - 1.5;
   }
-  //if the player is not sprinting then keep it normal speed (2)
+  //if the player is not sprinting then keep it normal speed (6)
   else {
-    playerMaxSpeed = 2;
+    playerMaxSpeed = 6;
   }
-  //After a number of catching preys the prey gets smaller and faster
+  //After a number of catching preys the prey gets smaller and faster.
   if (preyEaten === 1){
     preyRadius = 20;
     preyMaxSpeed = 5;
   }
   if (preyEaten === 3){
-    preyRadius = 17;
+    preyRadius = 18;
     preyMaxSpeed = 7;
   }
   if (preyEaten === 5){
-    preyRadius = 14;
+    preyRadius = 16;
     preyMaxSpeed = 8;
   }
   if (preyEaten === 7){
-    preyRadius = 11;
+    preyRadius = 14;
     preyMaxSpeed = 9;
   }
   if (preyEaten === 9){
-    preyRadius = 8;
+    preyRadius = 12;
     preyMaxSpeed = 10;
   }
   if (preyEaten === 11){
-    preyRadius = 5;
+    preyRadius = 10;
     preyMaxSpeed = 11;
   }
 }
-
 
 // movePlayer()
 //
