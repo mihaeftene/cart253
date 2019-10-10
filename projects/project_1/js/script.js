@@ -49,6 +49,10 @@ let eatHealth = 10;
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
+// Noise variables values
+let noiseValueX = 0;
+let noiseValueY = 0;
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -224,13 +228,19 @@ function movePrey() {
     //
     // Use map() to convert from the 0-1 range of the random() function
     // to the appropriate range of velocities for the prey
-    preyVX = map(random(), 0, 1, -preyMaxSpeed, preyMaxSpeed);
-    preyVY = map(random(), 0, 1, -preyMaxSpeed, preyMaxSpeed);
-  }
+    //changing from random to noise the enemy's movement
+      preyVX = map(noise(noiseValueX), 0, 1, -preyMaxSpeed, preyMaxSpeed);
+      preyVY = map(noise(noiseValueY), 0, 1, -preyMaxSpeed, preyMaxSpeed);
+      noiseValueX = noiseValueX + 5;
+      noiseValueY = noiseValueY + 3;
+    }
 
-  // Update prey position based on velocity
-  preyX = preyX + preyVX;
-  preyY = preyY + preyVY;
+    // Update prey position based on velocity. Adding a noise multiplier
+    preyX = noise(noiseValueX) + preyX + noise(noiseValueX) + preyVX;
+    preyY = noise(noiseValueY) + preyY + noise(noiseValueY) + preyVY;
+    //noise increases
+    noiseValueX = noiseValueX + 0.02;
+    noiseValueY = noiseValueY + 0.02;
 
   // Screen wrapping
   if (preyX < 0) {
