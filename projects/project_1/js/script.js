@@ -99,6 +99,7 @@ function draw() {
 
   if (!gameOver) {
     handleInput();
+    changeSizeItem();
     backgroundChange();
 
     movePlayer();
