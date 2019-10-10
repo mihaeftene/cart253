@@ -99,6 +99,7 @@ function draw() {
 
   if (!gameOver) {
     handleInput();
+    backgroundChange();
 
     movePlayer();
     movePrey();
@@ -172,6 +173,19 @@ function handleInput() {
   if (preyEaten === 11){
     preyRadius = 10;
     preyMaxSpeed = 11;
+  }
+}
+//
+function backgroundChange(){
+  //Changing the game background. After a certain number of catches, the background will change
+  if (preyEaten >= 3) {
+  background(100, 0, 100);
+}
+  if (preyEaten >= 7) {
+  background(0, 0 ,0);
+}
+  if (preyEaten >= 11){
+    background (0, 158, 115);
   }
 }
 
