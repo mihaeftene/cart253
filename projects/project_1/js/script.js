@@ -133,6 +133,7 @@ function draw() {
     movePrey();
 
     updateHealth();
+    showTheScore();
     StaminaBar();
     checkEating();
 
@@ -373,6 +374,15 @@ function drawPlayer() {
   image(peachPlayer, playerX, playerY, playerRadius * 2, playerRadius * 2);
   //setting some kind of lag (the peach is panicking because she is looking for her makeup before Ryan (The bear / Boyfriend) comes
   tint(255, 40);
+}
+
+//showTheScore()
+//showing how many items have been caught
+function showTheScore(){
+textAlign(LEFT, TOP);
+fill(0);
+textSize(20);
+text("Caught Items " + preyEaten, 10, 450);
 }
 
 //StaminaBar()
