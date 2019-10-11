@@ -90,7 +90,7 @@ function preload() {
   bearHereBg = loadImage("assets/images/gotHereRyanBg.png");
   winBg = loadImage("assets/images/BgWin.png");
   loseBg = loadImage("assets/images/BgLose.png");
-  introBg = loadImage ("assets/images/info.png");
+  introBg = loadImage("assets/images/info.png");
 
   //Preload sounds
   introSound = loadSound('assets/sounds/intro.mp3');
@@ -133,8 +133,8 @@ function setupPlayer() {
 
 function setupSound() {
   // Setting up the intro sound
-    // introSound.play();
-    introSound.loop();
+  // introSound.play();
+  introSound.loop();
 }
 
 // draw()
@@ -147,31 +147,30 @@ function setupSound() {
 function draw() {
   //starting the background info
   if (state === "Start") {
-  image(introBg, 0, 0, width, height);
-}
-  else if (state === "Play"){
-  if (!gameOver) {
-    handleInput();
-    changeSizeItem();
-    makePlayerSlower();
-    backgroundChange();
+    image(introBg, 0, 0, width, height);
+  } else if (state === "Play") {
+    if (!gameOver) {
+      handleInput();
+      changeSizeItem();
+      makePlayerSlower();
+      backgroundChange();
 
-    movePlayer();
-    movePrey();
+      movePlayer();
+      movePrey();
 
-    updateHealth();
-    showTheScore();
-    StaminaBar();
-    checkEating();
+      updateHealth();
+      showTheScore();
+      StaminaBar();
+      checkEating();
 
-    drawPrey();
-    drawPlayer();
+      drawPrey();
+      drawPlayer();
+    } else {
+      showGameOver();
+    }
   }
-  else {
-    showGameOver();
-  }
 }
-}
+
 // handleInput()
 //
 // Checks arrow keys and adjusts player velocity accordingly
@@ -179,22 +178,18 @@ function handleInput() {
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
+  } else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerMaxSpeed;
-  }
-  else {
+  } else {
     playerVX = 0;
   }
 
   // Check for vertical movement
   if (keyIsDown(UP_ARROW)) {
     playerVY = -playerMaxSpeed;
-  }
-  else if (keyIsDown(DOWN_ARROW)) {
+  } else if (keyIsDown(DOWN_ARROW)) {
     playerVY = playerMaxSpeed;
-  }
-  else {
+  } else {
     playerVY = 0;
   }
   //adding the sprint functionality. If the player presses shift key they will be able to sprint. However! Their health will be down by 1.0
@@ -209,63 +204,64 @@ function handleInput() {
 }
 
 //After a number of catching preys the prey gets smaller and faster.
-function changeSizeItem(){
-  if (preyEaten === 1){
+function changeSizeItem() {
+  if (preyEaten === 1) {
     preyRadius = 20;
     preyMaxSpeed = 5;
   }
-  if (preyEaten === 3){
+  if (preyEaten === 3) {
     preyRadius = 18;
     preyMaxSpeed = 7;
   }
-  if (preyEaten === 5){
+  if (preyEaten === 5) {
     preyRadius = 16;
     preyMaxSpeed = 8;
   }
-  if (preyEaten === 7){
+  if (preyEaten === 7) {
     preyRadius = 14;
     preyMaxSpeed = 9;
   }
-  if (preyEaten === 9){
+  if (preyEaten === 9) {
     preyRadius = 12;
     preyMaxSpeed = 10;
   }
-  if (preyEaten === 11){
+  if (preyEaten === 11) {
     preyRadius = 10;
     preyMaxSpeed = 11;
   }
 }
 
 //After a number of caught items, the player gets tired.
-function makePlayerSlower(){
+function makePlayerSlower() {
   if (preyEaten >= 5) {
-  playerMaxSpeed = playerMaxSpeed - 0.06;
-}
+    playerMaxSpeed = playerMaxSpeed - 0.06;
+  }
   if (preyEaten >= 9) {
-  playerMaxSpeed = playerMaxSpeed - 0.08;
-}
-  if (preyEaten >= 11){
-  playerMaxSpeed = playerMaxSpeed - 0.10;
+    playerMaxSpeed = playerMaxSpeed - 0.08;
+  }
+  if (preyEaten >= 11) {
+    playerMaxSpeed = playerMaxSpeed - 0.10;
   }
 }
 
 //
-function backgroundChange(){
+function backgroundChange() {
   //Changing the game background. After a certain number of catches, the background will change
   // Setting up the main background
-  if (preyEaten < 3){
-  image(mainBg, 0, 0, width, height);
-}
+  if (preyEaten < 3) {
+    image(mainBg, 0, 0, width, height);
+  }
   if (preyEaten >= 3) {
-  image(semiPeekingBg, 0, 0, width, height);
-}
+    image(semiPeekingBg, 0, 0, width, height);
+  }
   if (preyEaten >= 7) {
-  image(faceBearBg, 0, 0, width, height);
-}
-  if (preyEaten >= 11){
-  image(bearHereBg, 0, 0, width, height);
+    image(faceBearBg, 0, 0, width, height);
+  }
+  if (preyEaten >= 11) {
+    image(bearHereBg, 0, 0, width, height);
   }
 }
+
 // movePlayer()
 //
 // Updates player position based on velocity,
@@ -279,8 +275,7 @@ function movePlayer() {
   if (playerX < 0) {
     // Off the left side, so add the width to reset to the right
     playerX = playerX + width;
-  }
-  else if (playerX > width) {
+  } else if (playerX > width) {
     // Off the right side, so subtract the width to reset to the left
     playerX = playerX - width;
   }
@@ -288,8 +283,7 @@ function movePlayer() {
   if (playerY < 0) {
     // Off the top, so add the height to reset to the bottom
     playerY = playerY + height;
-  }
-  else if (playerY > height) {
+  } else if (playerY > height) {
     // Off the bottom, so subtract the height to reset to the top
     playerY = playerY - height;
   }
@@ -356,31 +350,29 @@ function movePrey() {
     // Use map() to convert from the 0-1 range of the random() function
     // to the appropriate range of velocities for the prey
     //changing from random to noise the enemy's movement
-      preyVX = map(noise(noiseValueX), 0, 1, -preyMaxSpeed, preyMaxSpeed);
-      preyVY = map(noise(noiseValueY), 0, 1, -preyMaxSpeed, preyMaxSpeed);
-      noiseValueX = noiseValueX + 5;
-      noiseValueY = noiseValueY + 3;
-    }
-    // Update the prey position based on the velocity
-    preyX = preyX + preyVX;
-    preyY = preyY + preyVY;
+    preyVX = map(noise(noiseValueX), 0, 1, -preyMaxSpeed, preyMaxSpeed);
+    preyVY = map(noise(noiseValueY), 0, 1, -preyMaxSpeed, preyMaxSpeed);
+    noiseValueX = noiseValueX + 5;
+    noiseValueY = noiseValueY + 3;
+  }
+  // Update the prey position based on the velocity
+  preyX = preyX + preyVX;
+  preyY = preyY + preyVY;
 
-    //noise increases
-    noiseValueX += 0.05;
-    noiseValueY += 0.05;
+  //noise increases
+  noiseValueX += 0.05;
+  noiseValueY += 0.05;
 
   // Screen wrapping
   if (preyX < 0) {
     preyX = preyX + width;
-  }
-  else if (preyX > width) {
+  } else if (preyX > width) {
     preyX = preyX - width;
   }
 
   if (preyY < 0) {
     preyY = preyY + height;
-  }
-  else if (preyY > height) {
+  } else if (preyY > height) {
     preyY = preyY - height;
   }
 }
@@ -404,18 +396,15 @@ function drawPlayer() {
   tint(255, 40);
 }
 
-//showTheScore()
-//showing how many items have been caught//
-
 // Create an action to that allows the music to be played once the user presses.
-  function mousePressed() {
-    if (state === "Start") {
-      state = "Play";
-      setupSound();
-    }
-    if (gameOver === true) {
-        resetGame();
-      }
+function mousePressed() {
+  if (state === "Start") {
+    state = "Play";
+    setupSound();
+  }
+  if (gameOver === true) {
+    resetGame();
+  }
 }
 
 // Reset the game to the start state with the previous values
@@ -428,25 +417,25 @@ function resetGame() {
   preyEaten = 0;
 }
 
-
-function showTheScore(){
-textAlign(LEFT, TOP);
-fill(0);
-textSize(20);
-text("Caught Items " + preyEaten, 10, 450);
+//ShowScore
+function showTheScore() {
+  textAlign(LEFT, TOP);
+  fill(0);
+  textSize(20);
+  text("Caught Items " + preyEaten, 10, 450);
 }
 
 //StaminaBar()
 //Draw a Health/Stamina bar. It facilitates the gameplay and the player can see how's Peach stamina is doing
-function StaminaBar(){
+function StaminaBar() {
   energyStamina = map(playerHealth, 0, 255, 0, 300);
-  fill (255, 160, 136);
+  fill(255, 160, 136);
   rect(10, 20, 300, 20);
   fill(240, 248, 255);
-  rect(10, 20,energyStamina, 20);
+  rect(10, 20, energyStamina, 20);
 }
 //draw the winning background
-function showWinning(){
+function showWinning() {
   if (preyEaten >= 11 && counter > 0) {
     image(BgWin, 0, 0, width, height);
     preyX = 0;
@@ -454,12 +443,12 @@ function showWinning(){
     counter -= 1;
 
     // if statement for the counter to go back to the scene
-  if (counter <= 0) {
-    hours = 0;
-    counter = 300;
-    preyMaxSpeed = 4;
-  }
-  return
+    if (counter <= 0) {
+      hours = 0;
+      counter = 300;
+      preyMaxSpeed = 4;
+    }
+    return
   }
 }
 
