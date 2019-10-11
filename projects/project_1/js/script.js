@@ -77,6 +77,8 @@ let introSound;
 let collectSound;
 let gameoverSound;
 
+let counter = 300;
+
 //meant to load images inside the game already
 function preload() {
   // Load in all images
@@ -442,6 +444,23 @@ function StaminaBar(){
   rect(10, 20, 300, 20);
   fill(240, 248, 255);
   rect(10, 20,energyStamina, 20);
+}
+//draw the winning background
+function showWinning(){
+  if (preyEaten >= 11 && counter > 0) {
+    image(BgWin, 0, 0, width, height);
+    preyX = 0;
+    preyY = 0;;
+    counter -= 1;
+
+    // if statement for the counter to go back to the scene
+  if (counter <= 0) {
+    hours = 0;
+    counter = 300;
+    preyMaxSpeed = 4;
+  }
+  return
+  }
 }
 
 // showGameOver()
