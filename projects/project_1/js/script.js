@@ -212,15 +212,12 @@ function changeSizeItem(){
 function makePlayerSlower(){
   if (preyEaten >= 5) {
   playerMaxSpeed = playerMaxSpeed - 0.06;
-  noTint()
 }
   if (preyEaten >= 9) {
   playerMaxSpeed = playerMaxSpeed - 0.08;
-  noTint()
 }
   if (preyEaten >= 11){
   playerMaxSpeed = playerMaxSpeed - 0.10;
-  noTint()
   }
 }
 
@@ -230,7 +227,6 @@ function backgroundChange(){
   // Setting up the main background
   if (preyEaten < 3){
   image(mainBg, 0, 0, width, height);
-  //we do not want any tint on backgrounds
 }
   if (preyEaten >= 3) {
   image(semiPeekingBg, 0, 0, width, height);
@@ -336,13 +332,13 @@ function movePrey() {
       noiseValueX = noiseValueX + 5;
       noiseValueY = noiseValueY + 3;
     }
+    // Update the prey position based on the velocity
+    preyX = preyX + preyVX;
+    preyY = preyY + preyVY;
 
-    // Update prey position based on velocity. Adding a noise multiplier
-    preyX = noise(noiseValueX) + preyX + noise(noiseValueX) + preyVX;
-    preyY = noise(noiseValueY) + preyY + noise(noiseValueY) + preyVY;
     //noise increases
-    noiseValueX = noiseValueX + 0.02;
-    noiseValueY = noiseValueY + 0.02;
+    noiseValueX += 0.05;
+    noiseValueY += 0.05;
 
   // Screen wrapping
   if (preyX < 0) {
