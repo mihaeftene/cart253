@@ -18,6 +18,9 @@ random movement, screen wrap.
 // Track whether the game is over
 let gameOver = false;
 
+// Declare start
+let state = "Start";
+
 // Player position, size, velocity
 let playerX;
 let playerY;
@@ -63,10 +66,16 @@ let faceBearBg;
 let bearHereBg;
 let winBg;
 let loseBg;
+let introBg;
 
 //Declare our player
 let peachPlayer;
 let itemEnemy;
+
+//Declare sound variables
+let introSound;
+let collectSound;
+let gameoverSound;
 
 //meant to load images inside the game already
 function preload() {
@@ -79,14 +88,20 @@ function preload() {
   bearHereBg = loadImage("assets/images/gotHereRyanBg.png");
   winBg = loadImage("assets/images/BgWin.png");
   loseBg = loadImage("assets/images/BgLose.png");
+  introBg = loadImage ("assets/images/info.png");
+
+  //Preload sounds
+  introSound = loadSound('assets/sounds/intro.mp3');
+  collectSound = loadSound('assets/sounds/collect.wav');
+  gameoverSound = loadSound('assets/sounds/gameover.wav');
 }
 
 // setup()
 //
 // Sets up the basic elements of the game
 function setup() {
-  createCanvas(500, 500);
 
+  createCanvas(500, 500);
   noStroke();
 
   // We're using simple functions to separate code out
@@ -114,6 +129,12 @@ function setupPlayer() {
   playerHealth = playerMaxHealth;
 }
 
+function setupSound() {
+  // Setting up the intro sound
+    // introSound.play();
+    introSound.loop();
+}
+
 // draw()
 //
 // While the game is active, checks input
@@ -122,7 +143,11 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-
+  //starting the background info
+  if (state === "Start") {
+  image(introBg, 0, 0, width, height);
+}
+  else if (state === "Play"){
   if (!gameOver) {
     handleInput();
     changeSizeItem();
@@ -144,7 +169,7 @@ function draw() {
     showGameOver();
   }
 }
-
+}
 // handleInput()
 //
 // Checks arrow keys and adjusts player velocity accordingly
@@ -310,6 +335,7 @@ function checkEating() {
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
       preyEaten = preyEaten + 1;
+      collectSound.play();
     }
   }
 }
@@ -377,7 +403,30 @@ function drawPlayer() {
 }
 
 //showTheScore()
-//showing how many items have been caught
+//showing how many items have been caught//
+
+// Create an action to that allows the music to be played once the user presses.
+  function mousePressed() {
+    if (state === "Start") {
+      state = "Play";
+      setupSound();
+    }
+    if (gameOver === true) {
+        resetGame();
+      }
+}
+
+// Reset the game to the start state with the previous values
+function resetGame() {
+  setupPrey();
+  setupPlayer();
+  gameOver = false;
+  state = "Start";
+  playerMaxHealth = 100;
+  preyEaten = 0;
+}
+
+
 function showTheScore(){
 textAlign(LEFT, TOP);
 fill(0);
@@ -405,6 +454,10 @@ function showGameOver() {
   fill(255);
   //background lost
   image(loseBg, 0, 0, width, height);
+  //stopping the intro and collect makeup sounds to let the gameoverSound
+  gameoverSound.play();
+  collectSound.stop();
+  introSound.stop();
   // Set up the text to display
   let gameOverText = "GAME OVER\n"; // \n means "new line"
   gameOverText = gameOverText + "You caught " + preyEaten + " items\n";
