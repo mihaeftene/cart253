@@ -15,10 +15,7 @@ random movement, screen wrap.
 
 ******************************************************/
 
-// Track whether the game is over
-let gameOver = false;
-
-// Declare start
+// Declare state
 let state = "Start";
 
 // Player position, size, velocity
@@ -76,8 +73,6 @@ let itemEnemy;
 let introSound;
 let collectSound;
 let gameoverSound;
-
-let counter = 300;
 
 //meant to load images inside the game already
 function preload() {
@@ -148,26 +143,28 @@ function draw() {
   //starting the background info
   if (state === "Start") {
     image(introBg, 0, 0, width, height);
+
   } else if (state === "Play") {
-    if (!gameOver) {
-      handleInput();
-      changeSizeItem();
-      makePlayerSlower();
-      backgroundChange();
+    handleInput();
+    changeSizeItem();
+    makePlayerSlower();
+    backgroundChange();
 
-      movePlayer();
-      movePrey();
+    movePlayer();
+    movePrey();
 
-      updateHealth();
-      showTheScore();
-      StaminaBar();
-      checkEating();
+    updateHealth();
+    showTheScore();
+    StaminaBar();
+    checkEating();
+    checkWinning();
 
-      drawPrey();
-      drawPlayer();
-    } else {
-      showGameOver();
-    }
+    drawPrey();
+    drawPlayer();
+  } else if (state === "winning") {
+    showWinning();
+  } else if (state === "gameOver") {
+    showGameOver();
   }
 }
 
@@ -301,7 +298,7 @@ function updateHealth() {
   // Check if the player is dead (0 health)
   if (playerHealth === 0) {
     // If so, the game is over
-    gameOver = true;
+    state = "gameOver";
   }
 }
 
@@ -336,6 +333,12 @@ function checkEating() {
   }
 }
 
+//checkWinning()
+function checkWinning() {
+  if (preyEaten >= 5) {
+    state = "winning";
+  }
+}
 // movePrey()
 //
 // Moves the prey based on random velocity changes
@@ -379,7 +382,7 @@ function movePrey() {
 
 // drawPrey()
 //
-// Draw the prey as an ellipse with alpha based on health
+// Draw the prey as makeup with alpha based on health
 function drawPrey() {
   tint(255, preyHealth);
   image(itemEnemy, preyX, preyY, preyRadius * 2, preyRadius * 2);
@@ -402,19 +405,6 @@ function mousePressed() {
     state = "Play";
     setupSound();
   }
-  if (gameOver === true) {
-    resetGame();
-  }
-}
-
-// Reset the game to the start state with the previous values
-function resetGame() {
-  setupPrey();
-  setupPlayer();
-  gameOver = false;
-  state = "Start";
-  playerMaxHealth = 100;
-  preyEaten = 0;
 }
 
 //ShowScore
@@ -434,21 +424,17 @@ function StaminaBar() {
   fill(240, 248, 255);
   rect(10, 20, energyStamina, 20);
 }
+
+//showWinning()
 //draw the winning background
 function showWinning() {
-  if (preyEaten >= 11 && counter > 0) {
-    image(BgWin, 0, 0, width, height);
-    preyX = 0;
-    preyY = 0;;
-    counter -= 1;
-
-    // if statement for the counter to go back to the scene
-    if (counter <= 0) {
-      hours = 0;
-      counter = 300;
-      preyMaxSpeed = 4;
-    }
-    return
+  image(winBg, 0, 0, width, height);
+  //check if the key press is backspace
+  if (keyIsDown(BACKSPACE)) {
+    //reset the game completely
+    resetGame();
+    // restart the game
+    state = "Start";
   }
 }
 
@@ -472,4 +458,20 @@ function showGameOver() {
   gameOverText = gameOverText + "before your date was cancelled."
   // Display it in the centre of the screen
   text(gameOverText, width / 2, height / 2);
+  //check if the key press is backspace
+  if (keyIsDown(BACKSPACE)) {
+    //reset the game completely
+    resetGame();
+    // restart the game
+    state = "Start";
+  }
+}
+
+// Reset the game to the start state with the previous values
+function resetGame() {
+  setupPrey();
+  setupPlayer();
+  state = "Start";
+  playerMaxHealth = 100;
+  preyEaten = 0;
 }
