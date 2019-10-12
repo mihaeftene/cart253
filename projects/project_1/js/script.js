@@ -5,10 +5,7 @@
 Game - Chaser
 Mihaela Eftene
 
-A "simple" game of cat and mouse. The player is a circle and can move with keys,
-if they overlap the (randomly moving) prey they "eat it" by sucking out its life
-and adding it to their own. The player "dies" slowly over time so they have to keep
-eating to stay alive.
+Peach has a date with Ryan! Help her collect 11 parts of makeup before Ryan gets here.
 
 Includes: Physics-based movement, keyboard controls, health/stamina,
 random movement, screen wrap.
@@ -24,6 +21,7 @@ let playerY;
 let playerRadius = 40;
 let playerVX = 0;
 let playerVY = 0;
+
 //changed the speed to 6. 2 was way too slow and it would be hard to win the game.
 let playerMaxSpeed = 6;
 // Player health
@@ -93,6 +91,7 @@ function preload() {
   gameoverSound = loadSound('assets/sounds/gameover.wav');
 }
 
+
 // setup()
 //
 // Sets up the basic elements of the game
@@ -132,6 +131,7 @@ function setupSound() {
   introSound.loop();
 }
 
+
 // draw()
 //
 // While the game is active, checks input
@@ -161,9 +161,9 @@ function draw() {
 
     drawPrey();
     drawPlayer();
-  } else if (state === "winning") {
+  } else if (state === "winning") { //if the player won show the background
     showWinning();
-  } else if (state === "gameOver") {
+  } else if (state === "gameOver") { //if the player lost show the background
     showGameOver();
   }
 }
@@ -200,7 +200,8 @@ function handleInput() {
   }
 }
 
-//After a number of catching preys the prey gets smaller and faster.
+//changeSizeItem()
+//After a number of catching preys the prey gets smaller and faster. This shows how sometimes when we are in a hurry we cant find items
 function changeSizeItem() {
   if (preyEaten === 1) {
     preyRadius = 20;
@@ -228,7 +229,8 @@ function changeSizeItem() {
   }
 }
 
-//After a number of caught items, the player gets tired.
+//makePlayerSlower()
+//After a number of caught items, the player gets tired (slows down)
 function makePlayerSlower() {
   if (preyEaten >= 5) {
     playerMaxSpeed = playerMaxSpeed - 0.06;
@@ -241,7 +243,7 @@ function makePlayerSlower() {
   }
 }
 
-//
+//backgroundChange()
 function backgroundChange() {
   //Changing the game background. After a certain number of catches, the background will change
   // Setting up the main background
@@ -333,12 +335,13 @@ function checkEating() {
   }
 }
 
-//checkWinning()
+//checkWinning() Check if the player has won after 11 catches
 function checkWinning() {
-  if (preyEaten >= 5) {
+  if (preyEaten >= 11) {
     state = "winning";
   }
 }
+
 // movePrey()
 //
 // Moves the prey based on random velocity changes
@@ -362,7 +365,7 @@ function movePrey() {
   preyX = preyX + preyVX;
   preyY = preyY + preyVY;
 
-  //noise increases
+  //noise increases. Want it a bit more random (items going around)
   noiseValueX += 0.05;
   noiseValueY += 0.05;
 
@@ -386,6 +389,7 @@ function movePrey() {
 function drawPrey() {
   tint(255, preyHealth);
   image(itemEnemy, preyX, preyY, preyRadius * 2, preyRadius * 2);
+  //the items is very blurry and hard to see. That is how we see things when we are in a hurry
   tint(255);
 }
 
@@ -399,6 +403,7 @@ function drawPlayer() {
   tint(255, 40);
 }
 
+//mousePressed()
 // Create an action to that allows the music to be played once the user presses.
 function mousePressed() {
   if (state === "Start") {
@@ -407,7 +412,7 @@ function mousePressed() {
   }
 }
 
-//ShowScore
+//ShowScore()
 function showTheScore() {
   textAlign(LEFT, TOP);
   fill(0);
@@ -426,7 +431,7 @@ function StaminaBar() {
 }
 
 //showWinning()
-//draw the winning background
+//draw the winning background and adds the functionality to press backspace
 function showWinning() {
   image(winBg, 0, 0, width, height);
   //check if the key press is backspace
@@ -440,7 +445,7 @@ function showWinning() {
 
 // showGameOver()
 //
-// Display text about the game being over!
+// Display text about the game being over! Ryan has cancelled on you...
 function showGameOver() {
   // Set up the font
   textSize(32);
@@ -467,6 +472,7 @@ function showGameOver() {
   }
 }
 
+//resetGame()
 // Reset the game to the start state with the previous values
 function resetGame() {
   setupPrey();
