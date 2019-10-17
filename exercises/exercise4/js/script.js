@@ -59,6 +59,8 @@ let rightPaddle = {
   downKey: 40
 }
 
+let notOnScreen; // check when ball off screen
+
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
 
@@ -127,8 +129,7 @@ function draw() {
       // This is where we would likely count points, depending on which side
       // the ball went off...
     }
-  }
-  else {
+  } else {
     // Otherwise we display the message to start the game
     displayStartMessage();
   }
@@ -154,8 +155,7 @@ function handleInput(paddle) {
   else if (keyIsDown(paddle.downKey)) {
     // Move down
     paddle.vy = paddle.speed;
-  }
-  else {
+  } else {
     // Otherwise stop moving
     paddle.vy = 0;
   }
@@ -183,11 +183,15 @@ function updateBall() {
 // Checks if the ball has gone off the left or right
 // Returns true if so, false otherwise
 function ballIsOutOfBounds() {
-  // Check for ball going off the sides
-  if (ball.x < 0 || ball.x > width) {
+  // Check for ball going off sides (not on screen)
+  if (ball.x - ball.size < 0) {
+    //records which direction it goes to off screen
+    notOnScreen = "left";
     return true;
-  }
-  else {
+  } else if (ball.x + ball.size > width) {
+    notOnScreen = "right";
+    return true;
+  } else {
     return false;
   }
 }
