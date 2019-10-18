@@ -19,7 +19,7 @@ let fgColor = 255;
 
 //CHICKEN TO BE CATCHED
 
-//declaring the item that will be catched (Chicken)
+//declaring the item image that will be catched (Chicken)
 let catchChickenImage;
 
 // A chicken object with the properties of
@@ -67,14 +67,14 @@ let notOnScreen; // check when chicken off screen
 
 //Mouse player Information (Size, health, max Health and number of lives)
 let playerMouseSize = 70;
-let playerMouseMaxHealth = 4;
+let playerMouseMaxHealth = 5;
 let playerMouseHealth = playerMouseMaxHealth;
 //variable to display the number of lives for the mouse (as drumsticks)
 let playerMouseLives;
 
 //Cat player Information (Size, health, max Health and number of lives)
 let playerCatSize = 70;
-let playerCatMaxHealth = 4;
+let playerCatMaxHealth = 5;
 let playerCatHealth = playerCatMaxHealth;
 //variable to display the number of lives for the cat player (as drumsticks)
 let playerCatLives;
@@ -208,6 +208,7 @@ function updateBall() {
 //
 // Checks if the chicken has gone off the left or right
 // Returns true if so, false otherwise
+//If the miss the catch, the losing player will become smaller
 function chickenIsOutOfBounds() {
   // Check for chicken going off sides (not on screen)
   if (chicken.x - chicken.size < 0) {
@@ -216,12 +217,18 @@ function chickenIsOutOfBounds() {
     notOnScreen = "left";
     //if the chicken is off screen on left side then the player (mouse) health is decreasing by one
     playerMouseHealth--;
+    //On top of losing drumsticks (lives), the mouse player will become smaller
+    leftPaddle.h -= 7, constrain(leftPaddle.h,0,75);
+    leftPaddle.w -= 4, constrain(leftPaddle.w,0,20);
     return true;
   } else if (chicken.x + chicken.size > width) {
     //doing it for right side
     notOnScreen = "right";
     //if the chicken is off screen on right side then the player (cat) health is decreasing by one
     playerCatHealth--;
+    //On top of losing drumsticks (lives), the cat player will become smaller
+    rightPaddle.h -= 7, constrain(leftPaddle.h,0,75);
+    rightPaddle.w -= 4, constrain(leftPaddle.w,0,20);
     return true;
   } else {
     return false;
