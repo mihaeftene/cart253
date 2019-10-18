@@ -85,12 +85,18 @@ let kitchenBackground;
 
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
+// variable for the cat sound
+let catSFX;
+//variable for the mouse sound
+let mouseSFX;
 
 // preload()
 //
 // Loads the beep audio for the sound of bouncing
 function preload() {
   beepSFX = new Audio("assets/sounds/beep.wav");
+  catSFX = new Audio("assets/sounds/catMoew.wav"); //cat sounds
+  mouseSFX = new Audio("assets/sounds/mouseHi.wav"); //mouse sounds
 
   //images for the game
   playerCatLives = loadImage("assets/images/drumsticks.png"); //drumsticks lives
@@ -231,6 +237,8 @@ function chickenIsOutOfBounds() {
     //On top of losing drumsticks (lives), the mouse player will become smaller
     leftPaddle.h -= 7, constrain(leftPaddle.h, 0, 75);
     leftPaddle.w -= 4, constrain(leftPaddle.w, 0, 20);
+    //and the cat laughs at the mouse
+    catSFX.play();
     return true;
   } else if (chicken.x + chicken.size > width) {
     //doing it for right side
@@ -240,6 +248,8 @@ function chickenIsOutOfBounds() {
     //On top of losing drumsticks (lives), the cat player will become smaller
     rightPaddle.h -= 7, constrain(leftPaddle.h, 0, 75);
     rightPaddle.w -= 4, constrain(leftPaddle.w, 0, 20);
+    //and the mouse laughs at the cat
+    mouseSFX.play();
     return true;
   } else {
     return false;
