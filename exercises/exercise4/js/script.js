@@ -16,11 +16,15 @@ let playing = false;
 let bgColor = 0;
 let fgColor = 255;
 
-// BALL
 
-// A ball object with the properties of
+//CHICKEN TO BE CATCHED
+
+//declaring the item that will be catched (Chicken)
+let catchChickenImage;
+
+// A chicken object with the properties of
 // position, size, velocity, and speed
-let ball = {
+let chicken = {
   x: 0,
   y: 0,
   size: 20,
@@ -59,7 +63,7 @@ let rightPaddle = {
   downKey: 40
 }
 
-let notOnScreen; // check when ball off screen
+let notOnScreen; // check when chicken off screen
 
 //Mouse player Information (Size, health, max Health and number of lives)
 let playerMouseSize = 70;
@@ -92,7 +96,7 @@ function preload() {
 // setup()
 //
 // Creates the canvas, sets up the drawing modes,
-// Sets initial values for paddle and ball positions
+// Sets initial values for paddle and chicken positions
 // and velocities.
 function setup() {
   // Create canvas and set drawing modes
@@ -142,21 +146,21 @@ function draw() {
     checkBallPaddleCollision(leftPaddle);
     checkBallPaddleCollision(rightPaddle);
 
-    // Check if the ball went out of bounds and respond if so
+    // Check if the chicken went out of bounds and respond if so
     // (Note how we can use a function that returns a truth value
     // inside a conditional!)
-    if (ballIsOutOfBounds()) {
+    if (chickenIsOutOfBounds()) {
       // If it went off either side, reset it
       resetBall();
       // This is where we would likely count points, depending on which side
-      // the ball went off...
+      // the chicken went off...
     }
   } else {
     // Otherwise we display the message to start the game
     displayStartMessage();
   }
 
-  // We always display the paddles and ball so it looks like Pong!
+  // We always display the paddles and chicken so it looks like Pong!
   displayPaddle(leftPaddle);
   displayPaddle(rightPaddle);
   displayBall();
@@ -185,7 +189,7 @@ function handleInput(paddle) {
 
 // updatePositions()
 //
-// Sets the positions of the paddles and ball based on their velocities
+// Sets the positions of the paddles and chicken based on their velocities
 function updatePaddle(paddle) {
   // Update the paddle position based on its velocity
   paddle.y += paddle.vy;
@@ -193,30 +197,30 @@ function updatePaddle(paddle) {
 
 // updateBall()
 //
-// Sets the position of the ball based on its velocity
+// Sets the position of the chicken based on its velocity
 function updateBall() {
-  // Update the ball's position based on velocity
-  ball.x += ball.vx;
-  ball.y += ball.vy;
+  // Update the chicken's position based on velocity
+  chicken.x += chicken.vx;
+  chicken.y += chicken.vy;
 }
 
-// ballIsOutOfBounds()
+// chickenIsOutOfBounds()
 //
-// Checks if the ball has gone off the left or right
+// Checks if the chicken has gone off the left or right
 // Returns true if so, false otherwise
-function ballIsOutOfBounds() {
-  // Check for ball going off sides (not on screen)
-  if (ball.x - ball.size < 0) {
+function chickenIsOutOfBounds() {
+  // Check for chicken going off sides (not on screen)
+  if (chicken.x - chicken.size < 0) {
     //records which direction it goes to off screen
     //doing it for left side
     notOnScreen = "left";
-    //if the ball is off screen on left side then the player (mouse) health is decreasing by one
+    //if the chicken is off screen on left side then the player (mouse) health is decreasing by one
     playerMouseHealth--;
     return true;
-  } else if (ball.x + ball.size > width) {
+  } else if (chicken.x + chicken.size > width) {
     //doing it for right side
     notOnScreen = "right";
-    //if the ball is off screen on right side then the player (cat) health is decreasing by one
+    //if the chicken is off screen on right side then the player (cat) health is decreasing by one
     playerCatHealth--;
     return true;
   } else {
@@ -227,14 +231,14 @@ function ballIsOutOfBounds() {
 
 // checkBallWallCollision()
 //
-// Check if the ball has hit the top or bottom of the canvas
+// Check if the chicken has hit the top or bottom of the canvas
 // Bounce off if it has by reversing velocity
 // Play a sound
 function checkBallWallCollision() {
   // Check for collisions with top or bottom...
-  if (ball.y < 0 || ball.y > height) {
+  if (chicken.y < 0 || chicken.y > height) {
     // It hit so reverse velocity
-    ball.vy = -ball.vy;
+    chicken.vy = -chicken.vy;
     // Play our bouncing sound effect by rewinding and then playing
     beepSFX.currentTime = 0;
     beepSFX.play();
@@ -243,29 +247,29 @@ function checkBallWallCollision() {
 
 // checkBallPaddleCollision(paddle)
 //
-// Checks for collisions between the ball and the specified paddle
+// Checks for collisions between the chicken and the specified paddle
 function checkBallPaddleCollision(paddle) {
   // VARIABLES FOR CHECKING COLLISIONS
 
   // We will calculate the top, bottom, left, and right of the
-  // paddle and the ball to make our conditionals easier to read...
-  let ballTop = ball.y - ball.size / 2;
-  let ballBottom = ball.y + ball.size / 2;
-  let ballLeft = ball.x - ball.size / 2;
-  let ballRight = ball.x + ball.size / 2;
+  // paddle and the chicken to make our conditionals easier to read...
+  let chickenTop = chicken.y - chicken.size / 2;
+  let chickenBottom = chicken.y + chicken.size / 2;
+  let chickenLeft = chicken.x - chicken.size / 2;
+  let chickenRight = chicken.x + chicken.size / 2;
 
   let paddleTop = paddle.y - paddle.h / 2;
   let paddleBottom = paddle.y + paddle.h / 2;
   let paddleLeft = paddle.x - leftPaddle.w / 2;
   let paddleRight = paddle.x + paddle.w / 2;
 
-  // First check the ball is in the vertical range of the paddle
-  if (ballBottom > paddleTop && ballTop < paddleBottom) {
+  // First check the chicken is in the vertical range of the paddle
+  if (chickenBottom > paddleTop && chickenTop < paddleBottom) {
     // Then check if it is touching the paddle horizontally
-    if (ballLeft < paddleRight && ballRight > paddleLeft) {
-      // Then the ball is touching the paddle
+    if (chickenLeft < paddleRight && chickenRight > paddleLeft) {
+      // Then the chicken is touching the paddle
       // Reverse its vx so it starts travelling in the opposite direction
-      ball.vx = -ball.vx;
+      chicken.vx = -chicken.vx;
       // Play our bouncing sound effect by rewinding and then playing
       beepSFX.currentTime = 0;
       beepSFX.play();
@@ -283,21 +287,21 @@ function displayPaddle(paddle) {
 
 // displayBall()
 //
-// Draws the ball on screen as a square
+// Draws the chicken on screen as a square
 function displayBall() {
-  // Draw the ball
-  rect(ball.x, ball.y, ball.size, ball.size);
+  // Draw the chicken
+  rect(chicken.x, chicken.y, chicken.size, chicken.size);
 }
 
 // resetBall()
 //
-// Sets the starting position and velocity of the ball
+// Sets the starting position and velocity of the chicken
 function resetBall() {
-  // Initialise the ball's position and velocity
-  ball.x = width / 2;
-  ball.y = height / 2;
-  ball.vx = ball.speed;
-  ball.vy = ball.speed;
+  // Initialise the chicken's position and velocity
+  chicken.x = width / 2;
+  chicken.y = height / 2;
+  chicken.vx = chicken.speed;
+  chicken.vy = chicken.speed;
 }
 
 //displayMouseHealth();
