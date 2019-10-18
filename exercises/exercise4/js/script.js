@@ -27,36 +27,35 @@ let catchChickenImage;
 let chicken = {
   x: 0,
   y: 0,
-  size: 20,
+  size: 70,
   vx: 0,
   vy: 0,
   speed: 5
 }
 
 // PADDLES
-
 // Basic definition of a left paddle object with its key properties of
 // position, size, velocity, and speed
 let leftPaddle = {
   x: 0,
   y: 0,
-  w: 20,
-  h: 70,
+  w: 70,
+  h: 140,
   vy: 0,
   speed: 5,
   upKey: 87,
   downKey: 83
 }
 
-// RIGHT PADDLE
+// RIGHT PADDLE (MOUSE)
 
 // Basic definition of a left paddle object with its key properties of
 // position, size, velocity, and speed
 let rightPaddle = {
   x: 0,
   y: 0,
-  w: 20,
-  h: 70,
+  w: 70,
+  h: 140,
   vy: 0,
   speed: 5,
   upKey: 38,
@@ -65,7 +64,8 @@ let rightPaddle = {
 
 let notOnScreen; // check when chicken off screen
 
-//Mouse player Information (Size, health, max Health and number of lives)
+//Mouse player Information (image,Size, health, max Health and number of lives)
+let mousePlayerImage;
 let playerMouseSize = 70;
 let playerMouseMaxHealth = 5;
 let playerMouseHealth = playerMouseMaxHealth;
@@ -73,11 +73,15 @@ let playerMouseHealth = playerMouseMaxHealth;
 let playerMouseLives;
 
 //Cat player Information (Size, health, max Health and number of lives)
+let catPlayerImage;
 let playerCatSize = 70;
 let playerCatMaxHealth = 5;
 let playerCatHealth = playerCatMaxHealth;
 //variable to display the number of lives for the cat player (as drumsticks)
 let playerCatLives;
+
+//declares the background variable
+let kitchenBackground;
 
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
@@ -89,8 +93,12 @@ function preload() {
   beepSFX = new Audio("assets/sounds/beep.wav");
 
   //images for the game
-  playerCatLives = loadImage("assets/images/drumsticks.png");
-  playerMouseLives = loadImage("assets/images/drumsticks.png");
+  playerCatLives = loadImage("assets/images/drumsticks.png"); //drumsticks lives
+  playerMouseLives = loadImage("assets/images/drumsticks.png"); //drumsticks lives
+  catchChickenImage = loadImage('assets/images/chickenFood.png'); //Chicken to be catched
+  kitchenBackground = loadImage('assets/images/kitchenBackground.png'); //Kitchen background
+  catPlayerImage = loadImage('assets/images/tomPlayer.png'); //cat player image
+  mousePlayerImage = loadImage('assets/images/jerryPlayer.png'); //mouse player image
 }
 
 // setup()
@@ -127,8 +135,11 @@ function setupPaddles() {
 // Calls the appropriate functions to run the game
 // See how tidy it looks?!
 function draw() {
-  // Fill the background
-  background(bgColor);
+  // Filling the Background
+  push();
+  //Kitchen Background
+  image(kitchenBackground, 0, 0);
+  pop();
 
   if (playing) {
     // If the game is in play, we handle input and move the elements around
@@ -288,16 +299,19 @@ function checkBallPaddleCollision(paddle) {
 //
 // Draws the specified paddle
 function displayPaddle(paddle) {
-  // Draw the paddles
-  rect(paddle.x, paddle.y, paddle.w, paddle.h);
+  // Draw the paddles (cat and mouse)
+  //image for left paddle (cat)
+  image(mousePlayerImage, leftPaddle.x, leftPaddle.y, leftPaddle.w, leftPaddle.h);
+  //image for right paddle (mouse)
+  image(catPlayerImage, rightPaddle.x, rightPaddle.y, rightPaddle.w, rightPaddle.h);
 }
 
 // displayBall()
 //
-// Draws the chicken on screen as a square
+// Draws the chicken to be catched on screen
 function displayBall() {
   // Draw the chicken
-  rect(chicken.x, chicken.y, chicken.size, chicken.size);
+  image(catchChickenImage, chicken.x, chicken.y, chicken.size, chicken.size);
 }
 
 // resetBall()
@@ -353,9 +367,11 @@ function displayCatHealth() {
 // Shows a message about how to start the game
 function displayStartMessage() {
   push();
+  fill(0, 102, 153);
+  textStyle(BOLD);
   textAlign(CENTER, CENTER);
   textSize(32);
-  text("CLICK TO START", width / 2, height / 2);
+  text("CATCH THE CHICKEN!", width / 2, height / 2);
   pop();
 }
 
