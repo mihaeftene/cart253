@@ -218,8 +218,8 @@ function chickenIsOutOfBounds() {
     //if the chicken is off screen on left side then the player (mouse) health is decreasing by one
     playerMouseHealth--;
     //On top of losing drumsticks (lives), the mouse player will become smaller
-    leftPaddle.h -= 7, constrain(leftPaddle.h,0,75);
-    leftPaddle.w -= 4, constrain(leftPaddle.w,0,20);
+    leftPaddle.h -= 7, constrain(leftPaddle.h, 0, 75);
+    leftPaddle.w -= 4, constrain(leftPaddle.w, 0, 20);
     return true;
   } else if (chicken.x + chicken.size > width) {
     //doing it for right side
@@ -227,8 +227,8 @@ function chickenIsOutOfBounds() {
     //if the chicken is off screen on right side then the player (cat) health is decreasing by one
     playerCatHealth--;
     //On top of losing drumsticks (lives), the cat player will become smaller
-    rightPaddle.h -= 7, constrain(leftPaddle.h,0,75);
-    rightPaddle.w -= 4, constrain(leftPaddle.w,0,20);
+    rightPaddle.h -= 7, constrain(leftPaddle.h, 0, 75);
+    rightPaddle.w -= 4, constrain(leftPaddle.w, 0, 20);
     return true;
   } else {
     return false;
@@ -307,8 +307,15 @@ function resetBall() {
   // Initialise the chicken's position and velocity
   chicken.x = width / 2;
   chicken.y = height / 2;
-  chicken.vx = chicken.speed;
-  chicken.vy = chicken.speed;
+
+  if (random(0, 1) < 0.4) {
+    //sends it towards the winning side
+    chicken.vx = chicken.speed;
+  } else {
+    chicken.vx = -chicken.speed;
+  }
+  //random velocity
+  chicken.vy = random(-6, 6);
 }
 
 //displayMouseHealth();
