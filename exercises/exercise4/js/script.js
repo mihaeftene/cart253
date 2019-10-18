@@ -61,20 +61,6 @@ let rightPaddle = {
 
 let notOnScreen; // check when ball off screen
 
-//Mouse player Information (Size, health, max Health and number of lives)
-let playerMouseSize = 70;
-let playerMouseMaxHealth = 4;
-let playerMouseHealth = playerMouseMaxHealth;
-//variable to display the number of lives for the mouse (as drumsticks)
-let playerMouseLives;
-
-//Cat player Information (Size, health, max Health and number of lives)
-let playerCatSize = 70;
-let playerCatMaxHealth = 4;
-let playerCatHealth = playerCatMaxHealth;
-//variable to display the number of lives for the cat player (as drumsticks)
-let playerCatLives;
-
 // A variable to hold the beep sound we will play on bouncing
 let beepSFX;
 
@@ -83,10 +69,6 @@ let beepSFX;
 // Loads the beep audio for the sound of bouncing
 function preload() {
   beepSFX = new Audio("assets/sounds/beep.wav");
-
-  //images for the game
-  playerCatLives = loadImage("assets/images/heart.png");
-  playerMouseLives = loadImage("assets/images/heart.png");
 }
 
 // setup()
@@ -133,10 +115,6 @@ function draw() {
     updatePaddle(leftPaddle);
     updatePaddle(rightPaddle);
     updateBall();
-
-    //characters health functions
-    displayMouseHealth();
-    displayCatHealth();
 
     checkBallWallCollision();
     checkBallPaddleCollision(leftPaddle);
@@ -208,21 +186,14 @@ function ballIsOutOfBounds() {
   // Check for ball going off sides (not on screen)
   if (ball.x - ball.size < 0) {
     //records which direction it goes to off screen
-    //doing it for left side
     notOnScreen = "left";
-    //if the ball is off screen on left side then the player (mouse) health is decreasing by one
-    playerMouseHealth--;
     return true;
   } else if (ball.x + ball.size > width) {
-    //doing it for right side
     notOnScreen = "right";
-    //if the ball is off screen on right side then the player (cat) health is decreasing by one
-    playerCatHealth--;
     return true;
   } else {
     return false;
   }
-
 }
 
 // checkBallWallCollision()
@@ -298,36 +269,6 @@ function resetBall() {
   ball.y = height / 2;
   ball.vx = ball.speed;
   ball.vy = ball.speed;
-}
-
-//displayMouseHealth();
-//Display the number of drumsticks (lives) of the mouse player
-function displayMouseHealth() {
-  //set x position for the mouse drumstick
-  let playerMouseLivesX = playerMouseLives.width - 3;
-
-  //display the number of drumsticks (lives) for player mouse (according to player's health value)
-  for (let i = 0; i < playerMouseHealth; i++) {
-    image(playerMouseLives, playerMouseLivesX, 7);
-
-    //set the x position of the next drumstick
-    playerMouseLivesX += playerMouseLives.width + 3;
-  }
-}
-
-//displayCatHealth();
-//Display the number of drumsticks (lives) of the cat player
-function displayCatHealth() {
-  //set x position for the cat's lives (drumsticks)
-  let playerCatLivesX = width - playerCatLives.width - 3;
-
-  //display the number of drumsticks (lives) for player mouse (according to player's health value)
-  for (let i = 0; i < playerCatHealth; i++) {
-    image(playerCatLives, playerCatLivesX, 4);
-
-    //set the x position of the next drumstick
-    playerCatLivesX -= playerCatLives.width + 3;
-  }
 }
 
 // displayStartMessage()
