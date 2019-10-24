@@ -146,7 +146,7 @@ class Predator {
     fill(this.fillColor);
     this.radius = this.health;
     textSize(30);
-    ellipse(this.x, this.y, this.radius * 2);
+    ellipse(this.x, this.y, this.radius * 3);
     //setting the number of pokemons caught visually
     textStyle(BOLD);
     text(this.pokemonCaught, this.x, this.y-height/15);
