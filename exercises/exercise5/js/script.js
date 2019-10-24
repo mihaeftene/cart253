@@ -20,10 +20,10 @@ let bee;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //adding our two new predators (pokemonBoy & pokemonGirl)
-  //we will move pokemonGirl with WASD keys
-  pokemonGirl = new Predator(250, 250, 5, color(203, 156, 203), 40, 87, 83, 65, 68); //W,A,S,D
+  //we will move pokemonGirl with WASD (R for sprint) keys
+  pokemonGirl = new Predator(250, 250, 5, color(203, 156, 203), 40, 87, 83, 65, 68, 82 ); //W,A,S,D,R
   //we will move pokemonBoy with up, down, left and right arrow keys
-  pokemonBoy = new Predator(100, 100, 5, color(66, 135, 245), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW);
+  pokemonBoy = new Predator(100, 100, 5, color(66, 135, 245), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, SHIFT);
   //our pokemons to be catched
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);

@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, fillColor, radius, upKey, downKey, leftKey, rightKey) {
+  constructor(x, y, speed, fillColor, radius, upKey, downKey, leftKey, rightKey, sprintKey) {
     // Position
     this.x = x;
     this.y = y;
@@ -32,6 +32,11 @@ class Predator {
     this.downKey = downKey;
     this.leftKey = leftKey;
     this.rightKey = rightKey;
+    //adding the sprint key options to the predators
+    this.sprintKey = sprintKey;
+    this.sprintBoost = speed + 7 ;
+    //if the R or shift key is not pressed the predator will keep its initial speed
+    this.mainSpeed= speed;
     //tracking how many preys the predator has eaten:
     this.pokemonCaught = 0;
   }
@@ -61,7 +66,16 @@ class Predator {
     else {
       this.vy = 0;
     }
+    //if statement for the sprint option
+    if (keyIsDown (this.sprintKey)){
+      this.speed = this.sprintBoost;
+    }
+
+    else {
+      this.speed = this.mainSpeed;
+    }
   }
+
 
   // move
   //
