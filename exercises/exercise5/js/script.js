@@ -3,15 +3,25 @@
 //
 // Gotta catch em all!? Exactly! Play as either one of the characters and catch as many Pokemons as you can!
 
-
 //declare variables for our two new predators
 let pokemonBoy;
 let pokemonGirl;
 
-// The three prey
-let antelope;
-let zebra;
-let bee;
+// The three pokemons
+let pikachuYellow;
+let pikachuYellowImage;
+let frogGreen;
+let frogGreenImage;
+let turtleBlue;
+let turtleBlueImage;
+
+//pre-load()
+//adding a function preload to load images and sound
+function preload() {
+pikachuYellowImage = loadImage("assets/images/pikachuFace.png");
+frogGreenImage = loadImage("assets/images/bulbaFace.png");
+turtleBlueImage = loadImage("assets/images/squiddleFace.png");
+}
 
 // setup()
 //
@@ -25,9 +35,9 @@ function setup() {
   //we will move pokemonBoy with up, down, left and right arrow keys
   pokemonBoy = new Predator(100, 100, 5, color(66, 135, 245), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, SHIFT);
   //our pokemons to be catched
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  pikachuYellow = new Prey(900, 900, 20, 50, pikachuYellowImage);
+  frogGreen = new Prey(600, 600, 10, 50, frogGreenImage);
+  turtleBlue = new Prey(600, 600, 10, 50, turtleBlueImage);
 }
 
 // draw()
@@ -43,22 +53,22 @@ function draw() {
   // Move all the "characters"
   pokemonBoy.move();
   pokemonGirl.move();
-  antelope.move();
-  zebra.move();
-  bee.move();
+  pikachuYellow.move();
+  frogGreen.move();
+  turtleBlue.move();
 
   // Handle the pokemonBoy eating any of the prey
-  pokemonBoy.handleEating(antelope);
-  pokemonBoy.handleEating(zebra);
-  pokemonBoy.handleEating(bee);
-  pokemonGirl.handleEating(antelope);
-  pokemonGirl.handleEating(zebra);
-  pokemonGirl.handleEating(bee);
+  pokemonBoy.handleEating(pikachuYellow);
+  pokemonBoy.handleEating(frogGreen);
+  pokemonBoy.handleEating(turtleBlueImage);
+  pokemonGirl.handleEating(pikachuYellow);
+  pokemonGirl.handleEating(frogGreen);
+  pokemonGirl.handleEating(turtleBlueImage);
 
   // Display all the "animals"
   pokemonBoy.display();
   pokemonGirl.display();
-  antelope.display();
-  zebra.display();
-  bee.display();
+  pikachuYellow.display();
+  frogGreen.display();
+  turtleBlue.display();
 }
