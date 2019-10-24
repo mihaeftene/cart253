@@ -2,6 +2,9 @@
 // by Mihaela Eftene
 //
 // Gotta catch em all!? Exactly! Play as either one of the characters and catch as many Pokemons as you can!
+//Commands:
+//Player 1: LEFT, RIGHT, UP, DOWN ARROW to move. Use shift to sprint
+//Player2: WASD to move. Use R to sprint
 
 //declare variables for our two new predators
 let pokemonBoy;
@@ -21,10 +24,11 @@ let backgroundImage;
 //pre-load()
 //adding a function preload to load images and sound
 function preload() {
-pikachuYellowImage = loadImage("assets/images/pikachuFace.png");
-frogGreenImage = loadImage("assets/images/bulbaFace.png");
-turtleBlueImage = loadImage("assets/images/squiddleFace.png");
-backgroundImage = loadImage("assets/images/background.png");
+  //image
+  pikachuYellowImage = loadImage("assets/images/pikachuFace.png");
+  frogGreenImage = loadImage("assets/images/bulbaFace.png");
+  turtleBlueImage = loadImage("assets/images/squiddleFace.png");
+  backgroundImage = loadImage("assets/images/background.png");
 }
 
 // setup()
@@ -35,7 +39,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   //adding our two new predators (pokemonBoy & pokemonGirl)
   //we will move pokemonGirl (its a circle and not an image because it can be anyone) with WASD (R for sprint) keys
-  pokemonGirl = new Predator(250, 250, 5, color(203, 156, 203), 40, 87, 83, 65, 68, 82 ); //W,A,S,D,R
+  pokemonGirl = new Predator(250, 250, 5, color(203, 156, 203), 40, 87, 83, 65, 68, 82); //W,A,S,D,R
   //we will move pokemonBoy (its a circle and not an image because it can be anyone) with up, down, left and right arrow keys
   pokemonBoy = new Predator(100, 100, 5, color(66, 135, 245), 40, UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, SHIFT);
   //our pokemons to be catched
@@ -69,7 +73,7 @@ function draw() {
   pokemonGirl.handleEating(frogGreen);
   pokemonGirl.handleEating(turtleBlue);
 
-  // Display all the "animals"
+  // Display all the "pokemons"
   pokemonBoy.display();
   pokemonGirl.display();
   pikachuYellow.display();

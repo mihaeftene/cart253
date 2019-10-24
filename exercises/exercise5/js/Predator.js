@@ -37,7 +37,7 @@ class Predator {
     this.sprintBoost = speed + 7 ;
     //if the R or shift key is not pressed the predator will keep its initial speed
     this.mainSpeed= speed;
-    //tracking how many preys the predator has caught:
+    //tracking how many pokemons the predator has caught:
     this.pokemonCaught = 0;
   }
 
@@ -116,29 +116,29 @@ class Predator {
   // handleEating
   //
   // Takes a Prey object as an argument and checks if the predator
-  // overlaps it. If so, reduces the prey's health and increases
-  // the predator's. If the prey dies, it gets reset.
-  handleEating(prey) {
-    // Calculate distance from this predator to the prey
-    let d = dist(this.x, this.y, prey.x, prey.y);
+  // overlaps it. If so, reduces the pokemon's health and increases
+  // the predator's. If the pokemon dies, it gets reset.
+  handleEating(pokemon) {
+    // Calculate distance from this predator to the pokemon
+    let d = dist(this.x, this.y, pokemon.x, pokemon.y);
     // Check if the distance is less than their two radii (an overlap)
-    if (d < this.radius + prey.radius) {
+    if (d < this.radius + pokemon.radius) {
       // Increase predator health and constrain it to its possible range
       this.health += this.healthGainPerEat;
       this.health = constrain(this.health, 0, this.maxHealth);
-      // Decrease prey health by the same amount
-      prey.health -= this.healthGainPerEat;
-      // Check if the prey died and reset it if so
-      if (prey.health < 0) {
+      // Decrease pokemon health by the same amount
+      pokemon.health -= this.healthGainPerEat;
+      // Check if the pokemon died and reset it if so
+      if (pokemon.health < 0) {
         this.pokemonCaught += 1;
-        prey.reset();
+        pokemon.reset();
       }
     }
   }
 
   // display
   //
-  // Draw the predator as an ellipse on the canvas
+  // Draw the predator as an ellipse on the canvas. It means that anyone can be one of those players which is why theres no specific images
   // with a radius the same size as its current health.
   display() {
     push();
