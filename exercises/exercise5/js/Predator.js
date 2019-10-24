@@ -37,7 +37,7 @@ class Predator {
     this.sprintBoost = speed + 7 ;
     //if the R or shift key is not pressed the predator will keep its initial speed
     this.mainSpeed= speed;
-    //tracking how many preys the predator has eaten:
+    //tracking how many preys the predator has caught:
     this.pokemonCaught = 0;
   }
 
@@ -75,7 +75,6 @@ class Predator {
       this.speed = this.mainSpeed;
     }
   }
-
 
   // move
   //
@@ -146,7 +145,11 @@ class Predator {
     noStroke();
     fill(this.fillColor);
     this.radius = this.health;
+    textSize(30);
     ellipse(this.x, this.y, this.radius * 2);
+    //setting the number of pokemons caught visually
+    textStyle(BOLD);
+    text(this.pokemonCaught, this.x, this.y-height/15);
     pop();
   }
 }
