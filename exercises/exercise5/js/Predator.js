@@ -33,7 +33,7 @@ class Predator {
     this.leftKey = leftKey;
     this.rightKey = rightKey;
     //tracking how many preys the predator has eaten:
-    this.preyEaten = 0;
+    this.pokemonCaught = 0;
   }
 
   // handleInput
@@ -117,6 +117,7 @@ class Predator {
       prey.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so
       if (prey.health < 0) {
+        this.pokemonCaught += 1;
         prey.reset();
       }
     }
