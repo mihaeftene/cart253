@@ -54,7 +54,8 @@ function draw() {
 
   // Display all the "animals"
   tiger.display();
-  antelop.display();
+  ////FIXED: Issue with the naming once again. If you name your variable at the top "antelope", then its that. Else there will be an error. antelop to antelope
+  antelope.display();
   zebra.disploy();
   b.display();
 }
