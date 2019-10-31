@@ -15,7 +15,7 @@
 let tiger;
 
 // The three prey
-/////FIXED: fixed the spelling "antelope" not "antelop"
+/////FIXED: The variable is not spelled right. fixed the spelling "antelope" not "antelop".
 let antelope;
 let zebra;
 let bee;
