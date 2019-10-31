@@ -61,5 +61,5 @@ function draw() {
   ////FIXED: Issue with the naming once again. If you name your variable at the top "antelope", then its that. Else there will be an error. antelop to antelope
   antelope.display();
   zebra.display(); //////////////// FIXED: fixed the typo in disploy to display
-  b.display(); //////////////// FIXED: Changed the b to bee just like our variable at the top.
+  bee.display(); //////////////// FIXED: Changed the b to bee just like our variable at the top.
 }
