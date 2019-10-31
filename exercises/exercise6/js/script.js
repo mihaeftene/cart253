@@ -40,7 +40,8 @@ function setup() {
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
   // Clear the background to black
-  backgroun(0);
+  ///Fixed the typo in background by adding the missing "d"
+  background(0);
 
   // Handle input for the tiger
 
