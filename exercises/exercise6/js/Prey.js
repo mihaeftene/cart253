@@ -48,7 +48,8 @@ class Prey {
     this.tx += 0.01;
     this.ty += 0.01;
     // Handle wrapping
-    this.handleWarping();
+    //FIXED: fixed the typo warping to wrapping (Its not the same string if its spelled wrong)
+    this.handleWrapping();
 
 
     // handleWrapping
