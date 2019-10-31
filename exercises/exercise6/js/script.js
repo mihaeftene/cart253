@@ -44,7 +44,8 @@ function draw() {
   background(0);
 
   // Handle input for the tiger
-
+  //FIXED: Missing handleInput for tiger. Added the missing handleInput for our predator tiger
+  tiger.handleInput();
   // Move all the "animals"
   tiger.move();
   antelope.move();
