@@ -50,7 +50,8 @@ class Prey {
     // Handle wrapping
     //FIXED: fixed the typo warping to wrapping (Its not the same string if its spelled wrong)
     this.handleWrapping();
-
+    //FIXED: There was a missing } so needed to add one to close "move"
+  }
 
     // handleWrapping
     //
