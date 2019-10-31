@@ -60,6 +60,6 @@ function draw() {
   tiger.display();
   ////FIXED: Issue with the naming once again. If you name your variable at the top "antelope", then its that. Else there will be an error. antelop to antelope
   antelope.display();
-  zebra.disploy();
+  zebra.display(); //////////////// FIXED: fixed the typo in disploy to display
   b.display();
 }
