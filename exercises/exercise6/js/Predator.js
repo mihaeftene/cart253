@@ -14,7 +14,8 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  construction(x, y, speed, fillColor, radius) { //////////////// FIXED: fixed feltColor typo to fillColor
+  //////////////// FIXED: fixed the typo constructor (it was construction before)
+  constructor(x, y, speed, fillColor, radius) { //////////////// FIXED: fixed feltColor typo to fillColor
     this.x = x;
     this.y = y;
     // Velocity and speed
