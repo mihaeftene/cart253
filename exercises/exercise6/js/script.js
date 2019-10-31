@@ -47,7 +47,8 @@ function draw() {
 
   // Move all the "animals"
   tiger.move();
-  antelope.move();
+  ///FIXED: misspelled word. changed "antelope" to "antelop"
+  antelop.move();
   zebra.move();
 
   // Handle the tiger eating any of the prey
