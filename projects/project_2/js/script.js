@@ -13,6 +13,16 @@ let antelope;
 let zebra;
 let bee;
 
+//background variable
+let backgroundImage;
+
+//pre-load()
+//adding a function preload to load images and sound
+function preload() {
+  //image
+  backgroundImage = loadImage("assets/images/gardenbg.png");
+}
+
 // setup()
 //
 // Sets up a canvas
@@ -29,8 +39,8 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // Clear the background to black
-  background(0);
+  // display the interior of Versaille Garden background
+  image(backgroundImage, 0, 0, windowWidth, windowHeight); // display background
 
   // Handle input for the tiger
   tiger.handleInput();
