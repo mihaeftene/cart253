@@ -25,7 +25,20 @@ constructor(x, y, speed, radius, scale, image) { //added scale in the constructo
   // Display properties
   this.radius = this.health;
   this.scale=scale;
-  this.image = image; // display the baddies'images
+  this.image = image; // display the Dryer Gadget that will slowdown the spies
+}
+
+// If a player touches this gadget, their speed will be reduced
+slowDown(spy) {
+  let d = dist(this.x, this.y, spy.x, spy.y);
+  // check if the player and gadget overlaps
+  if (d < this.radius + spy.radius) {
+    //slow down the spy gradually
+    spy.speed = spy.speed - 0.1;
+    if (spy.speed < 0) {
+      spy.speed = 0;
+    }
+  }
 }
 
 // move
@@ -33,7 +46,17 @@ constructor(x, y, speed, radius, scale, image) { //added scale in the constructo
 // Sets velocity based on the noise() function and the Prey's speed
 // Moves based on the resulting velocity and handles wrapping
 move() {
-
+  // Set velocity via noise()
+  this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
+  this.vy = map(noise(this.ty), 0, 1, -this.speed, this.speed);
+  // Update position
+  this.x += this.vx;
+  this.y += this.vy;
+  // Update time properties
+  this.tx += 0.01;
+  this.ty += 0.01;
+  // Handle wrapping
+  this.handleWrapping();
 }
 
 // handleWrapping
@@ -41,14 +64,31 @@ move() {
 // Checks if the prey has gone off the canvas and
 // wraps it to the other side if so
 handleWrapping() {
-
+  // Off the left or right
+  if (this.x < 0) {
+    this.x += width;
+  }
+  else if (this.x > width) {
+    this.x -= width;
+  }
+  // Off the top or bottom
+  if (this.y < 0) {
+    this.y += height;
+  }
+  else if (this.y > height) {
+    this.y -= height;
+  }
 }
 
 // display
 //
-// Draw the prey as an ellipse on the canvas
-// with a radius the same size as its current health.
+// draw the gadget as a blowdryer that will slow down the player
 display() {
+  push();
+  noStroke();
+  //added scaling functionality for my image
+  image(this.image, this.x, this.y, this.image.width* this.scale , this.image.height *this.scale);
+  pop();
 }
 
 // reset
@@ -56,6 +96,8 @@ display() {
 // Set the position to a random location and reset health
 // and radius back to default
 reset() {
-
+  // Random position
+  this.x = random(0, width);
+  this.y = random(0, height);
 }
 }
