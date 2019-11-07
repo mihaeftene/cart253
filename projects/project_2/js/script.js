@@ -50,6 +50,11 @@ function preload() {
   redRoomBackground = loadImage("assets/images/backgroundRedRoom.png");
   paintingBackground = loadImage("assets/images/backgroundPainting.png");
 
+  //loading the spies characters
+  playerCloverImage = loadImage("assets/images/cloverPlayerCharacter.png");
+  playerSamImage = loadImage("assets/images/samPlayerCharacter.png");
+  playerAlexImage = loadImage("assets/images/alexPlayerCharacter.png");
+
 }
 
 // setup()
@@ -59,9 +64,9 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predators (spies)
-  playerCloverSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
-  playerSamSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
-  playerAlexSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  playerCloverSpy = new Predator(200, 200, 10, 100, playerCloverImage);
+  playerSamSpy = new Predator(300, 300, 10, 100, playerSamImage);
+  playerAlexSpy = new Predator(400, 400, 10, 100, playerAlexImage);
   //place our spies into an array
   playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
 
