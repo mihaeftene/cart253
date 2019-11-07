@@ -26,11 +26,11 @@ class Predator {
     // Display properties
     this.radius = this.health; // Radius is defined in terms of health
     this.image = image; // display the spies'images
-    // Input properties
-    this.upKey = UP_ARROW;
-    this.downKey = DOWN_ARROW;
-    this.leftKey = LEFT_ARROW;
-    this.rightKey = RIGHT_ARROW;
+    //modifying the code keys so every predator has different keys
+    this.upKey = upKey;
+    this.downKey = downKey;
+    this.leftKey = leftKey;
+    this.rightKey = rightKey;
   }
 
   // handleInput
