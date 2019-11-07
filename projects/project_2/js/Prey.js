@@ -26,7 +26,7 @@ class Prey {
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     // Display properties
     this.radius = this.health;
-    this.imageBaddies = image; // display the baddies'images
+    this.image = image; // display the baddies'images
   }
 
   // move

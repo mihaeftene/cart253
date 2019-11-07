@@ -91,9 +91,9 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predators (spies)
-  playerCloverSpy = new Predator(200, 200, 10, 100, playerCloverImage);
-  playerSamSpy = new Predator(300, 300, 10, 100, playerSamImage);
-  playerAlexSpy = new Predator(400, 400, 10, 100, playerAlexImage);
+  playerCloverSpy = new Predator(200, 200, 10, 100, 84, 70, 71, 72, playerCloverImage); //move CLOVER USING TFGH
+  playerSamSpy = new Predator(300, 300, 10, 100, 73, 76, 75, 74, playerSamImage); //move SAM using ILKJ
+  playerAlexSpy = new Predator(400, 400, 10, 100, 87, 65, 83, 68 ,playerAlexImage); //move ALEX using AWSD
   //place our spies into an array
   playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
 
@@ -135,6 +135,6 @@ function draw() {
     // Arrays for the baddie'move, display
     for (let i = 0; i < characterBaddies.length; i++){
     characterBaddies[i].move();
-    //characterBaddies[i].display();
+  //characterBaddies[i].display();
     }
   }

@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, radius, image) {
+  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, image) {
     // Position
     this.x = x;
     this.y = y;
@@ -26,7 +26,7 @@ class Predator {
     // Display properties
     this.radius = this.health; // Radius is defined in terms of health
     this.image = image; // display the spies'images
-    //modifying the code keys so every predator has different keys
+    // Input properties
     this.upKey = upKey;
     this.downKey = downKey;
     this.leftKey = leftKey;
@@ -38,27 +38,23 @@ class Predator {
   // Checks if an arrow key is pressed and sets the predator's
   // velocity appropriately.
   handleInput() {
-    // Horizontal movement
-    if (keyIsDown(this.leftKey)) {
-      this.vx = -this.speed;
-    }
-    else if (keyIsDown(this.rightKey)) {
-      this.vx = this.speed;
-    }
-    else {
-      this.vx = 0;
-    }
-    // Vertical movement
-    if (keyIsDown(this.upKey)) {
-      this.vy = -this.speed;
-    }
-    else if (keyIsDown(this.downKey)) {
-      this.vy = this.speed;
-    }
-    else {
-      this.vy = 0;
-    }
+  // Horizontal movement
+  if (keyIsDown(this.leftKey)) {
+    this.vx = -this.speed;
+  } else if (keyIsDown(this.rightKey)) {
+    this.vx = this.speed;
+  } else {
+    this.vx = 0;
   }
+  // Vertical movement
+  if (keyIsDown(this.upKey)) {
+    this.vy = -this.speed;
+  } else if (keyIsDown(this.downKey)) {
+    this.vy = this.speed;
+  } else {
+    this.vy = 0;
+  }
+}
 
   // move
   //
