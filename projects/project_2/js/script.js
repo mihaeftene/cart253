@@ -15,6 +15,9 @@ let playerCloverImage;
 let playerSamImage;
 let playerAlexImage;
 
+//to keep our code organized and clean, we will be using arrays for the spies because they have a few similarities such as display, move, handleEating, handleInput
+let playersSpies = [];
+
 // The three prey
 let antelope;
 let zebra;
@@ -59,6 +62,8 @@ function setup() {
   playerCloverSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
   playerSamSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
   playerAlexSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  //place our spies into an array
+  playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
 
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
@@ -73,39 +78,19 @@ function draw() {
     //setting the first background (outside) when game starts
     image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
 
-    // Handle input for all the spies
-    playerCloverSpy.handleInput();
-    playerSamSpy.handleInput();
-    playerAlexSpy.handleInput();
-
-    // Move all spies
-    playerCloverSpy.move();
-    playerSamSpy.move();
-    playerAlexSpy.move();
+    // Arrays for the spies's handleInput, move, display and handleEating.
+    for (let i = 0; i < playersSpies.length; i++){
+    playersSpies[i].handleInput();
+    playersSpies[i].move();
+    playersSpies[i].display();
+    playersSpies[i].handleEating(antelope);
+    playersSpies[i].handleEating(zebra);
+    playersSpies[i].handleEating(bee);
+    }
 
     antelope.move();
     zebra.move();
     bee.move();
-
-    // Handle the playerCloverSpy eating any of the prey
-    playerCloverSpy.handleEating(antelope);
-    playerCloverSpy.handleEating(zebra);
-    playerCloverSpy.handleEating(bee);
-
-    // Handle the playerSamSpy eating any of the prey
-    playerSamSpy.handleEating(antelope);
-    playerSamSpy.handleEating(zebra);
-    playerSamSpy.handleEating(bee);
-
-    // Handle the playerAlexSpy eating any of the prey
-    playerAlexSpy.handleEating(antelope);
-    playerAlexSpy.handleEating(zebra);
-    playerAlexSpy.handleEating(bee);
-
-    // Display all spies
-    playerCloverSpy.display();
-    playerSamSpy.display();
-    playerAlexSpy.display();
 
     antelope.display();
     zebra.display();
