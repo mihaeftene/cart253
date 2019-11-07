@@ -58,7 +58,7 @@ function setup() {
   //setting up our predators (spies)
   playerCloverSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
   playerSamSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
-  playerAlexImage = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  playerAlexSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
 
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
@@ -100,12 +100,12 @@ function draw() {
     // Handle the playerAlexSpy eating any of the prey
     playerAlexSpy.handleEating(antelope);
     playerAlexSpy.handleEating(zebra);
-    playerALexSpy.handleEating(bee);
+    playerAlexSpy.handleEating(bee);
 
     // Display all spies
     playerCloverSpy.display();
     playerSamSpy.display();
-    playerALexSpy.display();
+    playerAlexSpy.display();
 
     antelope.display();
     zebra.display();
