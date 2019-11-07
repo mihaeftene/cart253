@@ -122,6 +122,7 @@ function draw() {
     for (let i = 0; i < playersSpies.length; i++){
     playersSpies[i].move();
     playersSpies[i].display();
+    playersSpies[i].handleInput();
     playersSpies[i].handleEating(baddieFlowerCharacter);
     playersSpies[i].handleEating(baddieGangsterCharacter);
     playersSpies[i].handleEating(baddieExplorerCharacter);
