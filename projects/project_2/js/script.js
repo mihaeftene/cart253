@@ -13,14 +13,33 @@ let antelope;
 let zebra;
 let bee;
 
-//background variable
-let backgroundImage;
+//backgrounds variables
+let introBackground;
+let instructionsBackground;
+let gameOverBackground;
+let winningBackground;
+
+//backgrounds that changes in game variables
+let outsideBackground;
+let goldRoomBackground;
+let redRoomBackground;
+let paintingBackground;
 
 //pre-load()
 //adding a function preload to load images and sound
 function preload() {
-  //image
-  backgroundImage = loadImage("assets/images/gardenbg.png");
+  //loading all backgrounds
+  introBackground = loadImage("assets/images/backgroundIntro.png");
+  instructionsBackground = loadImage("assets/images/backgroundInstructions.png");
+  winningBackground = loadImage("assets/images/backgroundSuccess.png");
+  gameOverBackground = loadImage("assets/images/backgroundGameOver.png");
+
+  //loading all backgrounds for change scenes in gameOverBackground
+  outsideBackground = loadImage("assets/images/backgroundOutside.png");
+  goldRoomBackground = loadImage("assets/images/backgroundLivingRoom.png");
+  redRoomBackground = loadImage("assets/images/backgroundRedRoom.png");
+  paintingBackground = loadImage("assets/images/backgroundPainting.png");
+
 }
 
 // setup()
@@ -39,26 +58,27 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  // display the interior of Versaille Garden background
-  image(backgroundImage, 0, 0, windowWidth, windowHeight); // display background
 
-  // Handle input for the tiger
-  tiger.handleInput();
+    //setting the first background (outside) when game starts
+    image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
 
-  // Move all the "animals"
-  tiger.move();
-  antelope.move();
-  zebra.move();
-  bee.move();
+    // Handle input for the tiger
+    tiger.handleInput();
 
-  // Handle the tiger eating any of the prey
-  tiger.handleEating(antelope);
-  tiger.handleEating(zebra);
-  tiger.handleEating(bee);
+    // Move all the "animals"
+    tiger.move();
+    antelope.move();
+    zebra.move();
+    bee.move();
 
-  // Display all the "animals"
-  tiger.display();
-  antelope.display();
-  zebra.display();
-  bee.display();
-}
+    // Handle the tiger eating any of the prey
+    tiger.handleEating(antelope);
+    tiger.handleEating(zebra);
+    tiger.handleEating(bee);
+
+    // Display all the "animals"
+    tiger.display();
+    antelope.display();
+    zebra.display();
+    bee.display();
+  }
