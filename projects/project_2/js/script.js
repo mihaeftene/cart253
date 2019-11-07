@@ -135,6 +135,6 @@ function draw() {
     // Arrays for the baddie'move, display
     for (let i = 0; i < characterBaddies.length; i++){
     characterBaddies[i].move();
-    characterBaddies[i].display();
+    //characterBaddies[i].display();
     }
   }
