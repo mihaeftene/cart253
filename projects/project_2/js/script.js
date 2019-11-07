@@ -5,8 +5,15 @@
 // The predator chases the prey using the arrow keys and consumes them.
 // The predator loses health over time, so must keep eating to survive.
 
-// Our predator
-let tiger;
+// Player variables for our predators / spies
+let playerCloverSpy;
+let playerSamSpy;
+let playerAlexSpy;
+
+//display images of our predators/spies
+let playerCloverImage;
+let playerSamImage;
+let playerAlexImage;
 
 // The three prey
 let antelope;
@@ -48,7 +55,11 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tiger = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  //setting up our predators (spies)
+  playerCloverSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  playerSamSpy = new Predator(100, 100, 5, color(200, 200, 0), 40);
+  playerAlexImage = new Predator(100, 100, 5, color(200, 200, 0), 40);
+
   antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
   zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
   bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
@@ -62,22 +73,40 @@ function draw() {
     //setting the first background (outside) when game starts
     image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
 
-    // Handle input for the tiger
-    tiger.handleInput();
+    // Handle input for all the spies
+    playerCloverSpy.handleInput();
+    playerSamSpy.handleInput();
+    playerAlexSpy.handleInput();
 
-    // Move all the "animals"
-    tiger.move();
+    // Move all spies
+    playerCloverSpy.move();
+    playerSamSpy.move();
+    playerAlexSpy.move();
+
     antelope.move();
     zebra.move();
     bee.move();
 
-    // Handle the tiger eating any of the prey
-    tiger.handleEating(antelope);
-    tiger.handleEating(zebra);
-    tiger.handleEating(bee);
+    // Handle the playerCloverSpy eating any of the prey
+    playerCloverSpy.handleEating(antelope);
+    playerCloverSpy.handleEating(zebra);
+    playerCloverSpy.handleEating(bee);
 
-    // Display all the "animals"
-    tiger.display();
+    // Handle the playerSamSpy eating any of the prey
+    playerSamSpy.handleEating(antelope);
+    playerSamSpy.handleEating(zebra);
+    playerSamSpy.handleEating(bee);
+
+    // Handle the playerAlexSpy eating any of the prey
+    playerAlexSpy.handleEating(antelope);
+    playerAlexSpy.handleEating(zebra);
+    playerALexSpy.handleEating(bee);
+
+    // Display all spies
+    playerCloverSpy.display();
+    playerSamSpy.display();
+    playerALexSpy.display();
+
     antelope.display();
     zebra.display();
     bee.display();
