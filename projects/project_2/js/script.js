@@ -5,6 +5,7 @@
 // The predator chases the prey using the arrow keys and consumes them.
 // The predator loses health over time, so must keep eating to survive.
 
+
 // Player variables for our predators / spies
 let playerCloverSpy;
 let playerSamSpy;

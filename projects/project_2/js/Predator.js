@@ -31,6 +31,8 @@ class Predator {
     this.downKey = downKey;
     this.leftKey = leftKey;
     this.rightKey = rightKey;
+    //tracking how many baddies each spy has caught
+    this.baddiesCaught = 0;
   }
 
   // handleInput
@@ -110,6 +112,7 @@ class Predator {
       prey.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so
       if (prey.health < 0) {
+        this.baddiesCaught += 1;
         prey.reset();
       }
     }
@@ -124,6 +127,8 @@ class Predator {
     this.radius = this.health;
     image(this.image, this.x, this.y, 2 * this.radius, 2 * this.radius);
     fill(255);
+    //adding the text to show the player how many baddies he caught
+    text("You caught: " + this.baddiesCaught, this.x, this.y + this.radius + 10);
     pop();
   }
 }
