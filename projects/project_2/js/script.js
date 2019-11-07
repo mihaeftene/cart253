@@ -94,33 +94,54 @@ function setup() {
   //setting up our predators (spies)
   playerCloverSpy = new Predator(200, 200, 10, 100, 84, 70, 71, 72, playerCloverImage); //move CLOVER USING TFGH
   playerSamSpy = new Predator(300, 300, 10, 100, 73, 76, 75, 74, playerSamImage); //move SAM using ILKJ
-  playerAlexSpy = new Predator(400, 400, 10, 100, 87, 65, 83, 68 ,playerAlexImage); //move ALEX using AWSD
+  playerAlexSpy = new Predator(400, 400, 10, 100, 81, 65, 83, 68, playerAlexImage); //move ALEX using AWSD
   //place our spies into an array
   playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
 
   //setting our preys (baddies)
-  baddieFlowerCharacter = new Prey(200, 200, 10, 100, baddieFlowerImage);
-  baddieGangsterCharacter = new Prey(300, 300, 10, 100, baddieGangsterImage);
-  baddieExplorerCharacter = new Prey(400, 400, 10, 100, baddieExplorerImage);
-  baddieDollCharacter = new Prey(200, 200, 10, 100, baddieDollImage);
-  baddieClownCharacter = new Prey(300, 300, 10, 100, baddieClownImage);
-  baddieFashionistaCharacter = new Prey(400, 400, 10, 100, baddieFashionistaImage);
-  baddieRichCharacter = new Prey(200, 200, 10, 100, baddieRichImage);
-  baddiePrinceCharacter = new Prey(300, 300, 10, 100, baddiePrinceImage);
+  baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
+  baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5,  baddieGangsterImage);
+  baddieExplorerCharacter = new Prey(400, 400, 10, 100, 0.5, baddieExplorerImage);
+  baddieDollCharacter = new Prey(200, 200, 10, 100, 0.5, baddieDollImage);
+  baddieClownCharacter = new Prey(300, 300, 10, 100, 0.5, baddieClownImage);
+  baddieFashionistaCharacter = new Prey(400, 400, 10, 100, 0.5, baddieFashionistaImage);
+  baddieRichCharacter = new Prey(200, 200, 10, 100, 0.5, baddieRichImage);
+  baddiePrinceCharacter = new Prey(300, 300, 10, 100, 0.5, baddiePrinceImage);
   //place our baddies into an array
-  characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter,baddieDollCharacter,baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
+  characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
 }
 
 // draw()
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
+  //setting the first background (outside) when game starts
+  image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
 
-    //setting the first background (outside) when game starts
-    image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
+  //Display the amount of baddies caught by Clover
+  textFont("Impact");
+  textAlign(LEFT, TOP);
+  textSize(20);
+  fill(255, 20, 0);
+  text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 20);
 
-    // Arrays for the spies's handleInput, move, display and handleEating.
-    for (let i = 0; i < playersSpies.length; i++){
+  //Display the amount of baddies caught by Sam
+  textFont("Impact");
+  textAlign(RIGHT, TOP);
+  textSize(20);
+  fill(220, 220, 0);
+  text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 20);
+
+  //Display the amount of baddies caught by Alex
+  textFont("Impact");
+  textAlign(RIGHT, TOP);
+  textSize(20);
+  fill(0, 0, 255);
+  text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1375, 20);
+
+
+  // Arrays for the spies's handleInput, move, display and handleEating.
+  for (let i = 0; i < playersSpies.length; i++) {
     playersSpies[i].move();
     playersSpies[i].display();
     playersSpies[i].handleInput();
@@ -132,11 +153,11 @@ function draw() {
     playersSpies[i].handleEating(baddieFashionistaCharacter);
     playersSpies[i].handleEating(baddieRichCharacter);
     playersSpies[i].handleEating(baddiePrinceCharacter);
-    }
-
-    // Arrays for the baddie'move, display
-    for (let i = 0; i < characterBaddies.length; i++){
-    characterBaddies[i].move();
-  //characterBaddies[i].display();
-    }
   }
+
+  // Arrays for the baddie'move, display
+  for (let i = 0; i < characterBaddies.length; i++) {
+    characterBaddies[i].move();
+    characterBaddies[i].display();
+  }
+}

@@ -10,7 +10,7 @@ class Prey {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, image, radius) {
+  constructor(x, y, speed, radius, scale, image) { //added scale in the constructor to be able to modifiy the scaling each of my baddies
     // Position
     this.x = x;
     this.y = y;
@@ -26,6 +26,7 @@ class Prey {
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     // Display properties
     this.radius = this.health;
+    this.scale=scale;
     this.image = image; // display the baddies'images
   }
 
@@ -76,7 +77,8 @@ class Prey {
     push();
     noStroke();
     this.radius = this.health;
-    image(this.image, this.x, this.y, 100, 75);
+    //added scaling functionality for my image
+    image(this.image, this.x, this.y, this.image.width* this.scale , this.image.height *this.scale);
     pop();
   }
 
