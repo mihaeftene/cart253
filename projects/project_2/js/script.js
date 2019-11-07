@@ -54,6 +54,12 @@ let goldRoomBackground;
 let redRoomBackground;
 let paintingBackground;
 
+//gadgets variables
+let slowDryer;
+
+//display images for Gadgets
+let slowDryerImage;
+
 //pre-load()
 //adding a function preload to load images and sound
 function preload() {
@@ -83,6 +89,9 @@ function preload() {
   baddieFashionistaImage = loadImage("assets/images/fashionistaBadPerson.png");
   baddieRichImage = loadImage("assets/images/richBadPerson.png");
   baddiePrinceImage = loadImage("assets/images/princeBadPerson.png");
+
+  //loading images for gadgets
+  slowDryerImage = loadImage("assets/images/slowDryer.png");
 }
 
 // setup()
@@ -109,6 +118,8 @@ function setup() {
   baddiePrinceCharacter = new Prey(300, 300, 10, 100, 0.5, baddiePrinceImage);
   //place our baddies into an array
   characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
+
+  slowDryer = new DryerGadget(300, 300, 10, 100, 0.5, slowDryerImage);
 }
 
 // draw()
@@ -153,6 +164,7 @@ function draw() {
     playersSpies[i].handleEating(baddieFashionistaCharacter);
     playersSpies[i].handleEating(baddieRichCharacter);
     playersSpies[i].handleEating(baddiePrinceCharacter);
+    slowDryer.slowDown(playersSpies[i]);
   }
 
   // Arrays for the baddie'move, display
@@ -160,4 +172,7 @@ function draw() {
     characterBaddies[i].move();
     characterBaddies[i].display();
   }
+
+  slowDryer.move();
+  slowDryer.display();
 }
