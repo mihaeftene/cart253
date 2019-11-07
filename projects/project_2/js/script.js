@@ -18,10 +18,25 @@ let playerAlexImage;
 //to keep our code organized and clean, we will be using arrays for the spies because they have a few similarities such as display, move, handleEating, handleInput
 let playersSpies = [];
 
-// The three prey
-let antelope;
-let zebra;
-let bee;
+// Add our 8 baddies (preys for the cspies to catch)
+let baddieFlowerCharacter;
+let baddieGangsterCharacter;
+let baddieExplorerCharacter;
+let baddieDollCharacter;
+let baddieClownCharacter;
+let baddieFashionistaCharacter;
+let baddieRichCharacter;
+let baddiePrinceCharacter;
+
+// display images of our baddies
+let baddieFlowerImage;
+let baddieGangsterImage;
+let baddieExplorerImage;
+let baddieDollImage;
+let baddieClownImage;
+let baddieFashionistaImage;
+let baddieRichImage;
+let baddiePrinceImage;
 
 //backgrounds variables
 let introBackground;
@@ -54,7 +69,6 @@ function preload() {
   playerCloverImage = loadImage("assets/images/cloverPlayerCharacter.png");
   playerSamImage = loadImage("assets/images/samPlayerCharacter.png");
   playerAlexImage = loadImage("assets/images/alexPlayerCharacter.png");
-
 }
 
 // setup()
