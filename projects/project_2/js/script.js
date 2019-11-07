@@ -38,6 +38,9 @@ let baddieFashionistaImage;
 let baddieRichImage;
 let baddiePrinceImage;
 
+//add an Array for baddies just as we did for the spies
+let characterBaddies = [];
+
 //backgrounds variables
 let introBackground;
 let instructionsBackground;
@@ -69,6 +72,16 @@ function preload() {
   playerCloverImage = loadImage("assets/images/cloverPlayerCharacter.png");
   playerSamImage = loadImage("assets/images/samPlayerCharacter.png");
   playerAlexImage = loadImage("assets/images/alexPlayerCharacter.png");
+
+  //loading the baddies characters
+  baddieFlowerImage = loadImage("assets/images/flowerBadPerson.png");
+  baddieGangsterImage = loadImage("assets/images/gangsterBadBoy.png");
+  baddieExplorerImage = loadImage("assets/images/explorerBadPerson.png");
+  baddieDollImage = loadImage("assets/images/dollBadPerson.png");
+  baddieClownImage = loadImage("assets/images/clownBadPerson.png");
+  baddieFashionistaImage = loadImage("assets/images/fashionistaBadPerson.png");
+  baddieRichImage = loadImage("assets/images/richBadPerson.png");
+  baddiePrinceImage = loadImage("assets/images/princeBadPerson.png");
 }
 
 // setup()
@@ -84,9 +97,17 @@ function setup() {
   //place our spies into an array
   playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
 
-  antelope = new Prey(100, 100, 10, color(255, 100, 10), 50);
-  zebra = new Prey(100, 100, 8, color(255, 255, 255), 60);
-  bee = new Prey(100, 100, 20, color(255, 255, 0), 10);
+  //setting our preys (baddies)
+  baddieFlowerCharacter = new Prey(200, 200, 10, 100, baddieFlowerImage);
+  baddieGangsterCharacter = new Prey(300, 300, 10, 100, baddieGangsterImage);
+  baddieExplorerCharacter = new Prey(400, 400, 10, 100, baddieExplorerImage);
+  baddieDollCharacter = new Prey(200, 200, 10, 100, baddieDollImage);
+  baddieClownCharacter = new Prey(300, 300, 10, 100, baddieClownImage);
+  baddieFashionistaCharacter = new Prey(400, 400, 10, 100, baddieFashionistaImage);
+  baddieRichCharacter = new Prey(200, 200, 10, 100, baddieRichImage);
+  baddiePrinceCharacter = new Prey(300, 300, 10, 100, baddiePrinceImage);
+  //place our baddies into an array
+  characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter,baddieDollCharacter,baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
 }
 
 // draw()
@@ -99,19 +120,21 @@ function draw() {
 
     // Arrays for the spies's handleInput, move, display and handleEating.
     for (let i = 0; i < playersSpies.length; i++){
-    playersSpies[i].handleInput();
     playersSpies[i].move();
     playersSpies[i].display();
-    playersSpies[i].handleEating(antelope);
-    playersSpies[i].handleEating(zebra);
-    playersSpies[i].handleEating(bee);
+    playersSpies[i].handleEating(baddieFlowerCharacter);
+    playersSpies[i].handleEating(baddieGangsterCharacter);
+    playersSpies[i].handleEating(baddieExplorerCharacter);
+    playersSpies[i].handleEating(baddieDollCharacter);
+    playersSpies[i].handleEating(baddieClownCharacter);
+    playersSpies[i].handleEating(baddieFashionistaCharacter);
+    playersSpies[i].handleEating(baddieRichCharacter);
+    playersSpies[i].handleEating(baddiePrinceCharacter);
     }
 
-    antelope.move();
-    zebra.move();
-    bee.move();
-
-    antelope.display();
-    zebra.display();
-    bee.display();
+    // Arrays for the baddie'move, display
+    for (let i = 0; i < characterBaddies.length; i++){
+    characterBaddies[i].move();
+    characterBaddies[i].display();
+    }
   }
