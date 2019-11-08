@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, image) {
+  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, image, alpha) {
     // Position
     this.x = x;
     this.y = y;
@@ -26,6 +26,8 @@ class Predator {
     // Display properties
     this.radius = this.health; // Radius is defined in terms of health
     this.image = image; // display the spies'images
+    //Adding the tint of the Image
+    this.alpha = 255; //
     // Input properties
     this.upKey = upKey;
     this.downKey = downKey;
@@ -33,7 +35,6 @@ class Predator {
     this.rightKey = rightKey;
     //tracking how many baddies each spy has caught
     this.baddiesCaught = 0;
-    this.slowTimer;
   }
 
   // handleInput
@@ -132,6 +133,7 @@ class Predator {
   display() {
     push();
     this.radius = this.health;
+    tint(255, this.alpha); //adding the fading/ invisible
     image(this.image, this.x, this.y, 2 * this.radius, 2 * this.radius);
     fill(255);
     //adding the text to show the player how many baddies he caught

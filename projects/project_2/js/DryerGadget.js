@@ -98,9 +98,5 @@ class DryerGadget {
     // Random position
     this.x = random(0, width);
     this.y = random(0, height);
-    // Default health
-    this.health = this.maxHealth;
-    // Default radius
-    this.radius = this.health;
   }
 }

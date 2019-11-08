@@ -120,9 +120,9 @@ function setup() {
   baddiePrinceCharacter = new Prey(300, 300, 10, 100, 0.5, baddiePrinceImage);
   //place our baddies into an array
   characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
-  //set the dryer gadget
+  //set all the gadgets
+  hiddenGoggles = new HiddenGoggles(300, 300, 10, 100, hiddenGogglesImage);
   slowDryer = new DryerGadget(300, 300, 10, 100, 0.7, slowDryerImage);
-  hiddenGoggles = new HiddenGoggles(300, 300, 10, 100, 0.7, hiddenGogglesImage);
 }
 
 // draw()
@@ -158,6 +158,8 @@ function draw() {
     playersSpies[i].move();
     playersSpies[i].display();
     playersSpies[i].handleInput();
+    slowDryer.slowDown(playersSpies[i]);
+    hiddenGoggles.hiddenNow(playersSpies[i]);
     playersSpies[i].handleEating(baddieFlowerCharacter);
     playersSpies[i].handleEating(baddieGangsterCharacter);
     playersSpies[i].handleEating(baddieExplorerCharacter);
@@ -166,8 +168,6 @@ function draw() {
     playersSpies[i].handleEating(baddieFashionistaCharacter);
     playersSpies[i].handleEating(baddieRichCharacter);
     playersSpies[i].handleEating(baddiePrinceCharacter);
-    slowDryer.slowDown(playersSpies[i]);
-    hiddenGoggles.hiddenNow(playersSpies[i]);
   }
     //display and move the first class
     slowDryer.move();
