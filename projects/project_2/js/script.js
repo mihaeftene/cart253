@@ -103,7 +103,7 @@ function setup() {
   //setting up our predators (spies)
   playerCloverSpy = new Predator(200, 200, 10, 100, 84, 70, 71, 72, playerCloverImage); //move CLOVER USING TFGH
   playerSamSpy = new Predator(300, 300, 10, 100, 73, 76, 75, 74, playerSamImage); //move SAM using ILKJ
-  playerAlexSpy = new Predator(400, 400, 10, 100, 81, 65, 83, 68, playerAlexImage); //move ALEX using AWSD
+  playerAlexSpy = new Predator(400, 400, 10, 100, 87, 83, 65, 68, playerAlexImage); //move ALEX using AWSD
   //place our spies into an array
   playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
 
@@ -118,8 +118,8 @@ function setup() {
   baddiePrinceCharacter = new Prey(300, 300, 10, 100, 0.5, baddiePrinceImage);
   //place our baddies into an array
   characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
-
-  slowDryer = new DryerGadget(300, 300, 10, 100, 0.5, slowDryerImage);
+  //set the dryer gadget
+  slowDryer = new DryerGadget(300, 300, 10, 100, 0.7, slowDryerImage);
 }
 
 // draw()
@@ -150,7 +150,6 @@ function draw() {
   fill(0, 0, 255);
   text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1375, 20);
 
-
   // Arrays for the spies's handleInput, move, display and handleEating.
   for (let i = 0; i < playersSpies.length; i++) {
     playersSpies[i].move();
@@ -166,13 +165,11 @@ function draw() {
     playersSpies[i].handleEating(baddiePrinceCharacter);
     slowDryer.slowDown(playersSpies[i]);
   }
-
+    slowDryer.move();
+    slowDryer.display();
   // Arrays for the baddie'move, display
   for (let i = 0; i < characterBaddies.length; i++) {
     characterBaddies[i].move();
     characterBaddies[i].display();
   }
-
-  slowDryer.move();
-  slowDryer.display();
 }

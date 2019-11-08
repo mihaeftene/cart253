@@ -33,6 +33,7 @@ class Predator {
     this.rightKey = rightKey;
     //tracking how many baddies each spy has caught
     this.baddiesCaught = 0;
+    this.slowTimer;
   }
 
   // handleInput
@@ -72,6 +73,12 @@ class Predator {
     this.health = constrain(this.health, 0, this.maxHealth);
     // Handle wrapping
     this.handleWrapping();
+    if (this.slowTimer != 0 ){
+      if (millis() - this.slowTimer >= 2000) {
+        this.speed = 10;
+        this.slowTimer = 0;
+      }
+    }
   }
 
   // handleWrapping
