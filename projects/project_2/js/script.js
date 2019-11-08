@@ -5,6 +5,8 @@
 // The predator chases the prey using the arrow keys and consumes them.
 // The predator loses health over time, so must keep eating to survive.
 
+// Declare state
+let state = "Start";
 
 // Player variables for our predators / spies
 let playerCloverSpy;
@@ -109,7 +111,7 @@ function setup() {
 
   //setting our preys (baddies)
   baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
-  baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5,  baddieGangsterImage);
+  baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5, baddieGangsterImage);
   baddieExplorerCharacter = new Prey(400, 400, 10, 100, 0.5, baddieExplorerImage);
   baddieDollCharacter = new Prey(200, 200, 10, 100, 0.5, baddieDollImage);
   baddieClownCharacter = new Prey(300, 300, 10, 100, 0.5, baddieClownImage);
@@ -126,50 +128,65 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  //setting the first background (outside) when game starts
-  image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
+  //start intro
+  if (state === "Start") {
+    //setting the first background (outside) when game starts
+    image(introBackground, 0, 0, windowWidth, windowHeight); // display background
+  } else if (state === "Play") {
+    //Display the amount of baddies caught by Clover
+    textFont("Impact");
+    textAlign(LEFT, TOP);
+    textSize(20);
+    fill(255, 20, 0);
+    text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 20);
 
-  //Display the amount of baddies caught by Clover
-  textFont("Impact");
-  textAlign(LEFT, TOP);
-  textSize(20);
-  fill(255, 20, 0);
-  text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 20);
+    //Display the amount of baddies caught by Sam
+    textFont("Impact");
+    textAlign(RIGHT, TOP);
+    textSize(20);
+    fill(220, 220, 0);
+    text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 20);
 
-  //Display the amount of baddies caught by Sam
-  textFont("Impact");
-  textAlign(RIGHT, TOP);
-  textSize(20);
-  fill(220, 220, 0);
-  text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 20);
+    //Display the amount of baddies caught by Alex
+    textFont("Impact");
+    textAlign(RIGHT, TOP);
+    textSize(20);
+    fill(0, 0, 255);
+    text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1375, 20);
 
-  //Display the amount of baddies caught by Alex
-  textFont("Impact");
-  textAlign(RIGHT, TOP);
-  textSize(20);
-  fill(0, 0, 255);
-  text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1375, 20);
-
-  // Arrays for the spies's handleInput, move, display and handleEating.
-  for (let i = 0; i < playersSpies.length; i++) {
-    playersSpies[i].move();
-    playersSpies[i].display();
-    playersSpies[i].handleInput();
-    playersSpies[i].handleEating(baddieFlowerCharacter);
-    playersSpies[i].handleEating(baddieGangsterCharacter);
-    playersSpies[i].handleEating(baddieExplorerCharacter);
-    playersSpies[i].handleEating(baddieDollCharacter);
-    playersSpies[i].handleEating(baddieClownCharacter);
-    playersSpies[i].handleEating(baddieFashionistaCharacter);
-    playersSpies[i].handleEating(baddieRichCharacter);
-    playersSpies[i].handleEating(baddiePrinceCharacter);
-    slowDryer.slowDown(playersSpies[i]);
-  }
+    // Arrays for the spies's handleInput, move, display and handleEating.
+    for (let i = 0; i < playersSpies.length; i++) {
+      playersSpies[i].move();
+      playersSpies[i].display();
+      playersSpies[i].handleInput();
+      playersSpies[i].handleEating(baddieFlowerCharacter);
+      playersSpies[i].handleEating(baddieGangsterCharacter);
+      playersSpies[i].handleEating(baddieExplorerCharacter);
+      playersSpies[i].handleEating(baddieDollCharacter);
+      playersSpies[i].handleEating(baddieClownCharacter);
+      playersSpies[i].handleEating(baddieFashionistaCharacter);
+      playersSpies[i].handleEating(baddieRichCharacter);
+      playersSpies[i].handleEating(baddiePrinceCharacter);
+      slowDryer.slowDown(playersSpies[i]);
+    }
     slowDryer.move();
     slowDryer.display();
-  // Arrays for the baddie'move, display
-  for (let i = 0; i < characterBaddies.length; i++) {
-    characterBaddies[i].move();
-    characterBaddies[i].display();
+    // Arrays for the baddie'move, display
+    for (let i = 0; i < characterBaddies.length; i++) {
+      characterBaddies[i].move();
+      characterBaddies[i].display();
+    }
+  } else if (state === "winning") { //if the player won show the background
+    showWinning();
+  } else if (state === "gameOver") { //if the player lost show the background
+    showGameOver();
+  }
+}
+//mousePressed()
+// Create an action to that allows the music to be played once the user presses.
+function mousePressed() {
+  if (state === "Start") {
+    state = "Play";
+    setupSound();
   }
 }

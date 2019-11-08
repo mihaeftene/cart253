@@ -34,9 +34,8 @@ class DryerGadget {
     let d = dist(this.x, this.y, spy.x, spy.y);
     // Check if the gadget and spy overlaps
     if (d < this.radius + spy.radius) {
-      spy.speed = spy.speed - 0.1; // Makes the Pokeball gradually slow down
+      spy.speed = spy.speed - 0.1; // Makes the spies slow down
       if (spy.speed < 0) {
-        console.log(spy.speed);
         spy.speed = 0;
       }
     }
