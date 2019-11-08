@@ -5,7 +5,8 @@
 // The predator chases the prey using the arrow keys and consumes them.
 // The predator loses health over time, so must keep eating to survive.
 
-
+//check is game is playing
+let gameStart = false;
 // Player variables for our predators / spies
 let playerCloverSpy;
 let playerSamSpy;
@@ -111,7 +112,7 @@ function setup() {
 
   //setting our preys (baddies)
   baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
-  baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5,  baddieGangsterImage);
+  baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5, baddieGangsterImage);
   baddieExplorerCharacter = new Prey(400, 400, 10, 100, 0.5, baddieExplorerImage);
   baddieDollCharacter = new Prey(200, 200, 10, 100, 0.5, baddieDollImage);
   baddieClownCharacter = new Prey(300, 300, 10, 100, 0.5, baddieClownImage);
@@ -129,55 +130,74 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  //setting the first background (outside) when game starts
-  image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
-
-  //Display the amount of baddies caught by Clover
-  textFont("Impact");
-  textAlign(LEFT, TOP);
-  textSize(20);
-  fill(255, 20, 0);
-  text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 20);
-
-  //Display the amount of baddies caught by Sam
-  textFont("Impact");
-  textAlign(RIGHT, TOP);
-  textSize(20);
-  fill(220, 220, 0);
-  text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 20);
-
-  //Display the amount of baddies caught by Alex
-  textFont("Impact");
-  textAlign(RIGHT, TOP);
-  textSize(20);
-  fill(0, 0, 255);
-  text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1375, 20);
-
-  // Arrays for the spies's handleInput, move, display and handleEating.
-  for (let i = 0; i < playersSpies.length; i++) {
-    playersSpies[i].move();
-    playersSpies[i].display();
-    playersSpies[i].handleInput();
-    slowDryer.slowDown(playersSpies[i]);
-    hiddenGoggles.hiddenNow(playersSpies[i]);
-    playersSpies[i].handleEating(baddieFlowerCharacter);
-    playersSpies[i].handleEating(baddieGangsterCharacter);
-    playersSpies[i].handleEating(baddieExplorerCharacter);
-    playersSpies[i].handleEating(baddieDollCharacter);
-    playersSpies[i].handleEating(baddieClownCharacter);
-    playersSpies[i].handleEating(baddieFashionistaCharacter);
-    playersSpies[i].handleEating(baddieRichCharacter);
-    playersSpies[i].handleEating(baddiePrinceCharacter);
+  if (gameStart === false) {
+    introScreen();
   }
+  //setting the first background (outside) when game starts
+  else {
+    //setting the first background (outside) when game starts
+    image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
+
+    //Display the amount of baddies caught by Clover
+    textFont("Impact");
+    textAlign(LEFT, TOP);
+    textSize(20);
+    fill(255, 20, 0);
+    text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 20);
+
+    //Display the amount of baddies caught by Sam
+    textFont("Impact");
+    textAlign(RIGHT, TOP);
+    textSize(20);
+    fill(220, 220, 0);
+    text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 20);
+
+    //Display the amount of baddies caught by Alex
+    textFont("Impact");
+    textAlign(RIGHT, TOP);
+    textSize(20);
+    fill(0, 0, 255);
+    text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1375, 20);
+
+    // Arrays for the spies's handleInput, move, display and handleEating.
+    for (let i = 0; i < playersSpies.length; i++) {
+      playersSpies[i].move();
+      playersSpies[i].display();
+      playersSpies[i].handleInput();
+      slowDryer.slowDown(playersSpies[i]);
+      hiddenGoggles.hiddenNow(playersSpies[i]);
+      playersSpies[i].handleEating(baddieFlowerCharacter);
+      playersSpies[i].handleEating(baddieGangsterCharacter);
+      playersSpies[i].handleEating(baddieExplorerCharacter);
+      playersSpies[i].handleEating(baddieDollCharacter);
+      playersSpies[i].handleEating(baddieClownCharacter);
+      playersSpies[i].handleEating(baddieFashionistaCharacter);
+      playersSpies[i].handleEating(baddieRichCharacter);
+      playersSpies[i].handleEating(baddiePrinceCharacter);
+    }
     //display and move the first class
     slowDryer.move();
     slowDryer.display();
     //display and move the second class
     hiddenGoggles.move();
     hiddenGoggles.display();
-  // Arrays for the baddie'move, display
-  for (let i = 0; i < characterBaddies.length; i++) {
-    characterBaddies[i].move();
-    characterBaddies[i].display();
+    // Arrays for the baddie'move, display
+    for (let i = 0; i < characterBaddies.length; i++) {
+      characterBaddies[i].move();
+      characterBaddies[i].display();
+    }
   }
 }
+// introScreen()
+//setting the intro screen function - to have our intro page
+  function introScreen(){
+    image(introBackground, 0, 0, windowWidth, windowHeight); // display background
+  }
+  // mousePressed()
+  //
+  // start the game with a mouse press
+  function mousePressed() {
+    if (gameStart === false) {
+      gameStart = true;
+    }
+  }
