@@ -37,6 +37,8 @@ class Predator {
     this.baddiesCaught = 0;
     //setting the if dead case
     this.spyGone = false;
+    //setting the if win scene (I seriously am not sure why its not displaying but its an initiave at least)
+    this.spyWin = false;
   }
 
   // handleInput
@@ -129,6 +131,14 @@ class Predator {
     }
   }
 
+  //setting another scene ending - in this case it would be a happy ending.
+  checkIfSceneSwitch(){
+    if (this.baddiesCaught > 1){
+      console.log("itstrue")
+      this.spyWin = true;
+    }
+  }
+
   // display
   //
   // draw the images of the spies
@@ -152,6 +162,7 @@ class Predator {
     this.x = random(0, windowWidth);
     this.y = random(0, windowHeight);
     this.spyGone = false;
+    this.spyWin = false;
     this.baddiesCaught = 0;
     this.alpha = 255; //fadding and invisbility being reseted
   }

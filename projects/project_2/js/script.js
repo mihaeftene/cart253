@@ -8,6 +8,7 @@
 //check is game is playing
 let gameStart = false;
 let showGameOver = false;
+let showGameWin = false;
 // Player variables for our predators / spies
 let playerCloverSpy;
 let playerSamSpy;
@@ -79,11 +80,8 @@ let itemCaughtSound;
 function preload() {
   //loading all backgrounds
   introBackground = loadImage("assets/images/backgroundIntro.png");
-  instructionsBackground = loadImage("assets/images/backgroundInstructions.png");
   winningBackground = loadImage("assets/images/backgroundSuccess.png");
   gameOverBackground = loadImage("assets/images/backgroundGameOver.png");
-
-  //loading all backgrounds for change scenes
   paintingBackground = loadImage("assets/images/backgroundPainting.png");
 
   //loading the spies characters
@@ -150,7 +148,10 @@ function setup() {
 function draw() {
   if (showGameOver === true) {
     image(gameOverBackground, 0, 0, windowWidth, windowHeight);
-  } else if (gameStart === false) {
+  } else if (showGameWin === true){
+    image(winningBackground, 0, 0, windowWidth, windowHeight);
+  }
+  else if (gameStart === false) {
     introScreen();
   }
   //setting the first background (outside) when game starts
@@ -159,6 +160,7 @@ function draw() {
     image(paintingBackground, 0, 0, windowWidth, windowHeight); // display background
     //check gameOver (if its game over or not)
     checkGameOver();
+    checkIfWon();
 
     //Display the amount of baddies caught by Clover (Red)
     textFont("Impact");
@@ -184,17 +186,18 @@ function draw() {
     // Arrays for the spies's handleInput, move, display and handleEating.
     for (let i = 0; i < playersSpies.length; i++) {
       playersSpies[i].checkIfAlive();
+      playersSpies[i].checkIfSceneSwitch();
       playersSpies[i].move();
       playersSpies[i].display();
       playersSpies[i].handleInput();
       //redoStick.visibleNow(playersSpies[i]);
-      boostSkateboard.backSpeed(playersSpies[i]);
-      slowDryer.slowDown(playersSpies[i]);
+      //boostSkateboard.backSpeed(playersSpies[i]);
+      //slowDryer.slowDown(playersSpies[i]);
       //hiddenGoggles.hiddenNow(playersSpies[i]);
-      //playersSpies[i].handleEating(baddieFlowerCharacter);
-      //playersSpies[i].handleEating(baddieGangsterCharacter);
-      //playersSpies[i].handleEating(baddieExplorerCharacter);
-      //playersSpies[i].handleEating(baddieDollCharacter);
+      playersSpies[i].handleEating(baddieFlowerCharacter);
+      playersSpies[i].handleEating(baddieGangsterCharacter);
+      playersSpies[i].handleEating(baddieExplorerCharacter);
+      playersSpies[i].handleEating(baddieDollCharacter);
       //playersSpies[i].handleEating(baddieClownCharacter);
       //  playersSpies[i].handleEating(baddieFashionistaCharacter);
       //    playersSpies[i].handleEating(baddieRichCharacter);
@@ -253,6 +256,14 @@ function checkGameOver() {
     loseMusic.play();
   }
 }
+//checkIfWon()
+//checking if its a win for the spies. It does not works for some reasons but I just wanted to show my initiative for this part. What am I missing?
+function checkIfWon(){
+  if (playerAlexSpy.spyWin && playerCloverSpy.spyWin && playerSamSpy.spyWin){
+    checkIfWon = true;
+  }
+}
+
 //reset the game including its elements
 function resetGame() {
   playerCloverSpy.reset();
@@ -277,4 +288,5 @@ function resetGame() {
   //stops the lose music
   loseMusic.stop();
   showGameOver = false;
+  showGameWin = false;
 }
