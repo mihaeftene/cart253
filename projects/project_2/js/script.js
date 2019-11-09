@@ -51,9 +51,6 @@ let gameOverBackground;
 let winningBackground;
 
 //backgrounds that changes in game variables
-let outsideBackground;
-let goldRoomBackground;
-let redRoomBackground;
 let paintingBackground;
 
 //gadgets variables
@@ -86,10 +83,7 @@ function preload() {
   winningBackground = loadImage("assets/images/backgroundSuccess.png");
   gameOverBackground = loadImage("assets/images/backgroundGameOver.png");
 
-  //loading all backgrounds for change scenes in gameOverBackground
-  outsideBackground = loadImage("assets/images/backgroundOutside.png");
-  goldRoomBackground = loadImage("assets/images/backgroundLivingRoom.png");
-  redRoomBackground = loadImage("assets/images/backgroundRedRoom.png");
+  //loading all backgrounds for change scenes
   paintingBackground = loadImage("assets/images/backgroundPainting.png");
 
   //loading the spies characters
@@ -161,8 +155,8 @@ function draw() {
   }
   //setting the first background (outside) when game starts
   else {
-    //setting the first background (outside) when game starts
-    image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
+    //setting the background of the WOOHP painting
+    image(paintingBackground, 0, 0, windowWidth, windowHeight); // display background
     //check gameOver (if its game over or not)
     checkGameOver();
 
