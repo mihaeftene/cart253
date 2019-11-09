@@ -35,6 +35,8 @@ class Predator {
     this.rightKey = rightKey;
     //tracking how many baddies each spy has caught
     this.baddiesCaught = 0;
+    //setting the if dead case
+    this.spyGone = false;
   }
 
   // handleInput
@@ -42,23 +44,23 @@ class Predator {
   // Checks if an arrow key is pressed and sets the predator's
   // velocity appropriately.
   handleInput() {
-  // Horizontal movement
-  if (keyIsDown(this.leftKey)) {
-    this.vx = -this.speed;
-  } else if (keyIsDown(this.rightKey)) {
-    this.vx = this.speed;
-  } else {
-    this.vx = 0;
+    // Horizontal movement
+    if (keyIsDown(this.leftKey)) {
+      this.vx = -this.speed;
+    } else if (keyIsDown(this.rightKey)) {
+      this.vx = this.speed;
+    } else {
+      this.vx = 0;
+    }
+    // Vertical movement
+    if (keyIsDown(this.upKey)) {
+      this.vy = -this.speed;
+    } else if (keyIsDown(this.downKey)) {
+      this.vy = this.speed;
+    } else {
+      this.vy = 0;
+    }
   }
-  // Vertical movement
-  if (keyIsDown(this.upKey)) {
-    this.vy = -this.speed;
-  } else if (keyIsDown(this.downKey)) {
-    this.vy = this.speed;
-  } else {
-    this.vy = 0;
-  }
-}
 
   // move
   //
@@ -74,12 +76,6 @@ class Predator {
     this.health = constrain(this.health, 0, this.maxHealth);
     // Handle wrapping
     this.handleWrapping();
-    if (this.slowTimer != 0 ){
-      if (millis() - this.slowTimer >= 2000) {
-        this.speed = 10;
-        this.slowTimer = 0;
-      }
-    }
   }
 
   // handleWrapping
@@ -90,15 +86,13 @@ class Predator {
     // Off the left or right
     if (this.x < 0) {
       this.x += width;
-    }
-    else if (this.x > width) {
+    } else if (this.x > width) {
       this.x -= width;
     }
     // Off the top or bottom
     if (this.y < 0) {
       this.y += height;
-    }
-    else if (this.y > height) {
+    } else if (this.y > height) {
       this.y -= height;
     }
   }
@@ -126,6 +120,13 @@ class Predator {
     }
   }
 
+  // check the state is alive
+  checkIfAlive() {
+    if (this.health < 0.1 && this.health > 0) { //check if its alive or not
+      this.spyGone = true;
+    }
+  }
+
   // display
   //
   // draw the images of the spies
@@ -139,5 +140,17 @@ class Predator {
     //adding the text to show the player how many baddies he caught
     text("You caught: " + this.baddiesCaught, this.x, this.y + this.radius + 10);
     pop();
+  }
+  // reset()
+  //
+  // Reset positions, locations and values of Pokeballs (predators)
+  reset() {
+    this.radius = 200; //size of spies 
+    this.health = this.radius;
+    this.x = random(0, windowWidth);
+    this.y = random(0, windowHeight);
+    this.spyGone = false;
+    this.baddiesCaught = 0;
+    this.alpha = 255; //fadding and invisbility being reseted
   }
 }

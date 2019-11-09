@@ -7,6 +7,7 @@
 
 //check is game is playing
 let gameStart = false;
+let showGameOver = false;
 // Player variables for our predators / spies
 let playerCloverSpy;
 let playerSamSpy;
@@ -130,13 +131,17 @@ function setup() {
 //
 // Handles input, movement, eating, and displaying for the system's objects
 function draw() {
-  if (gameStart === false) {
+  if (showGameOver === true) {
+    image(gameOverBackground, 0, 0, windowWidth, windowHeight);
+  } else if (gameStart === false) {
     introScreen();
   }
   //setting the first background (outside) when game starts
   else {
     //setting the first background (outside) when game starts
     image(outsideBackground, 0, 0, windowWidth, windowHeight); // display background
+    //check gameOver (if its game over or not)
+    checkGameOver();
 
     //Display the amount of baddies caught by Clover
     textFont("Impact");
@@ -161,19 +166,20 @@ function draw() {
 
     // Arrays for the spies's handleInput, move, display and handleEating.
     for (let i = 0; i < playersSpies.length; i++) {
+      playersSpies[i].checkIfAlive();
       playersSpies[i].move();
       playersSpies[i].display();
       playersSpies[i].handleInput();
-      slowDryer.slowDown(playersSpies[i]);
-      hiddenGoggles.hiddenNow(playersSpies[i]);
-      playersSpies[i].handleEating(baddieFlowerCharacter);
-      playersSpies[i].handleEating(baddieGangsterCharacter);
-      playersSpies[i].handleEating(baddieExplorerCharacter);
-      playersSpies[i].handleEating(baddieDollCharacter);
-      playersSpies[i].handleEating(baddieClownCharacter);
-      playersSpies[i].handleEating(baddieFashionistaCharacter);
-      playersSpies[i].handleEating(baddieRichCharacter);
-      playersSpies[i].handleEating(baddiePrinceCharacter);
+      //    slowDryer.slowDown(playersSpies[i]);
+      //    hiddenGoggles.hiddenNow(playersSpies[i]);
+      //playersSpies[i].handleEating(baddieFlowerCharacter);
+      //  playersSpies[i].handleEating(baddieGangsterCharacter);
+      //  playersSpies[i].handleEating(baddieExplorerCharacter);
+      //  playersSpies[i].handleEating(baddieDollCharacter);
+      //  playersSpies[i].handleEating(baddieClownCharacter);
+      //  playersSpies[i].handleEating(baddieFashionistaCharacter);
+      //    playersSpies[i].handleEating(baddieRichCharacter);
+      //  playersSpies[i].handleEating(baddiePrinceCharacter);
     }
     //display and move the first class
     slowDryer.move();
@@ -188,16 +194,44 @@ function draw() {
     }
   }
 }
+
 // introScreen()
 //setting the intro screen function - to have our intro page
-  function introScreen(){
-    image(introBackground, 0, 0, windowWidth, windowHeight); // display background
+function introScreen() {
+  image(introBackground, 0, 0, windowWidth, windowHeight); // display background
+}
+
+// mousePressed()
+//
+// start the game with a mouse press
+function mousePressed() {
+  if (showGameOver) { //if its game over reset the game
+    resetGame();
+  } else if (gameStart === false) {
+    gameStart = true;
   }
-  // mousePressed()
-  //
-  // start the game with a mouse press
-  function mousePressed() {
-    if (gameStart === false) {
-      gameStart = true;
-    }
+}
+
+//checkGameOver()
+//checking if its game over. Once the spies are gone its game over
+function checkGameOver() {
+  if (playerAlexSpy.spyGone && playerCloverSpy.spyGone && playerSamSpy.spyGone) {
+    showGameOver = true;
+    console.log("game over")
   }
+}
+//reset the game
+function resetGame() {
+  playerCloverSpy.reset();
+  playerSamSpy.reset();
+  playerAlexSpy.reset();
+  baddieFlowerCharacter.reset();
+  baddieGangsterCharacter.reset();
+  baddieExplorerCharacter.reset();
+  baddieDollCharacter.reset();
+  baddieClownCharacter.reset();
+  baddieFashionistaCharacter.reset();
+  baddieRichCharacter.reset();
+  baddiePrinceCharacter.reset();
+  showGameOver = false;
+}
