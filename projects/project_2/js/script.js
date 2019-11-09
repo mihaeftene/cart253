@@ -60,10 +60,12 @@ let paintingBackground;
 let slowDryer;
 let hiddenGoggles;
 let redoStick;
+let boostSkateboard;
 //display images for Gadgets
 let slowDryerImage;
 let hiddenGogglesImage;
 let redoStickImage;
+let boostSkateboardImage;
 
 //Sound variables
 //main music
@@ -109,6 +111,7 @@ function preload() {
   slowDryerImage = loadImage("assets/images/slowDryer.png");
   hiddenGogglesImage = loadImage("assets/images/hiddenGoggles.png");
   redoStickImage = loadImage("assets/images/redoLip.png");
+  boostSkateboardImage = loadImage("assets/images/boostSkateboard.png");
 
   //loading Music
   mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
@@ -141,9 +144,10 @@ function setup() {
   //place our baddies into an array
   characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
   //set all the gadgets
-  hiddenGoggles = new HiddenGoggles(300, 300, 10, 100, 0.7, hiddenGogglesImage); // the o.7 sets the scale that we added in the constructor
-  slowDryer = new DryerGadget(300, 300, 10, 100, 0.7, slowDryerImage); // the o.7 sets the scale that we added in the constructor
-  redoStick = new StickRedo(300, 300, 10, 100, 0.5, redoStickImage); // the o.5 sets the scale that we added in the constructor
+  hiddenGoggles = new HiddenGoggles(300, 300, 10, 100, 0.7, hiddenGogglesImage); // the 0.7 sets the scale that we added in the constructor
+  slowDryer = new DryerGadget(300, 300, 10, 100, 0.7, slowDryerImage); // the 0.7 sets the scale that we added in the constructor
+  redoStick = new StickRedo(300, 300, 10, 100, 0.5, redoStickImage); // the 0.5 sets the scale that we added in the constructor
+  boostSkateboard = new BoostSkateboard(300, 300, 10, 100, 0.7, boostSkateboardImage); // the 0.7 sets the scale that we added in the constructor
 }
 
 // draw()
@@ -189,8 +193,9 @@ function draw() {
       playersSpies[i].move();
       playersSpies[i].display();
       playersSpies[i].handleInput();
-      redoStick.visibleNow(playersSpies[i]);
-      //    slowDryer.slowDown(playersSpies[i]);
+      //redoStick.visibleNow(playersSpies[i]);
+      boostSkateboard.backSpeed(playersSpies[i]);
+      slowDryer.slowDown(playersSpies[i]);
       //hiddenGoggles.hiddenNow(playersSpies[i]);
       //playersSpies[i].handleEating(baddieFlowerCharacter);
       //playersSpies[i].handleEating(baddieGangsterCharacter);
@@ -210,6 +215,11 @@ function draw() {
     //display and move third class
     redoStick.move();
     redoStick.display();
+
+    //display and move fourth class
+    boostSkateboard.move();
+    boostSkateboard.display();
+
     // Arrays for the baddie'move, display
     for (let i = 0; i < characterBaddies.length; i++) {
       characterBaddies[i].move();
@@ -265,6 +275,7 @@ function resetGame() {
   slowDryer.reset();
   hiddenGoggles.reset();
   redoStick.reset();
+  boostSkateboard.reset();
   //has the click sounds
   clickButton.play();
   //loops the music once again
