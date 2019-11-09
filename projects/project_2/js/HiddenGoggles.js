@@ -10,7 +10,7 @@ class HiddenGoggles {
   //
   // Sets the initial values for the Goggles properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, radius, image) {
+  constructor(x, y, speed, radius, scale, image) { //added scale in the constructor to be able to modifiy the scaling each of my gadgets
     // Position
     this.x = random(0, windowWidth);
     this.y = random(0, windowWidth);
@@ -23,6 +23,7 @@ class HiddenGoggles {
     this.ty = random(0, 500); // we use random starting values
     // Display properties
     this.radius = radius;
+    this.scale = scale;
     this.image = image; // To display the googles image (its one of the gadgets)
   }
 

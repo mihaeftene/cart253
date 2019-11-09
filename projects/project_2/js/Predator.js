@@ -115,7 +115,9 @@ class Predator {
       // Check if the prey died and reset it if so
       if (prey.health < 0) {
         this.baddiesCaught += 1;
+        itemCaughtSound.play();
         prey.reset();
+        console.log("make noise");
       }
     }
   }
@@ -145,7 +147,7 @@ class Predator {
   //
   // Reset positions, locations and values of Pokeballs (predators)
   reset() {
-    this.radius = 200; //size of spies 
+    this.radius = 200; //size of spies
     this.health = this.radius;
     this.x = random(0, windowWidth);
     this.y = random(0, windowHeight);

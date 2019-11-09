@@ -59,9 +59,21 @@ let paintingBackground;
 //gadgets variables
 let slowDryer;
 let hiddenGoggles;
+let redoStick;
 //display images for Gadgets
 let slowDryerImage;
 let hiddenGogglesImage;
+let redoStickImage;
+
+//Sound variables
+//main music
+let mainMusic;
+//lose music
+let loseMusic;
+//if button pressed it will make that sound
+let clickButton;
+//when an item has been caught (baddies or gadget)
+let itemCaughtSound;
 
 //pre-load()
 //adding a function preload to load images and sound
@@ -96,6 +108,13 @@ function preload() {
   //loading images for gadgets
   slowDryerImage = loadImage("assets/images/slowDryer.png");
   hiddenGogglesImage = loadImage("assets/images/hiddenGoggles.png");
+  redoStickImage = loadImage("assets/images/redoLip.png");
+
+  //loading Music
+  mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
+  loseMusic = loadSound('./assets/sounds/tsCompLose.wav'); //lose background sound
+  clickButton = loadSound('./assets/sounds/nextClick.wav'); //triggers the clicking sound
+  itemCaughtSound = loadSound('./assets/sounds/gotYouItem.wav');
 }
 
 // setup()
@@ -110,7 +129,6 @@ function setup() {
   playerAlexSpy = new Predator(400, 400, 10, 100, 87, 83, 65, 68, playerAlexImage); //move ALEX using AWSD
   //place our spies into an array
   playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
-
   //setting our preys (baddies)
   baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
   baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5, baddieGangsterImage);
@@ -123,8 +141,9 @@ function setup() {
   //place our baddies into an array
   characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
   //set all the gadgets
-  hiddenGoggles = new HiddenGoggles(300, 300, 10, 100, hiddenGogglesImage);
-  slowDryer = new DryerGadget(300, 300, 10, 100, 0.7, slowDryerImage);
+  hiddenGoggles = new HiddenGoggles(300, 300, 10, 100, 0.7, hiddenGogglesImage); // the o.7 sets the scale that we added in the constructor
+  slowDryer = new DryerGadget(300, 300, 10, 100, 0.7, slowDryerImage); // the o.7 sets the scale that we added in the constructor
+  redoStick = new StickRedo(300, 300, 10, 100, 0.5, redoStickImage); // the o.5 sets the scale that we added in the constructor
 }
 
 // draw()
@@ -143,26 +162,26 @@ function draw() {
     //check gameOver (if its game over or not)
     checkGameOver();
 
-    //Display the amount of baddies caught by Clover
+    //Display the amount of baddies caught by Clover (Red)
     textFont("Impact");
     textAlign(LEFT, TOP);
     textSize(20);
-    fill(255, 20, 0);
-    text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 20);
+    fill(255, 51, 51); //set fill to red
+    text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 800);
 
-    //Display the amount of baddies caught by Sam
+    //Display the amount of baddies caught by Sam (Green)
     textFont("Impact");
     textAlign(RIGHT, TOP);
     textSize(20);
-    fill(220, 220, 0);
-    text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 20);
+    fill(0, 153, 51); //set fill to green
+    text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 800);
 
-    //Display the amount of baddies caught by Alex
+    //Display the amount of baddies caught by Alex (yellow)
     textFont("Impact");
     textAlign(RIGHT, TOP);
     textSize(20);
-    fill(0, 0, 255);
-    text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1375, 20);
+    fill(255, 204, 0); //set fill to mustard yellow
+    text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1200, 800);
 
     // Arrays for the spies's handleInput, move, display and handleEating.
     for (let i = 0; i < playersSpies.length; i++) {
@@ -170,13 +189,14 @@ function draw() {
       playersSpies[i].move();
       playersSpies[i].display();
       playersSpies[i].handleInput();
+      redoStick.visibleNow(playersSpies[i]);
       //    slowDryer.slowDown(playersSpies[i]);
-      //    hiddenGoggles.hiddenNow(playersSpies[i]);
+      //hiddenGoggles.hiddenNow(playersSpies[i]);
       //playersSpies[i].handleEating(baddieFlowerCharacter);
-      //  playersSpies[i].handleEating(baddieGangsterCharacter);
-      //  playersSpies[i].handleEating(baddieExplorerCharacter);
-      //  playersSpies[i].handleEating(baddieDollCharacter);
-      //  playersSpies[i].handleEating(baddieClownCharacter);
+      //playersSpies[i].handleEating(baddieGangsterCharacter);
+      //playersSpies[i].handleEating(baddieExplorerCharacter);
+      //playersSpies[i].handleEating(baddieDollCharacter);
+      //playersSpies[i].handleEating(baddieClownCharacter);
       //  playersSpies[i].handleEating(baddieFashionistaCharacter);
       //    playersSpies[i].handleEating(baddieRichCharacter);
       //  playersSpies[i].handleEating(baddiePrinceCharacter);
@@ -187,6 +207,9 @@ function draw() {
     //display and move the second class
     hiddenGoggles.move();
     hiddenGoggles.display();
+    //display and move third class
+    redoStick.move();
+    redoStick.display();
     // Arrays for the baddie'move, display
     for (let i = 0; i < characterBaddies.length; i++) {
       characterBaddies[i].move();
@@ -209,6 +232,10 @@ function mousePressed() {
     resetGame();
   } else if (gameStart === false) {
     gameStart = true;
+    //intro sound (small one before the music)
+    clickButton.play();
+    //loops music
+    mainMusic.loop();
   }
 }
 
@@ -217,10 +244,12 @@ function mousePressed() {
 function checkGameOver() {
   if (playerAlexSpy.spyGone && playerCloverSpy.spyGone && playerSamSpy.spyGone) {
     showGameOver = true;
-    console.log("game over")
+    //stops music
+    mainMusic.stop();
+    loseMusic.play();
   }
 }
-//reset the game
+//reset the game including its elements
 function resetGame() {
   playerCloverSpy.reset();
   playerSamSpy.reset();
@@ -233,5 +262,14 @@ function resetGame() {
   baddieFashionistaCharacter.reset();
   baddieRichCharacter.reset();
   baddiePrinceCharacter.reset();
+  slowDryer.reset();
+  hiddenGoggles.reset();
+  redoStick.reset();
+  //has the click sounds
+  clickButton.play();
+  //loops the music once again
+  mainMusic.loop();
+  //stops the lose music
+  loseMusic.stop();
   showGameOver = false;
 }
