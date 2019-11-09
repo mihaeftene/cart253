@@ -47,7 +47,6 @@ let characterBaddies = [];
 
 //backgrounds variables
 let introBackground;
-let instructionsBackground;
 let gameOverBackground;
 let winningBackground;
 
