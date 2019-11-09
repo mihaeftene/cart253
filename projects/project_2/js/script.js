@@ -127,8 +127,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predators (spies)
-  playerCloverSpy = new Predator(200, 200, 10, 100, 84, 70, 71, 72, playerCloverImage); //move CLOVER USING TFGH
-  playerSamSpy = new Predator(300, 300, 10, 100, 73, 76, 75, 74, playerSamImage); //move SAM using ILKJ
+  playerCloverSpy = new Predator(200, 200, 10, 100, 84, 71, 70, 72, playerCloverImage); //move CLOVER USING TFGH
+  playerSamSpy = new Predator(300, 300, 10, 100, 73, 75, 74, 76, playerSamImage); //move SAM using ILKJ
   playerAlexSpy = new Predator(400, 400, 10, 100, 87, 83, 65, 68, playerAlexImage); //move ALEX using AWSD
   //place our spies into an array
   playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];

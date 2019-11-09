@@ -115,7 +115,7 @@ class Predator {
       // Check if the prey died and reset it if so
       if (prey.health < 0) {
         this.baddiesCaught += 1;
-        itemCaughtSound.play();
+        itemCaughtSound.play(); //plays the catch sound when someone gets caught by spies
         prey.reset();
         console.log("make noise");
       }
