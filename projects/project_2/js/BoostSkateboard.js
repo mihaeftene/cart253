@@ -36,7 +36,6 @@ class BoostSkateboard {
     if (d < this.radius + spy.radius) {
       spy.speed = spy.speed - 0.1; // Makes the spies slow down
       if (spy.speed > 0) {
-        console.log("you brought me back to life");
         spy.speed = 10; //that was their initial speed
       }
     }

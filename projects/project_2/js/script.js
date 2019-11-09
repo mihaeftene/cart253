@@ -164,21 +164,21 @@ function draw() {
 
     //Display the amount of baddies caught by Clover (Red)
     textFont("Impact");
-    textAlign(LEFT, TOP);
+    textAlign(LEFT, BOTTOM);
     textSize(20);
     fill(255, 51, 51); //set fill to red
     text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 800);
 
     //Display the amount of baddies caught by Sam (Green)
     textFont("Impact");
-    textAlign(RIGHT, TOP);
+    textAlign(RIGHT, BOTTOM);
     textSize(20);
     fill(0, 153, 51); //set fill to green
     text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 800);
 
     //Display the amount of baddies caught by Alex (yellow)
     textFont("Impact");
-    textAlign(RIGHT, TOP);
+    textAlign(RIGHT, BOTTOM);
     textSize(20);
     fill(255, 204, 0); //set fill to mustard yellow
     text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1200, 800);
@@ -190,18 +190,18 @@ function draw() {
       playersSpies[i].move();
       playersSpies[i].display();
       playersSpies[i].handleInput();
-      //redoStick.visibleNow(playersSpies[i]);
-      //boostSkateboard.backSpeed(playersSpies[i]);
-      //slowDryer.slowDown(playersSpies[i]);
-      //hiddenGoggles.hiddenNow(playersSpies[i]);
+      redoStick.visibleNow(playersSpies[i]);
+      boostSkateboard.backSpeed(playersSpies[i]);
+      slowDryer.slowDown(playersSpies[i]);
+      hiddenGoggles.hiddenNow(playersSpies[i]);
       playersSpies[i].handleEating(baddieFlowerCharacter);
       playersSpies[i].handleEating(baddieGangsterCharacter);
       playersSpies[i].handleEating(baddieExplorerCharacter);
       playersSpies[i].handleEating(baddieDollCharacter);
-      //playersSpies[i].handleEating(baddieClownCharacter);
-      //  playersSpies[i].handleEating(baddieFashionistaCharacter);
-      //    playersSpies[i].handleEating(baddieRichCharacter);
-      //  playersSpies[i].handleEating(baddiePrinceCharacter);
+      playersSpies[i].handleEating(baddieClownCharacter);
+      playersSpies[i].handleEating(baddieFashionistaCharacter);
+      playersSpies[i].handleEating(baddieRichCharacter);
+      playersSpies[i].handleEating(baddiePrinceCharacter);
     }
     //display and move the first class
     slowDryer.move();
@@ -212,7 +212,6 @@ function draw() {
     //display and move third class
     redoStick.move();
     redoStick.display();
-
     //display and move fourth class
     boostSkateboard.move();
     boostSkateboard.display();
@@ -237,7 +236,11 @@ function introScreen() {
 function mousePressed() {
   if (showGameOver) { //if its game over reset the game
     resetGame();
-  } else if (gameStart === false) {
+  }
+  if (showGameWin){
+    resetGame();
+  }
+  else if (gameStart === false) {
     gameStart = true;
     //intro sound (small one before the music)
     clickButton.play();
@@ -253,6 +256,7 @@ function checkGameOver() {
     showGameOver = true;
     //stops music
     mainMusic.stop();
+    //plays the lose song
     loseMusic.play();
   }
 }
@@ -260,7 +264,7 @@ function checkGameOver() {
 //checking if its a win for the spies. It does not works for some reasons but I just wanted to show my initiative for this part. What am I missing?
 function checkIfWon(){
   if (playerAlexSpy.spyWin && playerCloverSpy.spyWin && playerSamSpy.spyWin){
-    checkIfWon = true;
+  showGameWin = true;
   }
 }
 

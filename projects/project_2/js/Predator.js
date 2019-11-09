@@ -119,7 +119,6 @@ class Predator {
         this.baddiesCaught += 1;
         itemCaughtSound.play(); //plays the catch sound when someone gets caught by spies
         prey.reset();
-        console.log("make noise");
       }
     }
   }
@@ -132,10 +131,9 @@ class Predator {
   }
 
   //setting another scene ending - in this case it would be a happy ending.
-  checkIfSceneSwitch(){
-    if (this.baddiesCaught > 1){
-      console.log("itstrue")
-      this.spyWin = true;
+  checkIfSceneSwitch() {
+    if (this.baddiesCaught === 4) { //triggers that amount of baddies that each spy should get
+      console.log("itstrue") // I feel like this part is half working. It does not trigger the amount of spies properly but it was an iniative.
     }
   }
 
