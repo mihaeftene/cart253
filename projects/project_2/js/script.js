@@ -1,11 +1,11 @@
 // Predator-Prey Simulation
-// by Pippin Barr
+// by Mihaela Eftene
 //
-// Creates a predator and three prey (of different sizes and speeds)
-// The predator chases the prey using the arrow keys and consumes them.
-// The predator loses health over time, so must keep eating to survive.
+// Catch as many baddies as you can! But avoid the gadgets! Some of them can cause you problems...
+// The spies chases the baddies using the controls (written in the game) and consumes them.
+// The spies loses health over time, so must keep catching until they win!
 
-//check is game is playing
+//check is game is playing, over, or winning
 let gameStart = false;
 let showGameOver = false;
 let showGameWin = false;
@@ -144,14 +144,13 @@ function setup() {
 
 // draw()
 //
-// Handles input, movement, eating, and displaying for the system's objects
+// Handles input, movement, eating, and displaying for the system's objects. Displays backgrounds when needed
 function draw() {
   if (showGameOver === true) {
     image(gameOverBackground, 0, 0, windowWidth, windowHeight);
-  } else if (showGameWin === true){
+  } else if (showGameWin === true) {
     image(winningBackground, 0, 0, windowWidth, windowHeight);
-  }
-  else if (gameStart === false) {
+  } else if (gameStart === false) {
     introScreen();
   }
   //setting the first background (outside) when game starts
@@ -237,10 +236,9 @@ function mousePressed() {
   if (showGameOver) { //if its game over reset the game
     resetGame();
   }
-  if (showGameWin){
+  if (showGameWin) {
     resetGame();
-  }
-  else if (gameStart === false) {
+  } else if (gameStart === false) {
     gameStart = true;
     //intro sound (small one before the music)
     clickButton.play();
@@ -260,14 +258,16 @@ function checkGameOver() {
     loseMusic.play();
   }
 }
+
 //checkIfWon()
 //checking if its a win for the spies. It does not works for some reasons but I just wanted to show my initiative for this part. What am I missing?
-function checkIfWon(){
-  if (playerAlexSpy.spyWin && playerCloverSpy.spyWin && playerSamSpy.spyWin){
-  showGameWin = true;
+function checkIfWon() {
+  if (playerAlexSpy.spyWin && playerCloverSpy.spyWin && playerSamSpy.spyWin) {
+    showGameWin = true;
   }
 }
 
+//resetGame()
 //reset the game including its elements
 function resetGame() {
   playerCloverSpy.reset();

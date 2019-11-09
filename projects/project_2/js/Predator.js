@@ -41,7 +41,7 @@ class Predator {
     this.spyWin = false;
   }
 
-  // handleInput
+  // handleInput()
   //
   // Checks if an arrow key is pressed and sets the predator's
   // velocity appropriately.
@@ -64,7 +64,7 @@ class Predator {
     }
   }
 
-  // move
+  // move()
   //
   // Updates the position according to velocity
   // Lowers health (as a cost of living)
@@ -80,7 +80,7 @@ class Predator {
     this.handleWrapping();
   }
 
-  // handleWrapping
+  // handleWrapping()
   //
   // Checks if the predator has gone off the canvas and
   // wraps it to the other side if so
@@ -99,7 +99,7 @@ class Predator {
     }
   }
 
-  // handleEating
+  // handleEating()
   //
   // Takes a Prey object as an argument and checks if the predator
   // overlaps it. If so, reduces the prey's health and increases
@@ -137,7 +137,7 @@ class Predator {
     }
   }
 
-  // display
+  // display()
   //
   // draw the images of the spies
   // with a radius the same size as its current health.
@@ -151,6 +151,7 @@ class Predator {
     text("You caught: " + this.baddiesCaught, this.x, this.y + this.radius + 10);
     pop();
   }
+
   // reset()
   //
   // Reset positions, locations and values of Pokeballs (predators)

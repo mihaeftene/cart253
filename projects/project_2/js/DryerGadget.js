@@ -1,4 +1,4 @@
-// Prey
+// Dryer Gadget
 //
 // A class that represents one of the stolen gadgets called "The Slow Dryer"
 //If a player touches this gadget it will slow them down (by alot)
@@ -41,7 +41,7 @@ class DryerGadget {
     }
   }
 
-  // move
+  // move()
   //
   // Sets velocity based on the noise() function and the Prey's speed
   // Moves based on the resulting velocity and handles wrapping
@@ -59,7 +59,7 @@ class DryerGadget {
     this.handleWrapping();
   }
 
-  // handleWrapping
+  // handleWrapping()
   //
   // Checks if the prey has gone off the canvas and
   // wraps it to the other side if so
@@ -78,7 +78,7 @@ class DryerGadget {
     }
   }
 
-  // display
+  // display()
   //
   // Draw the prey as an ellipse on the canvas
   // with a radius the same size as its current health.
@@ -90,7 +90,7 @@ class DryerGadget {
     pop();
   }
 
-  // reset
+  // reset()
   //
   // Set the position to a random location and reset health
   // and radius back to default

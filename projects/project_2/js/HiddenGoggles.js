@@ -1,4 +1,4 @@
-// Prey
+// Gadge Hidden Googles
 //
 // A class that represents one of the stolen gadgets called "Hidden Goggles"
 //If a player touches this gadget it make them become "hidden"
@@ -39,7 +39,7 @@ class HiddenGoggles {
     }
   }
 
-  // move
+  // move()
   //
   // Sets velocity based on the noise() function and the gadget's speed.
   // Moves based on the resulting velocity and handles wrapping.
@@ -57,7 +57,7 @@ class HiddenGoggles {
     this.handleWrapping();
   }
 
-  // handleWrapping
+  // handleWrapping()
   //
   // Checks if the gadget has gone off the canvas and wraps it to the other side if it did.
   handleWrapping() {
@@ -75,17 +75,17 @@ class HiddenGoggles {
     }
   }
 
-  // display
+  // display()
   //
   // Display the gadget (Hidden Goggles)
   display() {
     push();
     noStroke();
-    image(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale);
+    image(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale); //sets the scale
     pop();
   }
 
-  // reset
+  // reset()
   //
   // Set the position to a random location.
   reset() {

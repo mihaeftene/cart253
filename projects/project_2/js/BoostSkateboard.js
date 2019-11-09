@@ -1,4 +1,4 @@
-// Prey
+// Boost Skateboard
 //
 // A class that represents one of the stolen gadgets called "Boost Skateboard"
 //If a player touches this gadget it will bring back their speed if they are slown down by the Boost Skateboard gadget
@@ -8,7 +8,7 @@ class BoostSkateboard {
 
   // constructor
   //
-  // Sets the initial values for the Dryer Gadget's properties
+  // Sets the initial values for the Boost Skateboard's properties
   // Either sets default values or uses the arguments provided
   constructor(x, y, speed, radius, scale, image) { //added scale in the constructor to be able to modifiy the scaling each of my gadgets
     // Position
@@ -29,19 +29,19 @@ class BoostSkateboard {
     this.image = image; // display the Boost Skateboard
   }
 
-  // If player touches this gadget they will be slown down
+  // If player touches this gadget they will be brought to their speed
   backSpeed(spy) {
     let d = dist(this.x, this.y, spy.x, spy.y);
     // Check if the gadget and spy overlaps
     if (d < this.radius + spy.radius) {
-      spy.speed = spy.speed - 0.1; // Makes the spies slow down
+      spy.speed = spy.speed - 0.1; // Makes the spies boost
       if (spy.speed > 0) {
         spy.speed = 10; //that was their initial speed
       }
     }
   }
 
-  // move
+  // move()
   //
   // Sets velocity based on the noise() function and the Prey's speed
   // Moves based on the resulting velocity and handles wrapping
@@ -59,7 +59,7 @@ class BoostSkateboard {
     this.handleWrapping();
   }
 
-  // handleWrapping
+  // handleWrapping()
   //
   // Checks if the prey has gone off the canvas and
   // wraps it to the other side if so
@@ -78,7 +78,7 @@ class BoostSkateboard {
     }
   }
 
-  // display
+  // display()
   //
   // Draw the prey as an ellipse on the canvas
   // with a radius the same size as its current health.
@@ -90,7 +90,7 @@ class BoostSkateboard {
     pop();
   }
 
-  // reset
+  // reset()
   //
   // Set the position to a random location and reset health
   // and radius back to default

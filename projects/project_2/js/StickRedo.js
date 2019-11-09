@@ -1,9 +1,8 @@
-// Prey
+// Hidden Redo Lipstick
 //
 // A class that represents one of the stolen gadgets called "Hidden Redo Lipstick"
 //If a player touches this gadget they become visible again
 //this gadget uses the noise function to go around randomly
-//uses alpha to become transparent
 
 class StickRedo {
   // constructor
@@ -27,20 +26,19 @@ class StickRedo {
     this.image = image; // To display the stick image (its one of the gadgets)
   }
 
-  // This new class makes the player fade away by reducing the spy's tint (alpha).
+  // This new class makes the player visible again
   visibleNow(spy) {
     let d = dist(this.x, this.y, spy.x, spy.y);
     // Check if theres an overlap btw the spies and the gadget
     if (d < this.radius + spy.radius) {
       spy.alpha = spy.alpha - 1;
-      console.log("got you");
       if (spy.alpha > 0) {
         spy.alpha = 255;
       }
     }
   }
 
-  // move
+  // move()
   //
   // Sets velocity based on the noise() function and the gadget's speed.
   // Moves based on the resulting velocity and handles wrapping.
@@ -58,7 +56,7 @@ class StickRedo {
     this.handleWrapping();
   }
 
-  // handleWrapping
+  // handleWrapping()
   //
   // Checks if the gadget has gone off the canvas and wraps it to the other side if it did.
   handleWrapping() {
@@ -76,9 +74,9 @@ class StickRedo {
     }
   }
 
-  // display
+  // display()
   //
-  // Display the gadget (Hidden Goggles)
+  // Display the gadget (Redo hidden stick)
   display() {
     push();
     noStroke();
@@ -86,7 +84,7 @@ class StickRedo {
     pop();
   }
 
-  // reset
+  // reset()
   //
   // Set the position to a random location.
   reset() {

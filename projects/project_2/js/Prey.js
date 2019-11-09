@@ -30,7 +30,7 @@ class Prey {
     this.image = image; // display the baddies'images
   }
 
-  // move
+  // move()
   //
   // Sets velocity based on the noise() function and the Prey's speed
   // Moves based on the resulting velocity and handles wrapping
@@ -48,7 +48,7 @@ class Prey {
     this.handleWrapping();
   }
 
-  // handleWrapping
+  // handleWrapping()
   //
   // Checks if the prey has gone off the canvas and
   // wraps it to the other side if so
@@ -69,7 +69,7 @@ class Prey {
     }
   }
 
-  // display
+  // display()
   //
   // Draw the prey as an ellipse on the canvas
   // with a radius the same size as its current health.
@@ -82,7 +82,7 @@ class Prey {
     pop();
   }
 
-  // reset
+  // reset()
   //
   // Set the position to a random location and reset health
   // and radius back to default
