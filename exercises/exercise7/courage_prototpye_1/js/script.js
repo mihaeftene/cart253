@@ -49,17 +49,6 @@ let winningBackground;
 //backgrounds that changes in game variables
 let paintingBackground;
 
-//gadgets variables
-let slowDryer;
-let hiddenGoggles;
-let redoStick;
-let boostSkateboard;
-//display images for Gadgets
-let slowDryerImage;
-let hiddenGogglesImage;
-let redoStickImage;
-let boostSkateboardImage;
-
 //Sound variables
 //main music
 let mainMusic;
@@ -152,7 +141,6 @@ function draw() {
     textSize(20);
     fill(255, 51, 51); //set fill to red
     text("Clover - Baddies caught: " + couragePlayer.baddiesCaught, 600, 800);
-
 
     // Arrays for the spies's handleInput, move, display and handleEating.
       couragePlayer.checkIfAlive();
