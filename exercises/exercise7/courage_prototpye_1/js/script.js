@@ -1,7 +1,11 @@
 // Project 3 - Prototype 1 (Ex 7 )
 // by Mihaela Eftene
 //
-//This is mainly a prototype for project 3
+//This is mainly a prototype for project 3. Images does not belong to me including sound.
+//Help Courage find 10 hints that can help find its owner (Warning: It can be anything like a shoe, cloth)
+//Watch out for the monsters! If you get hit you will lose 10% of your "Courage". The Tornado will kill you instantly.
+//Look for "Courage's favorite pie" to get back a bit of your courage.
+// (More information coming...)
 
 //check is game is playing, over, or winning
 let gameStart = false;
