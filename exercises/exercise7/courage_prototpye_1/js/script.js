@@ -81,12 +81,6 @@ function preload() {
   baddieRichImage = loadImage("assets/images/richBadPerson.png");
   baddiePrinceImage = loadImage("assets/images/princeBadPerson.png");
 
-  //loading images for objects
-  slowDryerImage = loadImage("assets/images/slowDryer.png");
-  hiddenGogglesImage = loadImage("assets/images/hiddenGoggles.png");
-  redoStickImage = loadImage("assets/images/redoLip.png");
-  boostSkateboardImage = loadImage("assets/images/boostSkateboard.png");
-
   //loading Music
   mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
   loseMusic = loadSound('./assets/sounds/tsCompLose.wav'); //lose background sound
