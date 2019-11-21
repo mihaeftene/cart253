@@ -2,7 +2,7 @@
 // by Mihaela Eftene
 //
 //This is mainly a prototype for project 3. Images does not belong to me including sound.
-//Help Courage find 10 hints that can help find its owner (Warning: It can be anything like a shoe, cloth)
+//Help Courage find 5 hints that can help find its owner (Warning: It can be anything like a shoe, cloth)
 //Watch out for the monsters! If you get hit you will lose 10% of your "Courage". The Tornado will kill you instantly.
 //Look for "Courage's favorite pie" to get back a bit of your courage.
 // (More information coming...)
@@ -70,7 +70,7 @@ function preload() {
   paintingBackground = loadImage("assets/images/backgroundPainting.png");
 
   //loading the spies characters
-  couragePlayerImage = loadImage("assets/images/cloverPlayerCharacter.png");
+  couragePlayerImage = loadImage("assets/images/courageDogPlayerLeft.png");
 
   //loading the baddies characters
   baddieFlowerImage = loadImage("assets/images/flowerBadPerson.png");
@@ -95,8 +95,8 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //setting up our predators (spies)
-  couragePlayer = new Predator(200, 200, 10, 100, 87, 83, 65, 68, couragePlayerImage); //Move Courage using WASD keys
+  //setting up our predator (Courage)
+  couragePlayer = new Predator(200, 200, 10, 100, 87, 83, 65, 68, 0.5, couragePlayerImage); //Move Courage using WASD keys
 
   //setting our preys (baddies)
   baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
@@ -131,47 +131,50 @@ function draw() {
     checkGameOver();
     checkIfWon();
 
-    //Display the amount of baddies caught by Clover (Red)
-    textFont("Impact");
-    textAlign(LEFT, BOTTOM);
-    textSize(20);
-    fill(255, 51, 51); //set fill to red
-    text("Clover - Baddies caught: " + couragePlayer.baddiesCaught, 600, 800);
-
     timeCounter();
+    hintsFound();
 
     // Arrays for the spies's handleInput, move, display and handleEating.
-      couragePlayer.checkIfAlive();
-      couragePlayer.checkIfSceneSwitch();
-      couragePlayer.move();
-      couragePlayer.display();
-      couragePlayer.handleInput();
-      couragePlayer.handleEating(baddieFlowerCharacter);
-      couragePlayer.handleEating(baddieGangsterCharacter);
-      couragePlayer.handleEating(baddieExplorerCharacter);
-      couragePlayer.handleEating(baddieDollCharacter);
-      couragePlayer.handleEating(baddieClownCharacter);
-      couragePlayer.handleEating(baddieFashionistaCharacter);
-      couragePlayer.handleEating(baddieRichCharacter);
-      couragePlayer.handleEating(baddiePrinceCharacter);
+    couragePlayer.checkIfAlive();
+    couragePlayer.checkIfSceneSwitch();
+    couragePlayer.move();
+    couragePlayer.display();
+    couragePlayer.handleInput();
+    couragePlayer.handleEating(baddieFlowerCharacter);
+    couragePlayer.handleEating(baddieGangsterCharacter);
+    couragePlayer.handleEating(baddieExplorerCharacter);
+    couragePlayer.handleEating(baddieDollCharacter);
+    couragePlayer.handleEating(baddieClownCharacter);
+    couragePlayer.handleEating(baddieFashionistaCharacter);
+    couragePlayer.handleEating(baddieRichCharacter);
+    couragePlayer.handleEating(baddiePrinceCharacter);
 
     // Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters.length; i++) {
-  //    badMonsters[i].move();
-  //    badMonsters[i].display();
+      //    badMonsters[i].move();
+      //    badMonsters[i].display();
     }
   }
 }
 
+//Display the amount of hints found
+function hintsFound() {
+  textFont("Impact");
+  textAlign(LEFT, TOP);
+  textSize(30);
+  fill(255, 51, 51); //set fill to red
+  text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 100, 80);
+}
 
 //timeCounter
 //Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
   timeBeforeCourageDrop -= 1 / 60;
   push();
+  textAlign(CENTER, );
   textFont('Impact');
-  textSize(40);
-  text("timer: " + floor(timeBeforeCourageDrop), 600, 80);
+  textSize(30);
+  text("TIMER: " + floor(timeBeforeCourageDrop), 600, 80);
   pop();
 }
 

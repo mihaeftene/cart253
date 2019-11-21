@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, image, alpha) {
+  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, scale, image, alpha) {
     // Position
     this.x = x;
     this.y = y;
@@ -25,6 +25,7 @@ class Predator {
     this.healthGainPerEat = 1;
     // Display properties
     this.radius = this.health; // Radius is defined in terms of health
+    this.scale=scale; //scale of the dog
     this.image = image; // display the spies'images
     //Adding the tint of the Image
     this.alpha = 255; //
@@ -145,7 +146,7 @@ class Predator {
     push();
     this.radius = this.health;
     tint(255, this.alpha); //adding the fading/ invisible
-    image(this.image, this.x, this.y, 2 * this.radius, 2 * this.radius);
+    image(this.image, this.x, this.y, this.image.width* this.scale , this.image.height *this.scale);
     fill(255);
     //adding the text to show the player how many baddies he caught
     text("You caught: " + this.baddiesCaught, this.x, this.y + this.radius + 10);
