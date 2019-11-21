@@ -19,24 +19,22 @@ let couragePlayer;
 let couragePlayerImage;
 
 // Add our 8 baddies - it will certainly be changed but for demo purposes
-let baddieFlowerCharacter;
-let baddieGangsterCharacter;
-let baddieExplorerCharacter;
-let baddieDollCharacter;
-let baddieClownCharacter;
-let baddieFashionistaCharacter;
-let baddieRichCharacter;
-let baddiePrinceCharacter;
+//let baddieFlowerCharacter;
+//let baddieGangsterCharacter;
+//let baddieExplorerCharacter;
+//let baddieDollCharacter;
+//let baddieClownCharacter;
+//let baddieFashionistaCharacter;
+//let baddieRichCharacter;
+//let baddiePrinceCharacter;
 
 // display images of our enemies
-let baddieFlowerImage;
-let baddieGangsterImage;
-let baddieExplorerImage;
-let baddieDollImage;
-let baddieClownImage;
-let baddieFashionistaImage;
-let baddieRichImage;
-let baddiePrinceImage;
+//let baddieGangsterImage;
+//let baddieExplorerImage;
+//let baddieDollImage;
+//let baddieFashionistaImage;
+//let baddieRichImage;
+//let baddiePrinceImage;
 
 //add an Array for baddies
 let badMonsters = [];
@@ -58,6 +56,9 @@ let loseMusic;
 let clickButton;
 //when an item has been caught (baddies or gadget)
 let itemCaughtSound;
+
+//Timer variable for the counter
+let timeBeforeCourageDrop = 60;
 
 //pre-load()
 //adding a function preload to load images and sound
@@ -110,6 +111,7 @@ function setup() {
   badMonsters = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
 }
 
+
 // draw()
 //
 // Handles input, movement, eating, and displaying for the system's objects. Displays backgrounds when needed
@@ -136,6 +138,8 @@ function draw() {
     fill(255, 51, 51); //set fill to red
     text("Clover - Baddies caught: " + couragePlayer.baddiesCaught, 600, 800);
 
+    timeCounter();
+
     // Arrays for the spies's handleInput, move, display and handleEating.
       couragePlayer.checkIfAlive();
       couragePlayer.checkIfSceneSwitch();
@@ -153,10 +157,22 @@ function draw() {
 
     // Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters.length; i++) {
-      badMonsters[i].move();
-      badMonsters[i].display();
+  //    badMonsters[i].move();
+  //    badMonsters[i].display();
     }
   }
+}
+
+
+//timeCounter
+//Once the timer ends (0), Courage will lose "Courage"
+function timeCounter() {
+  timeBeforeCourageDrop -= 1 / 60;
+  push();
+  textFont('Impact');
+  textSize(40);
+  text("timer: " + floor(timeBeforeCourageDrop), 600, 80);
+  pop();
 }
 
 // introScreen()
