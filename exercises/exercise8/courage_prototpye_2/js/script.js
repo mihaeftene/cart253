@@ -18,6 +18,9 @@ let couragePlayer;
 //display image of player
 let couragePlayerImage;
 
+//Courage bar
+let courageEnergy;
+
 // Add our 8 baddies - it will certainly be changed but for demo purposes
 //let baddieFlowerCharacter;
 //let baddieGangsterCharacter;
@@ -131,6 +134,8 @@ function draw() {
     checkGameOver();
     checkIfWon();
 
+    CourageBar();
+    PowerBar();
     timeCounter();
     hintsFound();
 
@@ -159,11 +164,13 @@ function draw() {
 
 //Display the amount of hints found
 function hintsFound() {
-  textFont("Impact");
-  textAlign(LEFT, TOP);
+  push();
+  fill(255,255,255);
+  textAlign(CENTER, RIGHT );
+  textFont('Impact');
   textSize(30);
-  fill(255, 51, 51); //set fill to red
-  text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 100, 80);
+  text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 400, 90);
+  pop();
 }
 
 //timeCounter
@@ -171,11 +178,32 @@ function hintsFound() {
 function timeCounter() {
   timeBeforeCourageDrop -= 1 / 60;
   push();
-  textAlign(CENTER, );
+  fill(255,255,255);
+  textAlign(CENTER, RIGHT );
   textFont('Impact');
   textSize(30);
-  text("TIMER: " + floor(timeBeforeCourageDrop), 600, 80);
+  text("TIMER: " + floor(timeBeforeCourageDrop), 800, 90);
   pop();
+}
+
+//CourageBar()
+//Draw a Courage Bar. It shows how much the Player dog has courage left
+function CourageBar() {
+  courageEnergy = map(this.health, 0, 255, 0, 300);
+  fill(255, 160, 136);
+  rect(1400, 200, 40, 500);
+  fill(240, 248, 255);
+  rect(10, 20, courageEnergy, 20);
+}
+
+//PowerBar()
+//Draw a Health/Stamina bar. It facilitates the gameplay and the player can see how's Peach stamina is doing
+function PowerBar() {
+  powerEnergy = map(this.health, 0, 255, 0, 300);
+  fill(255, 160, 136);
+  rect(50, 200, 40, 500);
+  fill(240, 248, 255);
+  rect(10, 20, courageEnergy, 20);
 }
 
 // introScreen()
