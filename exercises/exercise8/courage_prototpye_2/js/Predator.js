@@ -25,7 +25,7 @@ class Predator {
     this.healthGainPerEat = 1;
     // Display properties
     this.radius = this.health; // Radius is defined in terms of health
-    this.scale=scale; //scale of the dog
+    this.scale=scale; //scale of the f
     this.image = image; // display the spies'images
     //Adding the tint of the Image
     this.alpha = 255; //
@@ -110,6 +110,7 @@ class Predator {
     let d = dist(this.x, this.y, prey.x, prey.y);
     // Check if the distance is less than their two radii (an overlap)
     if (d < this.radius + prey.radius) {
+      timeToGrowPower = 0;
       // Increase predator health and constrain it to its possible range
       this.health += this.healthGainPerEat;
       this.health = constrain(this.health, 0, this.maxHealth);

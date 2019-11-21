@@ -22,22 +22,22 @@ let couragePlayerImage;
 let courageEnergy;
 
 // Add our 8 baddies - it will certainly be changed but for demo purposes
-//let baddieFlowerCharacter;
-//let baddieGangsterCharacter;
-//let baddieExplorerCharacter;
-//let baddieDollCharacter;
-//let baddieClownCharacter;
-//let baddieFashionistaCharacter;
-//let baddieRichCharacter;
-//let baddiePrinceCharacter;
+let baddieFlowerCharacter;
+let baddieGangsterCharacter;
+let baddieExplorerCharacter;
+let baddieDollCharacter;
+let baddieClownCharacter;
+let baddieFashionistaCharacter;
+let baddieRichCharacter;
+let baddiePrinceCharacter;
 
 // display images of our enemies
-//let baddieGangsterImage;
-//let baddieExplorerImage;
-//let baddieDollImage;
-//let baddieFashionistaImage;
-//let baddieRichImage;
-//let baddiePrinceImage;
+let baddieGangsterImage;
+let baddieExplorerImage;
+let baddieDollImage;
+let baddieFashionistaImage;
+let baddieRichImage;
+let baddiePrinceImage;
 
 //add an Array for baddies
 let badMonsters = [];
@@ -62,6 +62,9 @@ let itemCaughtSound;
 
 //Timer variable for the counter
 let timeBeforeCourageDrop = 60;
+
+let timeToGrowPower = 0;
+let powerEnergy = 0;
 
 //pre-load()
 //adding a function preload to load images and sound
@@ -137,7 +140,7 @@ function draw() {
     CourageBar();
     PowerBar();
     timeCounter();
-    hintsFound();
+    //hintsFound();
 
     // Arrays for the spies's handleInput, move, display and handleEating.
     couragePlayer.checkIfAlive();
@@ -156,26 +159,32 @@ function draw() {
 
     // Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters.length; i++) {
-      //    badMonsters[i].move();
-      //    badMonsters[i].display();
+      badMonsters[i].move();
+      badMonsters[i].display();
     }
   }
 }
 
 //Display the amount of hints found
-function hintsFound() {
-  push();
-  fill(255,255,255);
-  textAlign(CENTER, RIGHT );
-  textFont('Impact');
-  textSize(30);
-  text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 400, 90);
-  pop();
-}
+//function hintsFound() {
+//  push();
+//  fill(255,255,255);
+//  textAlign(CENTER, RIGHT );
+//  textFont('Impact');
+//  textSize(30);
+//  text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 400, 90);
+//  pop();
+//}
 
 //timeCounter
 //Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
+  timeToGrowPower += 1 / 60;
+  if (timeToGrowPower > 3)
+  {
+    powerEnergy += 30;
+    timeToGrowPower = 0;
+  }
   timeBeforeCourageDrop -= 1 / 60;
   push();
   fill(255,255,255);
@@ -183,27 +192,30 @@ function timeCounter() {
   textFont('Impact');
   textSize(30);
   text("TIMER: " + floor(timeBeforeCourageDrop), 800, 90);
+  text("TIMER POWER: " + floor(timeToGrowPower), 200, 90);
   pop();
 }
 
 //CourageBar()
 //Draw a Courage Bar. It shows how much the Player dog has courage left
 function CourageBar() {
-  courageEnergy = map(this.health, 0, 255, 0, 300);
-  fill(255, 160, 136);
-  rect(1400, 200, 40, 500);
-  fill(240, 248, 255);
-  rect(10, 20, courageEnergy, 20);
+ // let courageBarFill = map(powerEnergy, 0, 100, 0, 300);
+ //  console.log(courageBarFill);
+ // fill(255, 160, 136);
+ // rect(1400, 200, 40, 500);
+ // fill(240, 248, 255);
+ // rect(1400, 20, 30, courageBarFill + 20);
 }
 
 //PowerBar()
 //Draw a Health/Stamina bar. It facilitates the gameplay and the player can see how's Peach stamina is doing
 function PowerBar() {
-  powerEnergy = map(this.health, 0, 255, 0, 300);
-  fill(255, 160, 136);
-  rect(50, 200, 40, 500);
+  let courageBarFill = map(powerEnergy, 0, 100, 0, 300);
+  console.log(courageBarFill);
   fill(240, 248, 255);
-  rect(10, 20, courageEnergy, 20);
+  rect(40, 200, 40, 500);
+  fill(255, 160, 136);
+  rect(40, 200, 40, 300-courageBarFill + 20);
 }
 
 // introScreen()
@@ -226,7 +238,7 @@ function mousePressed() {
     //intro sound (small one before the music)
     clickButton.play();
     //loops music
-    mainMusic.loop();
+  //  mainMusic.loop();
   }
 }
 
