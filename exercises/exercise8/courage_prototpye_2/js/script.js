@@ -140,22 +140,15 @@ function draw() {
     CourageBar();
     PowerBar();
     timeCounter();
-    //hintsFound();
 
-    // Arrays for the spies's handleInput, move, display and handleEating.
+    // Array for the Courage
     couragePlayer.checkIfAlive();
     couragePlayer.checkIfSceneSwitch();
     couragePlayer.move();
     couragePlayer.display();
     couragePlayer.handleInput();
-    couragePlayer.handleEating(baddieFlowerCharacter);
-    couragePlayer.handleEating(baddieGangsterCharacter);
-    couragePlayer.handleEating(baddieExplorerCharacter);
-    couragePlayer.handleEating(baddieDollCharacter);
-    couragePlayer.handleEating(baddieClownCharacter);
-    couragePlayer.handleEating(baddieFashionistaCharacter);
-    couragePlayer.handleEating(baddieRichCharacter);
-    couragePlayer.handleEating(baddiePrinceCharacter);
+    console.log("eat monster");
+    couragePlayer.handleEating(badMonsters);
 
     // Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters.length; i++) {
@@ -180,15 +173,14 @@ function draw() {
 //Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
   timeToGrowPower += 1 / 60;
-  if (timeToGrowPower > 3)
-  {
+  if (timeToGrowPower > 3) {
     powerEnergy += 30;
     timeToGrowPower = 0;
   }
   timeBeforeCourageDrop -= 1 / 60;
   push();
-  fill(255,255,255);
-  textAlign(CENTER, RIGHT );
+  fill(255, 255, 255);
+  textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
   text("TIMER: " + floor(timeBeforeCourageDrop), 800, 90);
@@ -199,23 +191,23 @@ function timeCounter() {
 //CourageBar()
 //Draw a Courage Bar. It shows how much the Player dog has courage left
 function CourageBar() {
- // let courageBarFill = map(powerEnergy, 0, 100, 0, 300);
- //  console.log(courageBarFill);
- // fill(255, 160, 136);
- // rect(1400, 200, 40, 500);
- // fill(240, 248, 255);
- // rect(1400, 20, 30, courageBarFill + 20);
+  // let powerBarFill = map(powerEnergy, 0, 100, 0, 300);
+  //  console.log(powerBarFill);
+  // fill(255, 160, 136);
+  // rect(1400, 200, 40, 500);
+  // fill(240, 248, 255);
+  // rect(1400, 20, 30, powerBarFill + 20);
 }
 
 //PowerBar()
 //Draw a Health/Stamina bar. It facilitates the gameplay and the player can see how's Peach stamina is doing
 function PowerBar() {
-  let courageBarFill = map(powerEnergy, 0, 100, 0, 300);
-  console.log(courageBarFill);
-  fill(240, 248, 255);
-  rect(40, 200, 40, 500);
+  let powerBarFill = map(powerEnergy, 0, 100, 0, 300);
+  console.log(powerBarFill);
   fill(255, 160, 136);
-  rect(40, 200, 40, 300-courageBarFill + 20);
+  rect(40, 200, 40, 500);
+  fill(240, 248, 255);
+  rect(40, 200, 40, 300 - powerBarFill + 20);
 }
 
 // introScreen()
@@ -238,7 +230,7 @@ function mousePressed() {
     //intro sound (small one before the music)
     clickButton.play();
     //loops music
-  //  mainMusic.loop();
+    //  mainMusic.loop();
   }
 }
 
