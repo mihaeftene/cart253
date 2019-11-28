@@ -62,6 +62,7 @@ let itemCaughtSound;
 
 //Timer variable for the counter
 let timeBeforeCourageDrop = 60;
+let dogCourage = 100;
 
 let timeToGrowPower = 0;
 let powerEnergy = 0;
@@ -116,7 +117,6 @@ function setup() {
   //place our baddies into an array
   badMonsters = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
 }
-
 
 // draw()
 //
@@ -191,12 +191,11 @@ function timeCounter() {
 //CourageBar()
 //Draw a Courage Bar. It shows how much the Player dog has courage left
 function CourageBar() {
-  // let powerBarFill = map(powerEnergy, 0, 100, 0, 300);
-  //  console.log(powerBarFill);
-  // fill(255, 160, 136);
-  // rect(1400, 200, 40, 500);
-  // fill(240, 248, 255);
-  // rect(1400, 20, 30, powerBarFill + 20);
+  let courageBarFill = map(powerEnergy, 0, 100, 0, 300);
+  fill(255, 160, 136);
+  rect(1400, 200, 40, 500);
+  fill(240, 248, 255);
+  rect(1400, 200, 40, courageBarFill - 20);
 }
 
 //PowerBar()
