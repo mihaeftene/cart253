@@ -18,9 +18,6 @@ let couragePlayer;
 //display image of player
 let couragePlayerImage;
 
-//Courage bar
-let courageEnergy;
-
 // Add our 8 baddies - it will certainly be changed but for demo purposes
 let baddieFlowerCharacter;
 let baddieGangsterCharacter;
@@ -62,7 +59,7 @@ let itemCaughtSound;
 
 //Timer variable for the counter
 let timeBeforeCourageDrop = 60;
-let dogCourage = 100;
+let courageEnergy = 100;
 
 let timeToGrowPower = 0;
 let powerEnergy = 0;
@@ -140,15 +137,16 @@ function draw() {
     CourageBar();
     PowerBar();
     timeCounter();
+    //hintsFound();
 
-    // Array for the Courage
+    //handleInput, move, display and handleEating for Courage.
     couragePlayer.checkIfAlive();
     couragePlayer.checkIfSceneSwitch();
     couragePlayer.move();
     couragePlayer.display();
     couragePlayer.handleInput();
-    console.log("eat monster");
     couragePlayer.handleEating(badMonsters);
+
 
     // Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters.length; i++) {
@@ -173,14 +171,20 @@ function draw() {
 //Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
   timeToGrowPower += 1 / 60;
-  if (timeToGrowPower > 3) {
-    powerEnergy += 30;
+  if (timeToGrowPower > 3)
+  {
+    powerEnergy += 10;
     timeToGrowPower = 0;
   }
+  //if courage bar reaches 3, lower the courage by -10
   timeBeforeCourageDrop -= 1 / 60;
+  if (timeBeforeCourageDrop > 3)
+  {
+    courageEnergy -= 10;
+  }
   push();
-  fill(255, 255, 255);
-  textAlign(CENTER, RIGHT);
+  fill(255,255,255);
+  textAlign(CENTER, RIGHT );
   textFont('Impact');
   textSize(30);
   text("TIMER: " + floor(timeBeforeCourageDrop), 800, 90);
@@ -191,11 +195,11 @@ function timeCounter() {
 //CourageBar()
 //Draw a Courage Bar. It shows how much the Player dog has courage left
 function CourageBar() {
-  let courageBarFill = map(powerEnergy, 0, 100, 0, 300);
-  fill(255, 160, 136);
-  rect(1400, 200, 40, 500);
-  fill(240, 248, 255);
-  rect(1400, 200, 40, courageBarFill - 20);
+let courageBarFill = map(courageEnergy, 0, 100, 0, 100);
+ fill(255, 160, 136);
+ rect(1400, 200, 40, 500);
+ fill(240, 248, 255);
+ rect(1400, 20, 30, 300- courageBarFill -20);
 }
 
 //PowerBar()
@@ -206,7 +210,7 @@ function PowerBar() {
   fill(255, 160, 136);
   rect(40, 200, 40, 500);
   fill(240, 248, 255);
-  rect(40, 200, 40, 300 - powerBarFill + 20);
+  rect(40, 200, 40, 300-powerBarFill + 20);
 }
 
 // introScreen()
@@ -229,7 +233,7 @@ function mousePressed() {
     //intro sound (small one before the music)
     clickButton.play();
     //loops music
-    //  mainMusic.loop();
+  //  mainMusic.loop();
   }
 }
 
@@ -258,14 +262,7 @@ function checkIfWon() {
 function resetGame() {
   couragePlayer.reset();
   playerSamSpy.reset();
-  baddieFlowerCharacter.reset();
-  baddieGangsterCharacter.reset();
-  baddieExplorerCharacter.reset();
-  baddieDollCharacter.reset();
-  baddieClownCharacter.reset();
-  baddieFashionistaCharacter.reset();
-  baddieRichCharacter.reset();
-  baddiePrinceCharacter.reset();
+  badMonsters.reset()
   //has the click sounds
   clickButton.play();
   //loops the music once again
