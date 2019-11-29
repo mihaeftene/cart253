@@ -178,7 +178,7 @@ function timeCounter() {
   }
   //if courage bar reaches 3, lower the courage by -10
   timeBeforeCourageDrop -= 1 / 60;
-  if (timeBeforeCourageDrop > 3)
+  if (timeBeforeCourageDrop < 3)
   {
     courageEnergy -= 10;
   }
