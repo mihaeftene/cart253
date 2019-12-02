@@ -58,8 +58,8 @@ let clickButton;
 let itemCaughtSound;
 
 //Timer variable for the counter
-let timeBeforeCourageDrop = 60;
-let courageEnergy = 100;
+let timeBeforeCourageDrop = 0;
+let courageEnergy = 0;
 
 let timeToGrowPower = 0;
 let powerEnergy = 0;
@@ -131,8 +131,8 @@ function draw() {
     //setting the background of the WOOHP painting
     image(paintingBackground, 0, 0, windowWidth, windowHeight); // display background
     //check gameOver (if its game over or not)
-    checkGameOver();
-    checkIfWon();
+    //  checkGameOver();
+    //  checkIfWon();
 
     CourageBar();
     PowerBar();
@@ -140,8 +140,8 @@ function draw() {
     //hintsFound();
 
     //handleInput, move, display and handleEating for Courage.
-    couragePlayer.checkIfAlive();
-    couragePlayer.checkIfSceneSwitch();
+    //  couragePlayer.checkIfAlive();
+    //    couragePlayer.checkIfSceneSwitch();
     couragePlayer.move();
     couragePlayer.display();
     couragePlayer.handleInput();
@@ -170,21 +170,22 @@ function draw() {
 //timeCounter
 //Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
-  timeToGrowPower += 1 / 60;
-  if (timeToGrowPower > 3)
-  {
+  timeToGrowPower += 1 / 60; // Count down based on frame rate
+  if (timeToGrowPower > 3) {
     powerEnergy += 10;
     timeToGrowPower = 0;
   }
-  //if courage bar reaches 3, lower the courage by -10
-  timeBeforeCourageDrop -= 1 / 60;
-  if (timeBeforeCourageDrop < 3)
+  //if courage bar reaches 60, lower the courage by -10
+  timeBeforeCourageDrop += 1 / 60; // Count down based on frame rate
+  if (timeBeforeCourageDrop > 3) // If the counter reaches zero, courage should drop
   {
-    courageEnergy -= 10;
+    courageEnergy -= 10; // Drop courage
+    timeBeforeCourageDrop = 0; // Reset timer to 3 seconds
+    console.log("Drop The Courage");
   }
   push();
-  fill(255,255,255);
-  textAlign(CENTER, RIGHT );
+  fill(255, 255, 255);
+  textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
   text("TIMER: " + floor(timeBeforeCourageDrop), 800, 90);
@@ -195,22 +196,22 @@ function timeCounter() {
 //CourageBar()
 //Draw a Courage Bar. It shows how much the Player dog has courage left
 function CourageBar() {
-let courageBarFill = map(courageEnergy, 0, 100, 0, 100);
- fill(255, 160, 136);
- rect(1400, 200, 40, 500);
- fill(240, 248, 255);
- rect(1400, 20, 30, 300- courageBarFill -20);
+  let courageBarFill = map(courageEnergy, 0, 100, 0, 100);
+  fill(255, 160, 136);
+  rect(1400, 200, 40, 500);
+  fill(240, 248, 255);
+  rect(1400, 200, 40, 300 - courageBarFill - 10);
 }
 
 //PowerBar()
-//Draw a Health/Stamina bar. It facilitates the gameplay and the player can see how's Peach stamina is doing
+//Draw the power bar. it show how much Power Courage has accumulated. Once the bar has been filled the player will be able to click Shift to activate its skill.
 function PowerBar() {
   let powerBarFill = map(powerEnergy, 0, 100, 0, 300);
   console.log(powerBarFill);
   fill(255, 160, 136);
   rect(40, 200, 40, 500);
   fill(240, 248, 255);
-  rect(40, 200, 40, 300-powerBarFill + 20);
+  rect(40, 200, 40, 500 - powerBarFill + 10);
 }
 
 // introScreen()
@@ -233,7 +234,7 @@ function mousePressed() {
     //intro sound (small one before the music)
     clickButton.play();
     //loops music
-  //  mainMusic.loop();
+    //  mainMusic.loop();
   }
 }
 
