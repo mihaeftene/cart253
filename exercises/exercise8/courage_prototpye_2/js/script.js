@@ -137,11 +137,11 @@ function draw() {
     CourageBar();
     PowerBar();
     timeCounter();
-    //hintsFound();
+    hintsFound();
 
     //handleInput, move, display and handleEating for Courage.
-    //  couragePlayer.checkIfAlive();
-    //    couragePlayer.checkIfSceneSwitch();
+    //couragePlayer.checkIfAlive();
+    //couragePlayer.checkIfSceneSwitch();
     couragePlayer.move();
     couragePlayer.display();
     couragePlayer.handleInput();
@@ -157,15 +157,15 @@ function draw() {
 }
 
 //Display the amount of hints found
-//function hintsFound() {
-//  push();
-//  fill(255,255,255);
-//  textAlign(CENTER, RIGHT );
-//  textFont('Impact');
-//  textSize(30);
-//  text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 400, 90);
-//  pop();
-//}
+  function hintsFound() {
+  push();
+  fill(255,255,255);
+  textAlign(CENTER, RIGHT );
+  textFont('Impact');
+  textSize(30);
+  text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 700, 90);
+  pop();
+  }
 
 //timeCounter
 //Once the timer ends (0), Courage will lose "Courage"
@@ -188,7 +188,7 @@ function timeCounter() {
   textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
-  text("TIMER: " + floor(timeBeforeCourageDrop), 800, 90);
+  text("TIMER: " + floor(timeBeforeCourageDrop), 400, 90);
   text("TIMER POWER: " + floor(timeToGrowPower), 200, 90);
   pop();
 }
@@ -207,7 +207,6 @@ function CourageBar() {
 //Draw the power bar. it show how much Power Courage has accumulated. Once the bar has been filled the player will be able to click Shift to activate its skill.
 function PowerBar() {
   let powerBarFill = map(powerEnergy, 0, 100, 0, 300);
-  console.log(powerBarFill);
   fill(255, 160, 136);
   rect(40, 200, 40, 500);
   fill(240, 248, 255);

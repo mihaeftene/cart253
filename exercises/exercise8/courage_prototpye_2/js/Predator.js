@@ -34,6 +34,8 @@ class Predator {
     this.downKey = downKey;
     this.leftKey = leftKey;
     this.rightKey = rightKey;
+    //setting the special skill - heart shooter
+    //this.shiftKey = shiftKey
     //tracking how many baddies each spy has caught
     this.baddiesCaught = 0;
     //setting the if dead case
