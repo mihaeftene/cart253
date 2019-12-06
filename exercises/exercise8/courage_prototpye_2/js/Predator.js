@@ -24,7 +24,6 @@ class Predator {
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
     // Display properties
-    this.radius = this.health; // Radius is defined in terms of health
     this.scale=scale; //scale of the f
     this.image = image; // display the spies'images
     //Adding the tint of the Image
@@ -151,8 +150,6 @@ class Predator {
     tint(255, this.alpha); //adding the fading/ invisible
     image(this.image, this.x, this.y, this.image.width* this.scale , this.image.height *this.scale);
     fill(255);
-    //adding the text to show the player how many baddies he caught
-    text("You caught: " + this.baddiesCaught, this.x, this.y + this.radius + 10);
     pop();
   }
 
@@ -161,8 +158,6 @@ class Predator {
   // Reset positions, locations and values of Pokeballs (predators)
   reset() {
     this.radius = 200; //size of spies
-    this.health = this.radius;
-    this.x = random(0, windowWidth);
     this.y = random(0, windowHeight);
     this.spyGone = false;
     this.spyWin = false;
