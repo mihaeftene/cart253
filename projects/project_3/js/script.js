@@ -72,6 +72,15 @@ let clickButton;
 //when an item has been caught (baddies or gadget)
 let itemCaughtSound;
 
+//Timer variable for the courage bar
+let timeBeforeCourageDrop = 0;
+let courageEnergy = 0;
+let maxCourageEnergy = 100;
+
+//Time variable for the Power energy bar
+let timeToGrowPower = 0;
+let powerEnergy = 0;
+
 //pre-load()
 //adding a function preload to load images and sound
 function preload() {
@@ -153,12 +162,10 @@ function draw() {
     checkGameOver();
     checkIfWon();
 
-    //Display the amount of baddies caught by Alex (yellow)
-    textFont("Impact");
-    textAlign(RIGHT, BOTTOM);
-    textSize(20);
-    fill(255, 204, 0); //set fill to mustard yellow
-    text("Alex - Baddies caught: " + couragePlayer.baddiesCaught, 1200, 800);
+    //call the time counter function, courage bar and power bar
+    timeCounter();
+    CourageBar();
+    PowerBar();
 
     //Display the dog Player
     couragePlayer.move();
@@ -184,6 +191,56 @@ function draw() {
       characterBaddies[i].display();
     }
   }
+}
+
+//timeCounter
+//Once the timer reaches at 60, the power bar goes up by 10
+function timeCounter() {
+  timeToGrowPower += 1 / 60; // Count down based on frame rate
+  if (timeToGrowPower > 3) {
+    powerEnergy += 10;
+
+    // console.log(powerEnergy);
+    powerEnergy = constrain(powerEnergy, 0, 100);
+    timeToGrowPower = 0;
+  }
+  //if courage bar reaches 60, lower the courage by -10
+  timeBeforeCourageDrop += 1 / 60; // Count down based on frame rate
+  if (timeBeforeCourageDrop > 3) // If the counter reaches zero, courage should drop
+  {
+    courageEnergy -= 10; // Drop courage
+    maxCourageEnergy = constrain(maxCourageEnergy, 0, 100);
+    timeBeforeCourageDrop = 0; // Reset timer to 3 seconds
+    // console.log("Drop The Courage");
+  }
+  push();
+  fill(255, 255, 255);
+  textAlign(CENTER, RIGHT);
+  textFont('Impact');
+  textSize(30);
+  text("TIMER: " + floor(timeBeforeCourageDrop), 400, 90);
+  text("TIMER POWER: " + floor(timeToGrowPower), 200, 90);
+  pop();
+}
+
+//CourageBar()
+//Draw a Courage Bar. It shows how much the Player dog has courage left
+function CourageBar() {
+  let courageBarFill = map(courageEnergy, 0, 100, 0, 100);
+  fill(255, 160, 136);
+  rect(1400, 200, 40, 500);
+  fill(240, 248, 255);
+  rect(1400, 200, 40, 0 - courageBarFill);
+}
+
+//PowerBar()
+//Draw the power bar. it show how much Power Courage has accumulated. Once the bar has been filled the player will be able to click Shift to activate its skill.
+function PowerBar() {
+  let powerBarFill = map(powerEnergy, 0, 100, 0, 500);
+  fill(255, 160, 136);
+  rect(40, 200, 40, 500);
+  fill(240, 248, 255);
+  rect(40, 200, 40, 500 - powerBarFill);
 }
 
 // introScreen()
