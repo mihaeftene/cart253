@@ -60,9 +60,16 @@ let itemCaughtSound;
 //Timer variable for the counter
 let timeBeforeCourageDrop = 0;
 let courageEnergy = 0;
+let maxCourageEnergy = 100;
 
 let timeToGrowPower = 0;
 let powerEnergy = 0;
+//Items
+let itemPie;
+let itemPieImage;
+
+let bulletImage;
+
 
 //pre-load()
 //adding a function preload to load images and sound
@@ -86,6 +93,12 @@ function preload() {
   baddieRichImage = loadImage("assets/images/richBadPerson.png");
   baddiePrinceImage = loadImage("assets/images/princeBadPerson.png");
 
+  //Load the Items (Pie, Bone)
+  itemPieImage = loadImage("assets/images/thePie.png");
+
+  //load the bullets
+  bulletImage = loadImage("assets/images/heart.png");
+
   //loading Music
   mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
   loseMusic = loadSound('./assets/sounds/tsCompLose.wav'); //lose background sound
@@ -100,7 +113,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predator (Courage)
-  couragePlayer = new Predator(200, 200, 10, 100, 87, 83, 65, 68, 0.5, couragePlayerImage); //Move Courage using WASD keys
+  couragePlayer = new Predator(200, 200, 10, 100, 87, 83, 65, 68, 32, 0.5, couragePlayerImage, bulletImage); //Move Courage using WASD keys
 
   //setting our preys (baddies)
   baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
@@ -111,6 +124,8 @@ function setup() {
   baddieFashionistaCharacter = new Prey(400, 400, 10, 100, 0.5, baddieFashionistaImage);
   baddieRichCharacter = new Prey(200, 200, 10, 100, 0.5, baddieRichImage);
   baddiePrinceCharacter = new Prey(300, 300, 10, 100, 0.5, baddiePrinceImage);
+  //Items
+  itemPie = new Pie(200, 300, 10, 100, 0.5, itemPieImage);
   //place our baddies into an array
   badMonsters = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
 }
@@ -138,6 +153,7 @@ function draw() {
     PowerBar();
     timeCounter();
     hintsFound();
+    itemPie.RaiseCourage(couragePlayer);
 
     //handleInput, move, display and handleEating for Courage.
     //couragePlayer.checkIfAlive();
@@ -145,7 +161,12 @@ function draw() {
     couragePlayer.move();
     couragePlayer.display();
     couragePlayer.handleInput();
-    couragePlayer.handleEating(badMonsters);
+    // couragePlayer.handleEating(badMonsters);
+    couragePlayer.handleEating(itemPie);
+    couragePlayer.updateBullets(badMonsters[3]);
+
+    //pie display
+    itemPie.display();
 
 
     // Arrays for the baddie'move, display
@@ -157,15 +178,15 @@ function draw() {
 }
 
 //Display the amount of hints found
-  function hintsFound() {
+function hintsFound() {
   push();
-  fill(255,255,255);
-  textAlign(CENTER, RIGHT );
+  fill(255, 255, 255);
+  textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
   text("# OF HINTS FOUND " + couragePlayer.baddiesCaught, 700, 90);
   pop();
-  }
+}
 
 //timeCounter
 //Once the timer ends (0), Courage will lose "Courage"
@@ -173,6 +194,9 @@ function timeCounter() {
   timeToGrowPower += 1 / 60; // Count down based on frame rate
   if (timeToGrowPower > 3) {
     powerEnergy += 10;
+
+    // console.log(powerEnergy);
+    powerEnergy = constrain(powerEnergy, 0, 100);
     timeToGrowPower = 0;
   }
   //if courage bar reaches 60, lower the courage by -10
@@ -181,7 +205,7 @@ function timeCounter() {
   {
     courageEnergy -= 10; // Drop courage
     timeBeforeCourageDrop = 0; // Reset timer to 3 seconds
-    console.log("Drop The Courage");
+    // console.log("Drop The Courage");
   }
   push();
   fill(255, 255, 255);
@@ -200,17 +224,17 @@ function CourageBar() {
   fill(255, 160, 136);
   rect(1400, 200, 40, 500);
   fill(240, 248, 255);
-  rect(1400, 200, 40, 300 - courageBarFill - 10);
+  rect(1400, 200, 40, 0 - courageBarFill);
 }
 
 //PowerBar()
 //Draw the power bar. it show how much Power Courage has accumulated. Once the bar has been filled the player will be able to click Shift to activate its skill.
 function PowerBar() {
-  let powerBarFill = map(powerEnergy, 0, 100, 0, 300);
+  let powerBarFill = map(powerEnergy, 0, 100, 0, 500);
   fill(255, 160, 136);
   rect(40, 200, 40, 500);
   fill(240, 248, 255);
-  rect(40, 200, 40, 500 - powerBarFill + 10);
+  rect(40, 200, 40, 500 - powerBarFill);
 }
 
 // introScreen()
@@ -240,7 +264,7 @@ function mousePressed() {
 //checkGameOver()
 //checking if its game over. Once the spies are gone its game over
 function checkGameOver() {
-  if (couragePlayer.spyGone) {
+  if (couragePlayer.dogGone) {
     showGameOver = true;
     //stops music
     mainMusic.stop();
@@ -252,7 +276,7 @@ function checkGameOver() {
 //checkIfWon()
 //checking if its a win for the spies. It does not works for some reasons but I just wanted to show my initiative for this part. What am I missing?
 function checkIfWon() {
-  if (couragePlayer.spyWin) {
+  if (couragePlayer.dogWin) {
     showGameWin = true;
   }
 }

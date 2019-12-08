@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, scale, image, alpha) {
+  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, space, scale, image, _bulletImage) {
     // Position
     this.x = x;
     this.y = y;
@@ -24,7 +24,7 @@ class Predator {
     this.healthLossPerMove = 0.1;
     this.healthGainPerEat = 1;
     // Display properties
-    this.scale=scale; //scale of the f
+    this.scale = scale; //scale of the f
     this.image = image; // display the spies'images
     //Adding the tint of the Image
     this.alpha = 255; //
@@ -34,13 +34,19 @@ class Predator {
     this.leftKey = leftKey;
     this.rightKey = rightKey;
     //setting the special skill - heart shooter
-    //this.shiftKey = shiftKey
-    //tracking how many baddies each spy has caught
+    this.space = space;
+    //tracking how many baddies each dog has caught
     this.baddiesCaught = 0;
     //setting the if dead case
-    this.spyGone = false;
+    this.dogGone = false;
     //setting the if win scene (I seriously am not sure why its not displaying but its an initiave at least)
-    this.spyWin = false;
+    this.dogWin = false;
+
+    //shoot hearts
+    this.bulletHeart = [];
+    this.bulletImage = _bulletImage;
+    this.maxSpeed = 5;
+    this.angle= PI;
   }
 
   // handleInput()
@@ -64,7 +70,66 @@ class Predator {
     } else {
       this.vy = 0;
     }
+    // Special Skill movement
+    if (keyIsDown(this.space)) {
+      // if (powerEnergy === 100) {
+        this.shootHearts();
+      // }
+
+    }
   }
+
+  shootHearts() {
+    //console.log("shoot");
+  var newBullet = {
+      // Bullets should start at the location of the ship firing
+      x: this.x,
+      y: this.y,
+      // And they should have a velocity matching the ships' angle
+      // but should travel at maximum speed
+      vx: this.maxSpeed * cos(this.angle),
+      vy: this.maxSpeed * sin(this.angle)
+    }
+
+    // Add the bullet to the bulletHeart array of the ship
+      this.bulletHeart.push(newBullet);
+  }
+
+  // updateBullets()
+ //
+ // Move all the bulletHeart fired by this ship
+ // Check if they hit the other ship and update its size
+ // Note that in this simple version we never actually delete bulletHeart from the
+ // array. For that we'd need to use either pop() or splice().
+ updateBullets(badMonsters) {
+   // Go through all the bulletHeart of this ship
+   // (Note this is hugely inefficient since it still looks at bulletHeart that were fired long ago,
+   // we should really remove those from the array!)
+
+// console.log(`in handle bullet for ${badMonsters.y}`);
+
+   for (var i = 0; i < this.bulletHeart.length; i++) {
+     // Get the bullet based on its index
+     let bullet = this.bulletHeart[i];
+     // Update its position based on velocity
+     bullet.x += bullet.vx;
+     bullet.y += bullet.vy;
+     // Check if this bullet overlaps the other ship
+
+     // for (var i = 0; i < badMonsters.length; i++) {
+       if (bullet.x > badMonsters.x - badMonsters.image.width / 2 && bullet.x < badMonsters.x + badMonsters.image.width / 2) {
+         if (bullet.y > badMonsters.y - badMonsters.image.height  / 2 && bullet.y < badMonsters.y + badMonsters.image.height  / 2) {
+           // If so, make the other ship grow (constrained)
+           //badMonsters.scale += badMonsters.growPerBullet;
+          // badMonsters.scale = constrain(badMonsters.scale, badMonsters.minSize, badMonsters.maxSize);
+          console.log("hit");
+
+         }
+       }
+     // }
+
+   }
+ }
 
   // move()
   //
@@ -129,13 +194,13 @@ class Predator {
   // check the state is alive
   checkIfAlive() {
     if (this.health < 0.1 && this.health > 0) { //check if its alive or not
-      this.spyGone = true;
+      this.dogGone = true;
     }
   }
 
   //setting another scene ending - in this case it would be a happy ending.
   checkIfSceneSwitch() {
-    if (this.baddiesCaught === 4) { //triggers that amount of baddies that each spy should get
+    if (this.baddiesCaught === 4) { //triggers that amount of baddies that each dog should get
       console.log("itstrue") // I feel like this part is half working. It does not trigger the amount of spies properly but it was an iniative.
     }
   }
@@ -148,9 +213,21 @@ class Predator {
     push();
     this.radius = this.health;
     tint(255, this.alpha); //adding the fading/ invisible
-    image(this.image, this.x, this.y, this.image.width* this.scale , this.image.height *this.scale);
+    image(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale);
     fill(255);
     pop();
+
+    // Go through all the bullets and display the image for each one
+
+   for (var i = 0; i < this.bulletHeart.length; i++) {
+     //console.log(this.bulletHeart[i].x);
+     push();
+
+     image(this.bulletImage, this.bulletHeart[i].x, this.bulletHeart[i].y, 50, 50);
+
+     pop();
+
+   }
   }
 
   // reset()
@@ -159,8 +236,8 @@ class Predator {
   reset() {
     this.radius = 200; //size of spies
     this.y = random(0, windowHeight);
-    this.spyGone = false;
-    this.spyWin = false;
+    this.dogGone = false;
+    this.dogWin = false;
     this.baddiesCaught = 0;
     this.alpha = 255; //fadding and invisbility being reseted
   }
