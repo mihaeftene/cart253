@@ -1,9 +1,13 @@
-// Predator-Prey Simulation
+// Project 3: Courage to the Rescue
 // by Mihaela Eftene
 //
-// Catch as many baddies as you can! But avoid the gadgets! Some of them can cause you problems...
-// The spies chases the baddies using the controls (written in the game) and consumes them.
-// The spies loses health over time, so must keep catching until they win!
+//Instructions:
+//Yikes! Both of your owners disappeared! Where could they be? On your way to the woods, you see serveral monsters roaming around.
+//Next to them, you see items of your owners laying around. Maybe they know something? Only way to find out!
+//Help Courage find its owners by collecting 5 clues (clothing, hat etc.) to help him track down their scent.
+//Watch out for the monsters! If you succeed to avoid them, every minute your "Powerbar" Will go up. Once it has reached his max, you will be able to use your "heart shoot" skill pressing space key.
+//However, make sure to keep your eye on the "courage bar". Courage the is a scaredy dog and every minute the "courage bar" will drop by 10%. Once it has reached 0, you lose the game
+//Every 10 - 20 seconds, "Courage's favorite pie" will spawn at different locations! Make sure to eat it as it can bring your courage bar up to max.
 
 //check is game is playing, over, or winning
 let gameStart = false;
