@@ -10,7 +10,7 @@ class Predator {
   //
   // Sets the initial values for the Predator's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, image, alpha) {
+constructor(x, y, speed, radius, upKey, downKey, leftKey, rightKey, image, alpha) {
     // Position
     this.x = x;
     this.y = y;

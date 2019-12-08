@@ -13,15 +13,14 @@
 let gameStart = false;
 let showGameOver = false;
 let showGameWin = false;
-// Player variables for our predators / spies
-let playerCloverSpy;
-let playerSamSpy;
-let playerAlexSpy;
 
-//display images of our predators/spies
+// Player variable for courage
+let couragePlayer;
+
+//display image of player
 let playerCloverImage;
 let playerSamImage;
-let playerAlexImage;
+let couragePlayerImage;
 
 //to keep our code organized and clean, we will be using arrays for the spies because they have a few similarities such as display, move, handleEating, handleInput
 let playersSpies = [];
@@ -87,10 +86,8 @@ function preload() {
   gameOverBackground = loadImage("assets/images/backgroundGameOver.png");
   paintingBackground = loadImage("assets/images/backgroundPainting.png");
 
-  //loading the spies characters
-  playerCloverImage = loadImage("assets/images/cloverPlayerCharacter.png");
-  playerSamImage = loadImage("assets/images/samPlayerCharacter.png");
-  playerAlexImage = loadImage("assets/images/alexPlayerCharacter.png");
+  //loading Courage Player
+  couragePlayerImage = loadImage("assets/images/courageDogPlayerLeft.png");
 
   //loading the baddies characters
   baddieFlowerImage = loadImage("assets/images/flowerBadPerson.png");
@@ -121,12 +118,9 @@ function preload() {
 // Creates objects for the predator and three prey
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //setting up our predators (spies)
-  playerCloverSpy = new Predator(200, 200, 10, 100, 84, 71, 70, 72, playerCloverImage); //move CLOVER USING TFGH
-  playerSamSpy = new Predator(300, 300, 10, 100, 73, 75, 74, 76, playerSamImage); //move SAM using ILKJ
-  playerAlexSpy = new Predator(400, 400, 10, 100, 87, 83, 65, 68, playerAlexImage); //move ALEX using AWSD
-  //place our spies into an array
-  playersSpies = [playerCloverSpy, playerSamSpy, playerAlexSpy];
+  //setting up our predator (Courage)
+  couragePlayer = new Predator(400, 400, 10, 100, 87, 83, 65, 68, couragePlayerImage); //move ALEX using AWSD
+
   //setting our preys (baddies)
   baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
   baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5, baddieGangsterImage);
@@ -164,47 +158,18 @@ function draw() {
     checkGameOver();
     checkIfWon();
 
-    //Display the amount of baddies caught by Clover (Red)
-    textFont("Impact");
-    textAlign(LEFT, BOTTOM);
-    textSize(20);
-    fill(255, 51, 51); //set fill to red
-    text("Clover - Baddies caught: " + playerCloverSpy.baddiesCaught, 600, 800);
-
-    //Display the amount of baddies caught by Sam (Green)
-    textFont("Impact");
-    textAlign(RIGHT, BOTTOM);
-    textSize(20);
-    fill(0, 153, 51); //set fill to green
-    text("Sam - Baddies caught: " + playerSamSpy.baddiesCaught, 400, 800);
-
     //Display the amount of baddies caught by Alex (yellow)
     textFont("Impact");
     textAlign(RIGHT, BOTTOM);
     textSize(20);
     fill(255, 204, 0); //set fill to mustard yellow
-    text("Alex - Baddies caught: " + playerAlexSpy.baddiesCaught, 1200, 800);
+    text("Alex - Baddies caught: " + couragePlayer.baddiesCaught, 1200, 800);
 
-    // Arrays for the spies's handleInput, move, display and handleEating.
-    for (let i = 0; i < playersSpies.length; i++) {
-      playersSpies[i].checkIfAlive();
-      playersSpies[i].checkIfSceneSwitch();
-      playersSpies[i].move();
-      playersSpies[i].display();
-      playersSpies[i].handleInput();
-      redoStick.visibleNow(playersSpies[i]);
-      boostSkateboard.backSpeed(playersSpies[i]);
-      slowDryer.slowDown(playersSpies[i]);
-      hiddenGoggles.hiddenNow(playersSpies[i]);
-      playersSpies[i].handleEating(baddieFlowerCharacter);
-      playersSpies[i].handleEating(baddieGangsterCharacter);
-      playersSpies[i].handleEating(baddieExplorerCharacter);
-      playersSpies[i].handleEating(baddieDollCharacter);
-      playersSpies[i].handleEating(baddieClownCharacter);
-      playersSpies[i].handleEating(baddieFashionistaCharacter);
-      playersSpies[i].handleEating(baddieRichCharacter);
-      playersSpies[i].handleEating(baddiePrinceCharacter);
-    }
+    //Display the dog Player
+    couragePlayer.move();
+    couragePlayer.display();
+    couragePlayer.handleInput();
+
     //display and move the first class
     slowDryer.move();
     slowDryer.display();
@@ -253,7 +218,7 @@ function mousePressed() {
 //checkGameOver()
 //checking if its game over. Once the spies are gone its game over
 function checkGameOver() {
-  if (playerAlexSpy.spyGone && playerCloverSpy.spyGone && playerSamSpy.spyGone) {
+  if (couragePlayer.spyGone && playerCloverSpy.spyGone && couragePlayer.spyGone) {
     showGameOver = true;
     //stops music
     mainMusic.stop();
@@ -265,7 +230,7 @@ function checkGameOver() {
 //checkIfWon()
 //checking if its a win for the spies. It does not works for some reasons but I just wanted to show my initiative for this part. What am I missing?
 function checkIfWon() {
-  if (playerAlexSpy.spyWin && playerCloverSpy.spyWin && playerSamSpy.spyWin) {
+  if (couragePlayer.spyWin && playerCloverSpy.spyWin && couragePlayer.spyWin) {
     showGameWin = true;
   }
 }
@@ -273,9 +238,7 @@ function checkIfWon() {
 //resetGame()
 //reset the game including its elements
 function resetGame() {
-  playerCloverSpy.reset();
-  playerSamSpy.reset();
-  playerAlexSpy.reset();
+  couragePlayer.reset();
   baddieFlowerCharacter.reset();
   baddieGangsterCharacter.reset();
   baddieExplorerCharacter.reset();
