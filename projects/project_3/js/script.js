@@ -18,32 +18,24 @@ let showGameWin = false;
 let couragePlayer;
 
 //display image of Dog player
-let playerCloverImage;
-let playerSamImage;
 let couragePlayerImage;
 
-// Add our 8 baddies (preys for the cspies to catch)
-let baddieFlowerCharacter;
-let baddieGangsterCharacter;
-let baddieExplorerCharacter;
-let baddieDollCharacter;
-let baddieClownCharacter;
-let baddieFashionistaCharacter;
-let baddieRichCharacter;
-let baddiePrinceCharacter;
+// Add our monsters variable
+let catBadPerson;
+let duckBadPerson;
+let oobhaBadPerson;
+let innerDogBadPerson;
+let whiteFaceBadPerson;
 
-// display images of our baddies
-let baddieFlowerImage;
-let baddieGangsterImage;
-let baddieExplorerImage;
-let baddieDollImage;
-let baddieClownImage;
-let baddieFashionistaImage;
-let baddieRichImage;
-let baddiePrinceImage;
+// display images of our monsters
+let catBadPersonImage;
+let duckPersonImage;
+let oobhaBadPersonImage;
+let innerDogPersonImage;
+let whiteFaceBadPersonImage;
 
-//add an Array for baddies just as we did for the spies
-let characterBaddies = [];
+//add an Array for the Monsters
+let badMonsters  = [];
 
 //declare backgrounds
 let backgroundNight;
@@ -75,10 +67,12 @@ let itemCaughtSound;
 //Timer variable for the courage bar
 let timeBeforeCourageDrop = 0;
 let courageEnergy = 0;
+//max courage energy
 let maxCourageEnergy = 100;
 
 //Time variable for the Power energy bar
 let timeToGrowPower = 0;
+//power energy
 let powerEnergy = 0;
 
 //pre-load()
@@ -93,21 +87,12 @@ function preload() {
   //loading Courage Player
   couragePlayerImage = loadImage("assets/images/courageDogPlayerLeft.png");
 
-  //loading the baddies characters
-  baddieFlowerImage = loadImage("assets/images/flowerBadPerson.png");
-  baddieGangsterImage = loadImage("assets/images/gangsterBadBoy.png");
-  baddieExplorerImage = loadImage("assets/images/explorerBadPerson.png");
-  baddieDollImage = loadImage("assets/images/dollBadPerson.png");
-  baddieClownImage = loadImage("assets/images/clownBadPerson.png");
-  baddieFashionistaImage = loadImage("assets/images/fashionistaBadPerson.png");
-  baddieRichImage = loadImage("assets/images/richBadPerson.png");
-  baddiePrinceImage = loadImage("assets/images/princeBadPerson.png");
-
-  //loading images for gadgets
-  slowDryerImage = loadImage("assets/images/slowDryer.png");
-  hiddenGogglesImage = loadImage("assets/images/hiddenGoggles.png");
-  redoStickImage = loadImage("assets/images/redoLip.png");
-  boostSkateboardImage = loadImage("assets/images/boostSkateboard.png");
+  //loading the monsters characters
+  catBadPersonImage = loadImage("assets/images/catBadPerson.png");
+  duckPersonImage = loadImage("assets/images/duckBadPerson.png");
+  oobhaBadPersonImage = loadImage("assets/images/ohbaBadPerson.png");
+  innerDogPersonImage = loadImage("assets/images/innerDogBadPerson.png");
+  whiteFaceBadPersonImage = loadImage("assets/images/oddWhiteFaceBadPerson.png");
 
   //loading Music
   //mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
@@ -124,23 +109,16 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predator (Courage)
   couragePlayer = new Predator(200, 200, 10, 0.5, 87, 83, 65, 68, couragePlayerImage); //move Courage using AWSD
-
   //setting our preys (baddies)
-  baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
-  baddieGangsterCharacter = new Prey(300, 300, 10, 100, 0.5, baddieGangsterImage);
-  baddieExplorerCharacter = new Prey(400, 400, 10, 100, 0.5, baddieExplorerImage);
-  baddieDollCharacter = new Prey(200, 200, 10, 100, 0.5, baddieDollImage);
-  baddieClownCharacter = new Prey(300, 300, 10, 100, 0.5, baddieClownImage);
-  baddieFashionistaCharacter = new Prey(400, 400, 10, 100, 0.5, baddieFashionistaImage);
-  baddieRichCharacter = new Prey(200, 200, 10, 100, 0.5, baddieRichImage);
-  baddiePrinceCharacter = new Prey(300, 300, 10, 100, 0.5, baddiePrinceImage);
-  //place our baddies into an array
-  characterBaddies = [baddieFlowerCharacter, baddieGangsterCharacter, baddieExplorerCharacter, baddieDollCharacter, baddieClownCharacter, baddieFashionistaCharacter, baddieRichCharacter, baddiePrinceCharacter];
-  //set all the gadgets
-  hiddenGoggles = new HiddenGoggles(300, 300, 10, 100, 0.7, hiddenGogglesImage); // the 0.7 sets the scale that we added in the constructor
-  slowDryer = new DryerGadget(300, 300, 10, 100, 0.7, slowDryerImage); // the 0.7 sets the scale that we added in the constructor
-  redoStick = new StickRedo(300, 300, 10, 100, 0.5, redoStickImage); // the 0.5 sets the scale that we added in the constructor
-  boostSkateboard = new BoostSkateboard(300, 300, 10, 100, 0.7, boostSkateboardImage); // the 0.7 sets the scale that we added in the constructor
+  catBadPerson = new Prey(200, 200, 10, 100, 0.5, catBadPersonImage);
+  duckBadPerson = new Prey(300, 300, 10, 100, 0.7, duckPersonImage);
+  oobhaBadPerson = new Prey(300, 300, 10, 100, 0.3, oobhaBadPersonImage);
+  innerDogBadPerson = new Prey(300, 300, 10, 100, 0.15, innerDogPersonImage);
+  whiteFaceBadPerson = new Prey(300, 300, 10, 100, 0.15, whiteFaceBadPersonImage);
+
+  //place our monsters into an array
+  badMonsters  = [catBadPerson,duckBadPerson,oobhaBadPerson,innerDogBadPerson,whiteFaceBadPerson];
+
 }
 
 // draw()
@@ -172,23 +150,10 @@ function draw() {
     couragePlayer.display();
     couragePlayer.handleInput();
 
-    //display and move the first class
-    slowDryer.move();
-    slowDryer.display();
-    //display and move the second class
-    hiddenGoggles.move();
-    hiddenGoggles.display();
-    //display and move third class
-    redoStick.move();
-    redoStick.display();
-    //display and move fourth class
-    boostSkateboard.move();
-    boostSkateboard.display();
-
     // Arrays for the baddie'move, display
-    for (let i = 0; i < characterBaddies.length; i++) {
-      characterBaddies[i].move();
-      characterBaddies[i].display();
+    for (let i = 0; i < badMonsters .length; i++) {
+      badMonsters [i].move();
+      badMonsters [i].display();
     }
   }
 }
@@ -218,7 +183,7 @@ function timeCounter() {
   textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
-  text("TIMER: " + floor(timeBeforeCourageDrop), 400, 90);
+  text("COURAGE TIMER: " + floor(timeBeforeCourageDrop), 600, 90);
   text("TIMER POWER: " + floor(timeToGrowPower), 200, 90);
   pop();
 }
@@ -291,18 +256,7 @@ function checkIfWon() {
 //reset the game including its elements
 function resetGame() {
   couragePlayer.reset();
-  baddieFlowerCharacter.reset();
-  baddieGangsterCharacter.reset();
-  baddieExplorerCharacter.reset();
-  baddieDollCharacter.reset();
-  baddieClownCharacter.reset();
-  baddieFashionistaCharacter.reset();
-  baddieRichCharacter.reset();
-  baddiePrinceCharacter.reset();
-  slowDryer.reset();
-  hiddenGoggles.reset();
-  redoStick.reset();
-  boostSkateboard.reset();
+  badMonsters.reset();
   //has the click sounds
   clickButton.play();
   //loops the music once again
