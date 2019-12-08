@@ -45,13 +45,11 @@ let baddiePrinceImage;
 //add an Array for baddies just as we did for the spies
 let characterBaddies = [];
 
-//backgrounds variables
+//declare backgrounds
+let backgroundNight;
 let introBackground;
 let gameOverBackground;
 let winningBackground;
-
-//backgrounds that changes in game variables
-let backgroundNight;
 
 //gadgets variables
 let slowDryer;
