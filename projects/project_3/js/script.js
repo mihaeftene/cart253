@@ -17,13 +17,10 @@ let showGameWin = false;
 // Player variable for courage
 let couragePlayer;
 
-//display image of player
+//display image of Dog player
 let playerCloverImage;
 let playerSamImage;
 let couragePlayerImage;
-
-//to keep our code organized and clean, we will be using arrays for the spies because they have a few similarities such as display, move, handleEating, handleInput
-let playersSpies = [];
 
 // Add our 8 baddies (preys for the cspies to catch)
 let baddieFlowerCharacter;
@@ -119,7 +116,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predator (Courage)
-  couragePlayer = new Predator(400, 400, 10, 100, 87, 83, 65, 68, couragePlayerImage); //move ALEX using AWSD
+  couragePlayer = new Predator(200, 200, 10, 0.5, 87, 83, 65, 68, couragePlayerImage); //move Courage using AWSD
 
   //setting our preys (baddies)
   baddieFlowerCharacter = new Prey(200, 200, 10, 100, 0.5, baddieFlowerImage);
