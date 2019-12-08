@@ -51,7 +51,7 @@ let gameOverBackground;
 let winningBackground;
 
 //backgrounds that changes in game variables
-let paintingBackground;
+let backgroundNight;
 
 //gadgets variables
 let slowDryer;
@@ -81,7 +81,7 @@ function preload() {
   introBackground = loadImage("assets/images/backgroundIntro.png");
   winningBackground = loadImage("assets/images/backgroundSuccess.png");
   gameOverBackground = loadImage("assets/images/backgroundGameOver.png");
-  paintingBackground = loadImage("assets/images/backgroundPainting.png");
+  backgroundNight = loadImage("assets/images/backgroundGrass.png");
 
   //loading Courage Player
   couragePlayerImage = loadImage("assets/images/courageDogPlayerLeft.png");
@@ -103,7 +103,7 @@ function preload() {
   boostSkateboardImage = loadImage("assets/images/boostSkateboard.png");
 
   //loading Music
-  mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
+  //mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
   loseMusic = loadSound('./assets/sounds/tsCompLose.wav'); //lose background sound
   clickButton = loadSound('./assets/sounds/nextClick.wav'); //triggers the clicking sound
   itemCaughtSound = loadSound('./assets/sounds/gotYouItem.wav');
@@ -149,8 +149,8 @@ function draw() {
   }
   //setting the first background (outside) when game starts
   else {
-    //setting the background of the WOOHP painting
-    image(paintingBackground, 0, 0, windowWidth, windowHeight); // display background
+    //setting the background of the Night Grass
+    image(backgroundNight, 0, 0, windowWidth, windowHeight); // display background
     //check gameOver (if its game over or not)
     checkGameOver();
     checkIfWon();
