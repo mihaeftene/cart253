@@ -147,6 +147,7 @@ function draw() {
     timeCounter();
     CourageBar();
     PowerBar();
+
     //once pie eaten, Courage gets back his max courage
     console.log(itemPie)
     itemPie.RaiseCourage(couragePlayer);
