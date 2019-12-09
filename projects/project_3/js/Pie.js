@@ -27,6 +27,5 @@ class Pie extends Items {
     //  console.log("coll")
       this.timer = 0;
     }
-
   }
 }

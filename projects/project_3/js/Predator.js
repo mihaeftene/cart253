@@ -97,7 +97,7 @@ class Predator {
   // Check if they hit the other dog and update its size
   // Note that in this simple version we never actually delete bulletHeart from the
   // array. For that we'd need to use either pop() or splice().
-  updateBullets(badMonsters) {
+  updateBullets(badMonster) {
     // Go through all the bulletHeart of this dog
     // (Note this is hugely inefficient since it still looks at bulletHeart that were fired long ago,
     // we should really remove those from the array!)
@@ -111,12 +111,14 @@ class Predator {
       bullet.y += bullet.vy;
       // Check if this bullet overlaps
 
-      if (bullet.x > badMonsters.x - badMonsters.image.width / 2 && bullet.x < badMonsters.x + badMonsters.image.width / 2) {
-        if (bullet.y > badMonsters.y - badMonsters.image.height / 2 && bullet.y < badMonsters.y + badMonsters.image.height / 2) {
+      if (bullet.x > badMonster.x - badMonster.image.width / 2 && bullet.x < badMonster.x + badMonster.image.width / 2) {
+        if (bullet.y > badMonster.y - badMonster.image.height / 2 && bullet.y < badMonster.y + badMonster.image.height / 2) {
           // If so, make the other dog grow (constrained)
           //badMonsters.scale += badMonsters.growPerBullet;
           // badMonsters.scale = constrain(badMonsters.scale, badMonsters.minSize, badMonsters.maxSize);
           console.log("hit");
+          badMonster.isAlive =false;
+
         }
       }
     }
@@ -214,7 +216,6 @@ class Predator {
       push();
       image(this.bulletImage, this.bulletHeart[i].x, this.bulletHeart[i].y, 50, 50);
       pop();
-
     }
   }
 

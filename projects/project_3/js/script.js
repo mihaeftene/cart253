@@ -7,7 +7,7 @@
 //Help Courage find its owners by collecting 5 clues (clothing, hat etc.) to help him track down their scent.
 //Watch out for the monsters! If you succeed to avoid them, every minute your "Powerbar" Will go up. Once it has reached his max, you will be able to use your "heart shoot" skill pressing space key.
 //However, make sure to keep your eye on the "courage bar". Courage the is a scaredy dog and every minute the "courage bar" will drop by 10%. Once it has reached 0, you lose the game
-//Every 10 - 20 seconds, "Courage's favorite pie" will spawn at different locations! Make sure to eat it as it can bring your courage bar up to max.
+//Every 80, "Courage's favorite pie" will spawn at different locations! Make sure to eat it as it can bring your courage bar up to max.
 
 //check if game is playing, over, or winning
 let gameStart = false;
@@ -72,9 +72,9 @@ let itemCaughtSound;
 
 //Timer variable for the courage bar
 let timeBeforeCourageDrop = 0;
-let courageEnergy = 0;
+let courageEnergy = 500;
 //max courage energy
-let maxCourageEnergy = 100;
+let maxCourageEnergy = 500;
 
 //Time variable for the Power energy bar
 let timeToGrowPower = 0;
@@ -139,7 +139,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predator (Courage)
   couragePlayer = new Predator(200, 200, 10, 100, 87, 83, 65, 68, 32, 0.5, couragePlayerImage, bulletImage); //move Courage using AWSD
-  //setting our preys (baddies)
+  //setting our monsters
   catBadPerson = new Prey(200, 200, 10, 100, 0.5, catBadPersonImage);
   duckBadPerson = new Prey(300, 300, 10, 100, 0.7, duckPersonImage);
   oobhaBadPerson = new Prey(300, 300, 10, 100, 0.3, oobhaBadPersonImage);
@@ -205,13 +205,15 @@ function draw() {
     couragePlayer.handleEating(itemPie);
     couragePlayer.handleEating(itemPoison);
 
-    // //Arrays for the baddie'move, display
-    // for (let i = 0; i < badMonsters.length; i++) {
-    //   badMonsters[i].move();
-    //   badMonsters[i].display();
-    // }
+    //Arrays for the Monsters'move, display
+    for (let i = 0; i < badMonsters.length; i++) {
+      badMonsters[i].move();
+      badMonsters[i].display();
+      couragePlayer.updateBullets(badMonsters[i]);
+    }
+
     //Once the special skill has been activated, Courage will be able to shoot the monsters
-    couragePlayer.updateBullets(badMonsters);
+    //couragePlayer.updateBullets(badMonsters);
 
     //Arrays for the clues. The clues will move and display. Courage will be able to collect clues and have "the clues found" score updated at the top.
     for (let i = 0; i < cluesFind.length; i++) {
@@ -267,11 +269,14 @@ function timeCounter() {
 //CourageBar()
 //Draw a Courage Bar. It shows how much the Player dog has courage left
 function CourageBar() {
-  let courageBarFill = map(courageEnergy, 0, 100, 0, 100);
+//  let courageBarFill = map(courageEnergy, 0, 100, 0, 100);
+  let courageBarFill = 500-courageEnergy;
+  courageBarFill = constrain(courageBarFill,0,500);
+  console.log("courageBarfill:: "+courageBarFill);
   fill(255, 160, 136);
   rect(1400, 200, 40, 500);
   fill(240, 248, 255);
-  rect(1400, 200, 40, 0 - courageBarFill);
+  rect(1400, 200, 40, courageBarFill);
 }
 
 //PowerBar()
@@ -307,8 +312,6 @@ function mousePressed() {
     //  mainMusic.loop();
   }
 }
-
-
 
 //resetGame()
 //reset the game including its elements

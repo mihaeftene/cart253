@@ -5,7 +5,6 @@
 // the screen and be consumed by Predator objects.
 
 class Clues {
-
   // constructor
   //
   // Sets the initial values for the Predator's properties
@@ -72,7 +71,7 @@ class Clues {
 
   // display()
   //
-  // Draw the prey as an ellipse on the canvas
+  // Draw the prey as clues
   // with a radius the same size as its current health.
   display() {
     push();
