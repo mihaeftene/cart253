@@ -43,17 +43,6 @@ let introBackground;
 let gameOverBackground;
 let winningBackground;
 
-//gadgets variables
-let slowDryer;
-let hiddenGoggles;
-let redoStick;
-let boostSkateboard;
-//display images for Gadgets
-let slowDryerImage;
-let hiddenGogglesImage;
-let redoStickImage;
-let boostSkateboardImage;
-
 //Sound variables
 //main music
 let mainMusic;
@@ -75,6 +64,10 @@ let timeToGrowPower = 0;
 //power energy
 let powerEnergy = 0;
 
+//Items
+let itemPie;
+let itemPieImage;
+
 //pre-load()
 //adding a function preload to load images and sound
 function preload() {
@@ -93,6 +86,9 @@ function preload() {
   oobhaBadPersonImage = loadImage("assets/images/ohbaBadPerson.png");
   innerDogPersonImage = loadImage("assets/images/innerDogBadPerson.png");
   whiteFaceBadPersonImage = loadImage("assets/images/oddWhiteFaceBadPerson.png");
+
+  //loading items
+  itemPieImage = loadImage("assets/images/thePie.png");
 
   //loading Music
   //mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
@@ -116,9 +112,11 @@ function setup() {
   innerDogBadPerson = new Prey(300, 300, 10, 100, 0.15, innerDogPersonImage);
   whiteFaceBadPerson = new Prey(300, 300, 10, 100, 0.15, whiteFaceBadPersonImage);
 
+  //setting our pie item
+  itemPie = new Pie(200, 300, 10, 100, 0.5, itemPieImage);
+
   //place our monsters into an array
   badMonsters  = [catBadPerson,duckBadPerson,oobhaBadPerson,innerDogBadPerson,whiteFaceBadPerson];
-
 }
 
 // draw()
@@ -144,11 +142,18 @@ function draw() {
     timeCounter();
     CourageBar();
     PowerBar();
+    //once pie eaten, Courage gets back his max courage
+    console.log(itemPie)
+    itemPie.RaiseCourage(couragePlayer);
 
     //Display the dog Player
     couragePlayer.move();
     couragePlayer.display();
+    couragePlayer.handleEating(itemPie);
     couragePlayer.handleInput();
+
+    //display the Pie
+    itemPie.display();
 
     // Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters .length; i++) {
