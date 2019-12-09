@@ -146,8 +146,6 @@ constructor(x, y, speed, scale, upKey, downKey, leftKey, rightKey, image, alpha)
     tint(255, this.alpha); //adding the fading/ invisible
     image(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale);
     fill(255);
-    //adding the text to show the player how many baddies he caught
-    text("You caught: " + this.baddiesCaught, this.x, this.y + this.radius + 10);
     pop();
   }
 

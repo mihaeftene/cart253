@@ -20,8 +20,20 @@ class Items {
   //
   // Display the item
   display() {
+    if (this.isEaten === true) {
+      //timer for the pie poof
+      this.timer = millis() - this.startTime;
+      console.log(this.timer);
+      if (this.timer > 10000) {
+        this.isEaten = false;
+        this.x = random(0, width);
+        this.y = random(0, height);
+      }
+      return;
+    }
     push();
     noStroke();
+    //added scaling functionality for my image
     image(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale);
     pop();
   }

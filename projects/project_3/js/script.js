@@ -64,9 +64,12 @@ let timeToGrowPower = 0;
 //power energy
 let powerEnergy = 0;
 
-//Items
+//Items - pie and poison
 let itemPie;
 let itemPieImage;
+
+let itemPoison;
+let itemPoisonImage;
 
 //pre-load()
 //adding a function preload to load images and sound
@@ -87,8 +90,9 @@ function preload() {
   innerDogPersonImage = loadImage("assets/images/innerDogBadPerson.png");
   whiteFaceBadPersonImage = loadImage("assets/images/oddWhiteFaceBadPerson.png");
 
-  //loading items
+  //loading items (pie and poison)
   itemPieImage = loadImage("assets/images/thePie.png");
+  itemPoisonImage = loadImage("assets/images/thePoison.png");
 
   //loading Music
   //mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
@@ -114,6 +118,7 @@ function setup() {
 
   //setting our pie item
   itemPie = new Pie(200, 300, 10, 100, 0.5, itemPieImage);
+  itemPoison = new Poison(200, 300, 10, 100, 0.05, itemPoisonImage);
 
   //place our monsters into an array
   badMonsters  = [catBadPerson,duckBadPerson,oobhaBadPerson,innerDogBadPerson,whiteFaceBadPerson];
@@ -145,6 +150,7 @@ function draw() {
     //once pie eaten, Courage gets back his max courage
     console.log(itemPie)
     itemPie.RaiseCourage(couragePlayer);
+    itemPoison.DropCourage(couragePlayer);
 
     //Display the dog Player
     couragePlayer.move();
@@ -154,6 +160,7 @@ function draw() {
 
     //display the Pie
     itemPie.display();
+    itemPoison.display();
 
     // Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters .length; i++) {
