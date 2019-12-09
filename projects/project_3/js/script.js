@@ -35,7 +35,7 @@ let innerDogPersonImage;
 let whiteFaceBadPersonImage;
 
 //add an Array for the Monsters
-let badMonsters  = [];
+let badMonsters = [];
 
 //declare backgrounds
 let backgroundNight;
@@ -71,6 +71,9 @@ let itemPieImage;
 let itemPoison;
 let itemPoisonImage;
 
+//declare bullet variable
+let bulletImage;
+
 //pre-load()
 //adding a function preload to load images and sound
 function preload() {
@@ -94,6 +97,9 @@ function preload() {
   itemPieImage = loadImage("assets/images/thePie.png");
   itemPoisonImage = loadImage("assets/images/thePoison.png");
 
+  //load the bullets
+  bulletImage = loadImage("assets/images/heart.png");
+
   //loading Music
   //mainMusic = loadSound('./assets/sounds/tsHereWeGo.mp3'); //main bg music
   loseMusic = loadSound('./assets/sounds/tsCompLose.wav'); //lose background sound
@@ -108,7 +114,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //setting up our predator (Courage)
-  couragePlayer = new Predator(200, 200, 10, 0.5, 87, 83, 65, 68, couragePlayerImage); //move Courage using AWSD
+  couragePlayer = new Predator(200, 200, 10, 100, 87, 83, 65, 68, 32, 0.5, couragePlayerImage, bulletImage); //move Courage using AWSD
   //setting our preys (baddies)
   catBadPerson = new Prey(200, 200, 10, 100, 0.5, catBadPersonImage);
   duckBadPerson = new Prey(300, 300, 10, 100, 0.7, duckPersonImage);
@@ -121,7 +127,7 @@ function setup() {
   itemPoison = new Poison(200, 300, 10, 100, 0.05, itemPoisonImage);
 
   //place our monsters into an array
-  badMonsters  = [catBadPerson,duckBadPerson,oobhaBadPerson,innerDogBadPerson,whiteFaceBadPerson];
+  badMonsters = [catBadPerson, duckBadPerson, oobhaBadPerson, innerDogBadPerson, whiteFaceBadPerson];
 }
 
 // draw()
@@ -137,42 +143,44 @@ function draw() {
   }
   //setting the first background (outside) when game starts
   else {
-    //setting the background of the Night Grass
+    //setting the background of the WOOHP painting
     image(backgroundNight, 0, 0, windowWidth, windowHeight); // display background
     //check gameOver (if its game over or not)
-    checkGameOver();
-    checkIfWon();
+    //  checkGameOver();
+    //  checkIfWon();
 
-    //call the time counter function, courage bar and power bar
-    timeCounter();
     CourageBar();
     PowerBar();
-
-    //once pie eaten, Courage gets back his max courage
-    console.log(itemPie)
+    timeCounter();
+    //item pie replenish the courage gauge
     itemPie.RaiseCourage(couragePlayer);
+    //item poison kills you
     itemPoison.DropCourage(couragePlayer);
-
-    //Display the dog Player
+    //handleInput, move, display and handleEating for Courage.
+    //couragePlayer.checkIfAlive();
+    //couragePlayer.checkIfSceneSwitch();
     couragePlayer.move();
     couragePlayer.display();
-    couragePlayer.handleEating(itemPie);
     couragePlayer.handleInput();
+    // couragePlayer.handleEating(badMonsters);
+    couragePlayer.handleEating(itemPie);
+    couragePlayer.updateBullets(badMonsters[3]);
 
-    //display the Pie
+    //pie display
     itemPie.display();
     itemPoison.display();
 
     // Arrays for the baddie'move, display
-    for (let i = 0; i < badMonsters .length; i++) {
-      badMonsters [i].move();
-      badMonsters [i].display();
+    for (let i = 0; i < badMonsters.length; i++) {
+      badMonsters[i].move();
+      badMonsters[i].display();
     }
   }
 }
 
+
 //timeCounter
-//Once the timer reaches at 60, the power bar goes up by 10
+//Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
   timeToGrowPower += 1 / 60; // Count down based on frame rate
   if (timeToGrowPower > 3) {
@@ -187,7 +195,6 @@ function timeCounter() {
   if (timeBeforeCourageDrop > 3) // If the counter reaches zero, courage should drop
   {
     courageEnergy -= 10; // Drop courage
-    maxCourageEnergy = constrain(maxCourageEnergy, 0, 100);
     timeBeforeCourageDrop = 0; // Reset timer to 3 seconds
     // console.log("Drop The Courage");
   }
@@ -196,7 +203,7 @@ function timeCounter() {
   textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
-  text("COURAGE TIMER: " + floor(timeBeforeCourageDrop), 600, 90);
+  text("TIMER: " + floor(timeBeforeCourageDrop), 400, 90);
   text("TIMER POWER: " + floor(timeToGrowPower), 200, 90);
   pop();
 }
@@ -241,14 +248,14 @@ function mousePressed() {
     //intro sound (small one before the music)
     clickButton.play();
     //loops music
-    mainMusic.loop();
+    //  mainMusic.loop();
   }
 }
 
 //checkGameOver()
 //checking if its game over. Once the spies are gone its game over
 function checkGameOver() {
-  if (couragePlayer.spyGone && playerCloverSpy.spyGone && couragePlayer.spyGone) {
+  if (couragePlayer.dogGone) {
     showGameOver = true;
     //stops music
     mainMusic.stop();
@@ -260,7 +267,7 @@ function checkGameOver() {
 //checkIfWon()
 //checking if its a win for the spies. It does not works for some reasons but I just wanted to show my initiative for this part. What am I missing?
 function checkIfWon() {
-  if (couragePlayer.spyWin && playerCloverSpy.spyWin && couragePlayer.spyWin) {
+  if (couragePlayer.dogWin) {
     showGameWin = true;
   }
 }
@@ -269,7 +276,8 @@ function checkIfWon() {
 //reset the game including its elements
 function resetGame() {
   couragePlayer.reset();
-  badMonsters.reset();
+  playerSamSpy.reset();
+  badMonsters.reset()
   //has the click sounds
   clickButton.play();
   //loops the music once again

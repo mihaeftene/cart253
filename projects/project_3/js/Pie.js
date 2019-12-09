@@ -24,7 +24,7 @@ class Pie extends Items {
       courageEnergy = maxCourageEnergy;
       this.isEaten = true; //the pie has been eaten!
       this.startTime = millis(); //starts the counter of 10 sec
-      console.log("coll")
+    //  console.log("coll")
       this.timer = 0;
     }
 
