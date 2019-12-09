@@ -94,7 +94,7 @@ class Prey {
   // Set the position to a random location and reset health
   // and radius back to default
   reset() {
-    if (this.isAlive === true) {
+
       // Random position
       this.x = random(0, width);
       this.y = random(0, height);
@@ -102,6 +102,7 @@ class Prey {
       this.health = this.maxHealth;
       // Default radius
       this.radius = this.health;
-    }
+        this.isAlive = true;
+    
   }
 }

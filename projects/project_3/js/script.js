@@ -147,11 +147,11 @@ function setup() {
   whiteFaceBadPerson = new Prey(300, 300, 10, 100, 0.15, whiteFaceBadPersonImage);
 
   //setting clues class
-  shoeHint = new Clues(-200, 200, 10, 100, 0.5, shoeHintImage);
-  wigHint = new Clues(-300, 300, 10, 100, 0.3, wigHintImage);
-  bootHint = new Clues(-300, 300, 10, 100, 0.3, bootHintImage);
-  newspaperHint = new Clues(-300, 300, 10, 100, 0.3, newspaperHintImage);
-  hatHint = new Clues(-300, 300, 10, 100, 0.3, hatHintImage);
+  shoeHint = new Clues(-400, 200, 8.5, 100, 0.5, shoeHintImage);
+  wigHint = new Clues(-500, 300, 8.5, 100, 0.3, wigHintImage);
+  bootHint = new Clues(-300, 300, 8.5, 100, 0.3, bootHintImage);
+  newspaperHint = new Clues(-100, 300, 8.5, 100, 0.3, newspaperHintImage);
+  hatHint = new Clues(-200, 300, 8.5, 100, 0.3, hatHintImage);
 
   //setting our pie item and poison classes
   itemPie = new Pie(200, 300, 10, 100, 0.5, itemPieImage);
@@ -201,7 +201,9 @@ function draw() {
     couragePlayer.handleInput();
 
     //Display and Eats the pie or poison
+    itemPie.constrainToScreen();
     itemPie.display();
+    itemPoison.constrainToScreen();
     itemPoison.display();
     //couragePlayer.handleEating(itemPie);
     //couragePlayer.handleEating(itemPoison);
@@ -362,4 +364,8 @@ function resetGame() {
   timeToGrowPower = 0;
   //power energy
   powerEnergy = 0;
+  //variable that tracks how many clues it has caught. In this case it will be reseted to 0.
+  couragePlayer.cluesCaught =0;
+  itemPie.reset();
+  itemPoison.reset();
 }

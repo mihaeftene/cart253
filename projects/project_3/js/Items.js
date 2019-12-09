@@ -9,7 +9,7 @@ class Items {
   constructor(x, y, speed, radius, scale, image) { //added the scale to be able to modify the size of items
     // Position
     this.x = random(0, windowWidth);
-    this.y = random(0, windowWidth);
+    this.y = random(0, windowHeight);
     this.speed = speed;
     // Display properties
     this.scale = scale;
@@ -26,9 +26,8 @@ class Items {
       if (this.timer > 10000) {
         this.isEaten = false;
         this.x = random(0, width);
-        this.x = constrain(this.x, 0, width-this.width);
         this.y = random(0, height);
-        this.y = constrain(this.y, 0, height-this.height);
+
       }
       return;
     }
@@ -37,6 +36,14 @@ class Items {
     //added scaling functionality for my image
     image(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale);
     pop();
+  }
+
+  //making the objects (parent) be constrained
+  //constrainToScreen()
+  constrainToScreen() {
+    this.x = constrain(this.x, 0, (width - this.image.width));
+    this.y = constrain(this.y, 0, (height - this.image.height));
+
   }
 
   // reset()
