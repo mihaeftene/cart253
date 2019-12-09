@@ -31,8 +31,8 @@ class Predator {
     this.rightKey = rightKey;
     //setting the special skill - heart shooter
     this.space = space;
-    //tracking how many baddies each dog has caught
-    this.baddiesCaught = 0;
+    //tracking how many clues the player has caught
+    this.cluesCaught = 0;
     //setting the if dead case
     this.dogGone = false;
     //setting the if win scene (I seriously am not sure why its not displaying but its an initiave at least)
@@ -103,7 +103,6 @@ class Predator {
     // we should really remove those from the array!)
 
     // console.log(`in handle bullet for ${badMonsters.y}`);
-
     for (var i = 0; i < this.bulletHeart.length; i++) {
       // Get the bullet based on its index
       let bullet = this.bulletHeart[i];
@@ -176,7 +175,7 @@ class Predator {
       prey.health -= this.healthGainPerEat;
       // Check if the prey died and reset it if so
       if (prey.health < 0) {
-        this.baddiesCaught += 1;
+        this.cluesCaught += 1;
         itemCaughtSound.play(); //plays the catch sound when someone gets caught by spies
         prey.reset();
       }
@@ -192,7 +191,7 @@ class Predator {
 
   //setting another scene ending - in this case it would be a happy ending.
   checkIfSceneSwitch() {
-    if (this.baddiesCaught === 4) { //triggers that amount of baddies that each dog should get
+    if (this.cluesCaught === 4) { //triggers that amount of baddies that each dog should get
       console.log("itstrue") // I feel like this part is half working. It does not trigger the amount of spies properly but it was an iniative.
     }
   }
@@ -223,11 +222,10 @@ class Predator {
   //
   // Reset positions, locations and values of Pokeballs (predators)
   reset() {
-    this.radius = 200; //size of spies
     this.y = random(0, windowHeight);
     this.dogGone = false;
     this.dogWin = false;
-    this.baddiesCaught = 0;
+    this.cluesCaught = 0;
     this.alpha = 255; //fadding and invisbility being reseted
   }
 }

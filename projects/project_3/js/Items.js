@@ -23,7 +23,7 @@ class Items {
     if (this.isEaten === true) {
       //timer for the pie poof
       this.timer = millis() - this.startTime;
-      console.log(this.timer);
+    //  console.log(this.timer);
       if (this.timer > 10000) {
         this.isEaten = false;
         this.x = random(0, width);

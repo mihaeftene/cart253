@@ -11,6 +11,7 @@ class Poison extends Items {
     this.isEaten = false; //the poison is not drank yet
     this.timer = 0;
     this.startTime = 0;
+    this.courageEnergy = false;
   }
 
   // once the user has drank the poison , the courage bar will instantly drop and make a game over
@@ -19,13 +20,13 @@ class Poison extends Items {
     let d = dist(this.x, this.y, dog.x, dog.y);
     //  console.log(d);
     // check if the player and gadget overlaps
-    if (d < (this.image.width * this.scale) && this.isEaten === false) {
-      //The courage energy will drop at 0;
+    if (d < (this.image.width * this.scale) && this.isEaten === false && this.courageEnergy === false) {
+      //The courage energy will drop at 0 and make a game over
       this.isEaten = true; //the poison has been drank!
-      courageEnergy === 0;
-      console.log("drop")
+      this.courageEnergy = 0; //drops the courage bar completely
+      console.log("Drop that hp bar")
       this.startTime = millis(); //starts the counter of 10 sec
-      console.log("coll")
+      console.log("That annoying Poison")
       this.timer = 0;
     }
   }

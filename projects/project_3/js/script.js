@@ -9,7 +9,7 @@
 //However, make sure to keep your eye on the "courage bar". Courage the is a scaredy dog and every minute the "courage bar" will drop by 10%. Once it has reached 0, you lose the game
 //Every 10 - 20 seconds, "Courage's favorite pie" will spawn at different locations! Make sure to eat it as it can bring your courage bar up to max.
 
-//check is game is playing, over, or winning
+//check if game is playing, over, or winning
 let gameStart = false;
 let showGameOver = false;
 let showGameWin = false;
@@ -36,6 +36,23 @@ let whiteFaceBadPersonImage;
 
 //add an Array for the Monsters
 let badMonsters = [];
+
+// Add our clues for the player to find
+let shoeHint;
+let wigHint;
+let bootHint;
+let newspaperHint;
+let hatHint;
+
+// display images of our clues
+let shoeHintImage;
+let wigHintImage;
+let bootHintImage;
+let newspaperHintImage;
+let hatHintImage;
+
+//add an array for clues
+let cluesFind = [];
 
 //declare backgrounds
 let backgroundNight;
@@ -97,6 +114,13 @@ function preload() {
   itemPieImage = loadImage("assets/images/thePie.png");
   itemPoisonImage = loadImage("assets/images/thePoison.png");
 
+  //loading clues
+  shoeHintImage = loadImage("assets/images/shoeHint.png");
+  wigHintImage = loadImage("assets/images/wigHint.png");
+  bootHintImage = loadImage("assets/images/bootHint.png");
+  newspaperHintImage = loadImage("assets/images/newspaperHint.png");
+  hatHintImage = loadImage("assets/images/hatHint.png");
+
   //load the bullets
   bulletImage = loadImage("assets/images/heart.png");
 
@@ -122,12 +146,22 @@ function setup() {
   innerDogBadPerson = new Prey(300, 300, 10, 100, 0.15, innerDogPersonImage);
   whiteFaceBadPerson = new Prey(300, 300, 10, 100, 0.15, whiteFaceBadPersonImage);
 
-  //setting our pie item
+  //setting clues class
+  shoeHint = new Clues(200, 200, 10, 100, 0.5, shoeHintImage);
+  wigHint = new Clues(300, 300, 10, 100, 0.3, wigHintImage);
+  bootHint = new Clues(300, 300, 10, 100, 0.3, bootHintImage);
+  newspaperHint = new Clues(300, 300, 10, 100, 0.3, newspaperHintImage);
+  hatHint = new Clues(300, 300, 10, 100, 0.3, hatHintImage);
+
+  //setting our pie item and poison classes
   itemPie = new Pie(200, 300, 10, 100, 0.5, itemPieImage);
   itemPoison = new Poison(200, 300, 10, 100, 0.05, itemPoisonImage);
 
   //place our monsters into an array
   badMonsters = [catBadPerson, duckBadPerson, oobhaBadPerson, innerDogBadPerson, whiteFaceBadPerson];
+
+  //place our clues into an Array
+  cluesFind = [shoeHint, wigHint, bootHint, newspaperHint, hatHint];
 }
 
 // draw()
@@ -143,7 +177,7 @@ function draw() {
   }
   //setting the first background (outside) when game starts
   else {
-    //setting the background of the WOOHP painting
+    //setting the background to a dark night grass background
     image(backgroundNight, 0, 0, windowWidth, windowHeight); // display background
     //check gameOver (if its game over or not)
     //  checkGameOver();
@@ -152,9 +186,11 @@ function draw() {
     CourageBar();
     PowerBar();
     timeCounter();
+    hintsFound();
+
     //item pie replenish the courage gauge
     itemPie.RaiseCourage(couragePlayer);
-    //item poison kills you
+    //item poison that kills you instantly
     itemPoison.DropCourage(couragePlayer);
     //handleInput, move, display and handleEating for Courage.
     //couragePlayer.checkIfAlive();
@@ -162,23 +198,42 @@ function draw() {
     couragePlayer.move();
     couragePlayer.display();
     couragePlayer.handleInput();
-    // couragePlayer.handleEating(badMonsters);
-    couragePlayer.handleEating(itemPie);
-    couragePlayer.updateBullets(badMonsters[3]);
 
-    //pie display
+    //Display and Eats the pie or poison
     itemPie.display();
     itemPoison.display();
+    couragePlayer.handleEating(itemPie);
+    couragePlayer.handleEating(itemPoison);
 
-    // Arrays for the baddie'move, display
+    //Arrays for the baddie'move, display
     for (let i = 0; i < badMonsters.length; i++) {
       badMonsters[i].move();
       badMonsters[i].display();
     }
+    //Once the special skill has been activated, Courage will be able to shoot the monsters
+    couragePlayer.updateBullets(badMonsters);
+
+    //Arrays for the baddie'move, display
+    for (let i = 0; i < cluesFind.length; i++) {
+      cluesFind[i].move();
+      cluesFind[i].display();
+    }
   }
 }
 
-//timeCounter
+//hintsFound()
+//Display the amount of hints found
+function hintsFound() {
+  push();
+  fill(255, 255, 255);
+  textAlign(CENTER, RIGHT);
+  textFont('Impact');
+  textSize(30);
+  text("# OF HINTS FOUND " + couragePlayer.cluesCaught, 630, 90);
+  pop();
+}
+
+//timeCounter()
 //Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
   timeToGrowPower += 1 / 60; // Count down based on frame rate
@@ -251,31 +306,12 @@ function mousePressed() {
   }
 }
 
-//checkGameOver()
-//checking if its game over. Once the spies are gone its game over
-function checkGameOver() {
-  if (couragePlayer.dogGone) {
-    showGameOver = true;
-    //stops music
-    mainMusic.stop();
-    //plays the lose song
-    loseMusic.play();
-  }
-}
 
-//checkIfWon()
-//checking if its a win for the spies. It does not works for some reasons but I just wanted to show my initiative for this part. What am I missing?
-function checkIfWon() {
-  if (couragePlayer.dogWin) {
-    showGameWin = true;
-  }
-}
 
 //resetGame()
 //reset the game including its elements
 function resetGame() {
   couragePlayer.reset();
-  playerSamSpy.reset();
   badMonsters.reset()
   //has the click sounds
   clickButton.play();
