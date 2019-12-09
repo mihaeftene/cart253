@@ -311,7 +311,7 @@ function mousePressed() {
     //intro sound (small one before the music)
     clickButton.play();
     //loops music
-    //  mainMusic.loop();
+    //mainMusic.loop();
   }
 }
 
@@ -328,7 +328,7 @@ function checkGameOver() {
 }
 
 //checkIfWon()
-//checking if its a win for the player Courage.
+//checking if its a win for the player Courage. If the player caught 5 clues, its a win!
 function checkIfWon() {
   if (couragePlayer.cluesCaught === 5) {
     showGameWin = true;
@@ -339,12 +339,9 @@ function checkIfWon() {
 //reset the game including its elements
 function resetGame() {
   couragePlayer.reset();
-  showGameOver = false;
-  showGameWin = false;
   for (let i = 0; i < cluesFind.length; i++) {
     cluesFind[i].reset();
   }
-
   for (let i = 0; i < badMonsters.length; i++) {
     badMonsters[i].reset();
   }

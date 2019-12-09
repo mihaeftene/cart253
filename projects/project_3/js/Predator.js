@@ -17,10 +17,10 @@ class Predator {
     // Velocity and speed
     this.vx = 0;
     this.vy = 0;
+    //speed of the player
     this.speed = speed;
+    //radius
     this.radius = radius;
-
-
     // Display properties
     this.scale = scale; //scale of the f
     this.image = image; // display the spies'images
@@ -71,13 +71,12 @@ class Predator {
     }
     // Special Skill movement
     if (keyIsDown(this.space)) {
-
-      console.log(powerEnergy);
+      //if the energy bar has reached 90 and PLUS (not below), shoot using space key.
       if (powerEnergy >=90) {
         this.reachedNinety =true;
-        console.log("SHOOT");
         this.shootHearts();
       }
+        //However, it will decrease overtime.
         if (this.reachedNinety ===true) {
         powerEnergy-=1;
       }
@@ -85,8 +84,8 @@ class Predator {
     }
   }
 
+  //shootHearts()
   shootHearts() {
-    //console.log("shoot");
     var newBullet = {
       // Bullets should start at the location of the dog firing
       x: this.x,
@@ -169,32 +168,7 @@ class Predator {
     }
   }
 
-  // handleEating()
-  //
-  // Takes a Prey object as an argument and checks if the predator
-  // overlaps it. If so, reduces the prey's health and increases
-  // the predator's. If the prey dies, it gets reset.
-  // handleEating(prey) {
-  //
-  //   // Calculate distance from this predator to the prey
-  //   let d = dist(this.x, this.y, prey.x, prey.y);
-  //   // Check if the distance is less than their two radii (an overlap)
-  //   if (d < this.radius + prey.radius) {
-  //     timeToGrowPower = 0;
-  //     // Increase predator health and constrain it to its possible range
-  //     this.health += this.healthGainPerEat;
-  //     this.health = constrain(this.health, 0, this.maxHealth);
-  //     // Decrease prey health by the same amount
-  //   //  prey.health -= this.healthGainPerEat;
-  //
-  //     // Check if the prey died and reset it if so
-  //   //  if (prey.health < 0) {
-  //       itemCaughtSound.play(); //plays the catch sound when someone gets caught by spies
-  //       prey.reset();
-  //     //}
-  //   }
-  // }
-
+  //handleEatingClue()
   handleEatingClue(clue) {
 
     // Calculate distance from this predator to the prey
@@ -206,28 +180,10 @@ class Predator {
       // Increase predator health and constrain it to its possible range
       this.health += this.healthGainPerEat;
       this.health = constrain(this.health, 0, this.maxHealth);
-      // Decrease prey health by the same amount
-
-
-
+      //update the clues caught score if its not alive anymore
         this.cluesCaught += 1;
         itemCaughtSound.play(); //plays the catch sound when someone gets caught by spies
-        clue.isAlive =false;
-
-    }
-  }
-
-  // check the state is alive
-  checkIfAlive() {
-    if (this.health < 0.1 && this.health > 0) { //check if its alive or not
-      this.dogGone = true;
-    }
-  }
-
-  //setting another scene ending - in this case it would be a happy ending.
-  checkIfSceneSwitch() {
-    if (this.cluesCaught === 4) { //triggers that amount of baddies that each dog should get
-      console.log("itstrue") // I feel like this part is half working. It does not trigger the amount of spies properly but it was an iniative.
+        clue.isAlive =false; //the clue is not alive anymore
     }
   }
 
@@ -254,11 +210,9 @@ class Predator {
 
   // reset()
   //
-  // Reset positions, locations and values of Pokeballs (predators)
+  // Reset positions, locations and values
   reset() {
     this.y = random(0, windowHeight);
-    this.dogGone = false;
-    this.dogWin = false;
     this.cluesCaught = 0;
     this.alpha = 255; //fadding and invisbility being reseted
   }
