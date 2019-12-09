@@ -205,19 +205,21 @@ function draw() {
     couragePlayer.handleEating(itemPie);
     couragePlayer.handleEating(itemPoison);
 
-    //Arrays for the baddie'move, display
-    for (let i = 0; i < badMonsters.length; i++) {
-      badMonsters[i].move();
-      badMonsters[i].display();
-    }
+    // //Arrays for the baddie'move, display
+    // for (let i = 0; i < badMonsters.length; i++) {
+    //   badMonsters[i].move();
+    //   badMonsters[i].display();
+    // }
     //Once the special skill has been activated, Courage will be able to shoot the monsters
     couragePlayer.updateBullets(badMonsters);
 
-    //Arrays for the baddie'move, display
+    //Arrays for the clues. The clues will move and display. Courage will be able to collect clues and have "the clues found" score updated at the top.
     for (let i = 0; i < cluesFind.length; i++) {
       cluesFind[i].move();
       cluesFind[i].display();
     }
+      couragePlayer.handleEating(cluesFind);
+      console.log("You caught me!")
   }
 }
 

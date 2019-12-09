@@ -36,8 +36,9 @@ class Clues {
   // Moves based on the resulting velocity and handles wrapping
   move() {
     // Set velocity via noise()
-    this.vx = map(noise(this.tx), 0, 1, -this.speed, this.speed);
-    this.vy = map(noise(this.ty), 0, 1, -this.speed, this.speed);
+    //the clues are pretty quick because the monsters doesnt want the Player to catch them (so they used a bit of magic :))
+    this.vx = map(noise(this.tx), 0, 0.5, -this.speed, this.speed);
+    this.vy = map(noise(this.ty), 0, 0.5, -this.speed, this.speed);
     // Update position
     this.x += this.vx;
     this.y += this.vy;
