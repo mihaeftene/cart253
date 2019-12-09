@@ -1,6 +1,6 @@
 // Clues
 //
-// A class that represents a simple prey that moves
+// A class that represents a simple clue that moves
 // on screen based on a noise() function. It can move around
 // the screen and be consumed by Predator objects.
 
@@ -21,12 +21,14 @@ class Clues {
     this.tx = random(0, 1000); // To make x and y noise different
     this.ty = random(0, 1000); // we use random starting values
     // Health properties
+    this.radius = radius;
     this.maxHealth = radius;
     this.health = this.maxHealth; // Must be AFTER defining this.maxHealth
     // Display properties
     this.radius = this.health;
     this.scale=scale;
     this.image = image; // display the baddies'images
+    this.isAlive =true;
   }
 
   // move()
@@ -44,13 +46,14 @@ class Clues {
     // Update time properties
     this.tx += 0.01;
     this.ty += 0.01;
+
     // Handle wrapping
     this.handleWrapping();
   }
 
   // handleWrapping()
   //
-  // Checks if the prey has gone off the canvas and
+  // Checks if the clue has gone off the canvas and
   // wraps it to the other side if so
   handleWrapping() {
     // Off the left or right
@@ -71,7 +74,7 @@ class Clues {
 
   // display()
   //
-  // Draw the prey as clues
+  // Draw the clue as clues
   // with a radius the same size as its current health.
   display() {
     push();

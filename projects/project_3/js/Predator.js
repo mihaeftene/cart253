@@ -18,6 +18,8 @@ class Predator {
     this.vx = 0;
     this.vy = 0;
     this.speed = speed;
+    this.radius = radius;
+
 
     // Display properties
     this.scale = scale; //scale of the f
@@ -43,6 +45,7 @@ class Predator {
     this.bulletImage = theBulletImage;
     this.maxSpeed = 5;
     this.angle = PI;
+    this.reachedNinety  =false;
   }
 
   // handleInput()
@@ -68,8 +71,15 @@ class Predator {
     }
     // Special Skill movement
     if (keyIsDown(this.space)) {
-      if (powerEnergy === 100) {
+
+      console.log(powerEnergy);
+      if (powerEnergy >=90) {
+        this.reachedNinety =true;
+        console.log("SHOOT");
         this.shootHearts();
+      }
+        if (this.reachedNinety ===true) {
+        powerEnergy-=1;
       }
 
     }
@@ -164,23 +174,46 @@ class Predator {
   // Takes a Prey object as an argument and checks if the predator
   // overlaps it. If so, reduces the prey's health and increases
   // the predator's. If the prey dies, it gets reset.
-  handleEating(prey) {
+  // handleEating(prey) {
+  //
+  //   // Calculate distance from this predator to the prey
+  //   let d = dist(this.x, this.y, prey.x, prey.y);
+  //   // Check if the distance is less than their two radii (an overlap)
+  //   if (d < this.radius + prey.radius) {
+  //     timeToGrowPower = 0;
+  //     // Increase predator health and constrain it to its possible range
+  //     this.health += this.healthGainPerEat;
+  //     this.health = constrain(this.health, 0, this.maxHealth);
+  //     // Decrease prey health by the same amount
+  //   //  prey.health -= this.healthGainPerEat;
+  //
+  //     // Check if the prey died and reset it if so
+  //   //  if (prey.health < 0) {
+  //       itemCaughtSound.play(); //plays the catch sound when someone gets caught by spies
+  //       prey.reset();
+  //     //}
+  //   }
+  // }
+
+  handleEatingClue(clue) {
+
     // Calculate distance from this predator to the prey
-    let d = dist(this.x, this.y, prey.x, prey.y);
+    let d = dist(this.x, this.y, clue.x, clue.y);
+
     // Check if the distance is less than their two radii (an overlap)
-    if (d < this.radius + prey.radius) {
+    if (d < (this.radius+clue.radius) && clue.isAlive ===true) {
       timeToGrowPower = 0;
       // Increase predator health and constrain it to its possible range
       this.health += this.healthGainPerEat;
       this.health = constrain(this.health, 0, this.maxHealth);
       // Decrease prey health by the same amount
-      prey.health -= this.healthGainPerEat;
-      // Check if the prey died and reset it if so
-      if (prey.health < 0) {
+
+
+
         this.cluesCaught += 1;
         itemCaughtSound.play(); //plays the catch sound when someone gets caught by spies
-        prey.reset();
-      }
+        clue.isAlive =false;
+
     }
   }
 
@@ -204,7 +237,7 @@ class Predator {
   // with a radius the same size as its current health.
   display() {
     push();
-    this.radius = this.health;
+    //this.radius = this.health;
     tint(255, this.alpha); //adding the fading/ invisible
     image(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale);
     fill(255);
