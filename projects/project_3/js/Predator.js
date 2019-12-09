@@ -42,7 +42,7 @@ class Predator {
     this.bulletHeart = [];
     this.bulletImage = theBulletImage;
     this.maxSpeed = 5;
-    this.angle= PI;
+    this.angle = PI;
   }
 
   // handleInput()
@@ -77,7 +77,7 @@ class Predator {
 
   shootHearts() {
     //console.log("shoot");
-  var newBullet = {
+    var newBullet = {
       // Bullets should start at the location of the dog firing
       x: this.x,
       y: this.y,
@@ -88,42 +88,40 @@ class Predator {
     }
 
     // Add the bullet to the bulletHeart array of the dog
-      this.bulletHeart.push(newBullet);
+    this.bulletHeart.push(newBullet);
   }
 
   // updateBullets()
- //
- // Move all the bulletHeart fired by this dog
- // Check if they hit the other dog and update its size
- // Note that in this simple version we never actually delete bulletHeart from the
- // array. For that we'd need to use either pop() or splice().
- updateBullets(badMonsters) {
-   // Go through all the bulletHeart of this dog
-   // (Note this is hugely inefficient since it still looks at bulletHeart that were fired long ago,
-   // we should really remove those from the array!)
+  //
+  // Move all the bulletHeart fired by this dog
+  // Check if they hit the other dog and update its size
+  // Note that in this simple version we never actually delete bulletHeart from the
+  // array. For that we'd need to use either pop() or splice().
+  updateBullets(badMonsters) {
+    // Go through all the bulletHeart of this dog
+    // (Note this is hugely inefficient since it still looks at bulletHeart that were fired long ago,
+    // we should really remove those from the array!)
 
-// console.log(`in handle bullet for ${badMonsters.y}`);
+    // console.log(`in handle bullet for ${badMonsters.y}`);
 
-   for (var i = 0; i < this.bulletHeart.length; i++) {
-     // Get the bullet based on its index
-     let bullet = this.bulletHeart[i];
-     // Update its position based on velocity
-     bullet.x += bullet.vx;
-     bullet.y += bullet.vy;
-     // Check if this bullet overlaps
+    for (var i = 0; i < this.bulletHeart.length; i++) {
+      // Get the bullet based on its index
+      let bullet = this.bulletHeart[i];
+      // Update its position based on velocity
+      bullet.x += bullet.vx;
+      bullet.y += bullet.vy;
+      // Check if this bullet overlaps
 
-       if (bullet.x > badMonsters.x - badMonsters.image.width / 2 && bullet.x < badMonsters.x + badMonsters.image.width / 2) {
-         if (bullet.y > badMonsters.y - badMonsters.image.height  / 2 && bullet.y < badMonsters.y + badMonsters.image.height  / 2) {
-           // If so, make the other dog grow (constrained)
-           //badMonsters.scale += badMonsters.growPerBullet;
+      if (bullet.x > badMonsters.x - badMonsters.image.width / 2 && bullet.x < badMonsters.x + badMonsters.image.width / 2) {
+        if (bullet.y > badMonsters.y - badMonsters.image.height / 2 && bullet.y < badMonsters.y + badMonsters.image.height / 2) {
+          // If so, make the other dog grow (constrained)
+          //badMonsters.scale += badMonsters.growPerBullet;
           // badMonsters.scale = constrain(badMonsters.scale, badMonsters.minSize, badMonsters.maxSize);
           console.log("hit");
-
-         }
-       }
-
-   }
- }
+        }
+      }
+    }
+  }
 
   // move()
   //
@@ -212,16 +210,13 @@ class Predator {
     pop();
 
     // Go through all the bullets and display the image for each one
+    for (var i = 0; i < this.bulletHeart.length; i++) {
+      //console.log(this.bulletHeart[i].x);
+      push();
+      image(this.bulletImage, this.bulletHeart[i].x, this.bulletHeart[i].y, 50, 50);
+      pop();
 
-   for (var i = 0; i < this.bulletHeart.length; i++) {
-     //console.log(this.bulletHeart[i].x);
-     push();
-
-     image(this.bulletImage, this.bulletHeart[i].x, this.bulletHeart[i].y, 50, 50);
-
-     pop();
-
-   }
+    }
   }
 
   // reset()

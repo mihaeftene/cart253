@@ -178,7 +178,6 @@ function draw() {
   }
 }
 
-
 //timeCounter
 //Once the timer ends (0), Courage will lose "Courage"
 function timeCounter() {
