@@ -22,8 +22,8 @@ class Predator {
     //radius
     this.radius = radius;
     // Display properties
-    this.scale = scale; //scale of the f
-    this.image = image; // display the spies'images
+    this.scale = scale; //scale of the image
+    this.image = image; // display the images of the dog
     //Adding the tint of the Image
     this.alpha = 255; //
     // Input properties
@@ -35,11 +35,6 @@ class Predator {
     this.space = space;
     //tracking how many clues the player has caught
     this.cluesCaught = 0;
-    //setting the if dead case
-    this.dogGone = false;
-    //setting the if win scene (I seriously am not sure why its not displaying but its an initiave at least)
-    this.dogWin = false;
-
     //shoot hearts
     this.bulletHeart = [];
     this.bulletImage = theBulletImage;
@@ -80,7 +75,6 @@ class Predator {
       if (this.reachedNinety === true) {
         powerEnergy -= 1;
       }
-
     }
   }
 

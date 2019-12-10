@@ -354,6 +354,7 @@ function resetGame() {
   loseMusic.stop();
   //stop the success music
   successMusic.stop();
+  //show game over or win as false
   showGameOver = false;
   showGameWin = false;
   //Timer variable for the courage bar
