@@ -1,7 +1,7 @@
 //Courage's most hated item: Poison
 //Once the poison has been drank this poison will kill you and result a gameover (Drop the courage bar)
 
-class Poison extends Items {
+class Poison extends Items { //Poison is a child of "items"
   // constructor
   //
   // Sets the initial values for poison property
@@ -16,8 +16,7 @@ class Poison extends Items {
   // once the user has drank the poison , the courage bar will instantly drop and make a game over
   DropCourage(dog) {
     let d = dist(this.x, this.y, dog.x, dog.y);
-    //  console.log(d);
-    // check if the player and gadget overlaps
+    // check if the player and poison overlaps
     if (d < (this.image.width * this.scale) && this.isEaten === false) {
       //The courage energy will drop at 0 and make a game over
       this.isEaten = true; //the poison has been drank!

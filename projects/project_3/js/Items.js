@@ -20,14 +20,14 @@ class Items {
   //
   // Display the item
   display() {
-    if (this.isEaten === true) {
-      //timer for the pie poof
+    if (this.isEaten === true) { //if the item has been eaten start the timer
+      //timer for the pie to disappear
       this.timer = millis() - this.startTime;
-      if (this.timer > 10000) {
+      if (this.timer > 10000) { //10 seconds before spawning
+        //if it has not been eaten. position it randomly
         this.isEaten = false;
         this.x = random(0, width);
         this.y = random(0, height);
-
       }
       return;
     }
@@ -43,7 +43,6 @@ class Items {
   constrainToScreen() {
     this.x = constrain(this.x, 0, (width - this.image.width));
     this.y = constrain(this.y, 0, (height - this.image.height));
-
   }
 
   // reset()

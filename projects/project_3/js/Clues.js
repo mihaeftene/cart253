@@ -1,15 +1,14 @@
 // Clues
 //
-// A class that represents a simple clue that moves
-// on screen based on a noise() function. It can move around
-// the screen and be consumed by Predator objects.
+// A class that represents a simple clue that moves around
+// on screen based on a noise() function. Courage can collect these clues and update the score. Once all clues collected, the player wins
 
 class Clues {
   // constructor
   //
-  // Sets the initial values for the Predator's properties
+  // Sets the initial values for the clues's properties
   // Either sets default values or uses the arguments provided
-  constructor(x, y, speed, radius, scale, image) { //added scale in the constructor to be able to modifiy the scaling each of my baddies
+  constructor(x, y, speed, radius, scale, image) {
     // Position
     this.x = x;
     this.y = y;
@@ -27,7 +26,8 @@ class Clues {
     // Display properties
     this.radius = this.health;
     this.scale=scale;
-    this.image = image; // display the baddies'images
+    this.image = image; // display the image of clues
+    //the clue is alive
     this.isAlive =true;
   }
 
@@ -38,15 +38,14 @@ class Clues {
   move() {
     // Set velocity via noise()
     //the clues are pretty quick because the monsters doesnt want the Player to catch them (so they used a bit of magic :))
-    this.vx = map(noise(this.tx), 0, 0.5, -this.speed, this.speed);
-    this.vy = map(noise(this.ty), 0, 0.5, -this.speed, this.speed);
+    this.vx = map(noise(this.tx), 0, 0.6, -this.speed, this.speed);
+    this.vy = map(noise(this.ty), 0, 0.6, -this.speed, this.speed);
     // Update position
     this.x += this.vx;
     this.y += this.vy;
     // Update time properties
     this.tx += 0.01;
     this.ty += 0.01;
-
     // Handle wrapping
     this.handleWrapping();
   }
@@ -54,7 +53,7 @@ class Clues {
   // handleWrapping()
   //
   // Checks if the clue has gone off the canvas and
-  // wraps it to the other side if so
+  // wraps it to the other side
   handleWrapping() {
     // Off the left or right
     if (this.x < 0) {

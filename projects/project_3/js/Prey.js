@@ -1,8 +1,8 @@
-// Prey
+// Prey - Monsters
 //
 // A class that represents a simple prey that moves
 // on screen based on a noise() function. It can move around
-// the screen and be consumed by Predator objects.
+// the screen and be shot by Courage's bullets - they exist to annoy the player and make him from raising his "power"
 
 class Prey {
 
@@ -27,7 +27,7 @@ class Prey {
     // Display properties
     this.radius = this.health;
     this.scale = scale;
-    this.image = image; // display the baddies'images
+    this.image = image; // displays the monsters
     this.isAlive = true; //the prey is alive right now, but i would like them to not be removed from the array once courage has shot them. Instead, I would like them to become "invisible"
   }
 
@@ -75,7 +75,7 @@ class Prey {
 
   // display()
   //
-  // Draw the prey as an ellipse on the canvas
+  // draw the prey (as an image)
   // with a radius the same size as its current health.
   display() {
     //condition where if they are alive (hasent been shot) display them
@@ -95,14 +95,15 @@ class Prey {
   // and radius back to default
   reset() {
 
-      // Random position
-      this.x = random(0, width);
-      this.y = random(0, height);
-      // Default health
-      this.health = this.maxHealth;
-      // Default radius
-      this.radius = this.health;
-        this.isAlive = true;
-    
+    // Random position
+    this.x = random(0, width);
+    this.y = random(0, height);
+    // Default health
+    this.health = this.maxHealth;
+    // Default radius
+    this.radius = this.health;
+    //reset it alive
+    this.isAlive = true;
+
   }
 }
