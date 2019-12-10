@@ -236,22 +236,22 @@ function hintsFound() {
   textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
-  text("# OF HINTS FOUND " + couragePlayer.cluesCaught, 630, 90);
+  text("# OF HINTS FOUND " + couragePlayer.cluesCaught, 800, 90);
   pop();
 }
 
 //timeCounter()
-//Once the timer ends (0), Courage will lose "Courage"
+//once the timer has reached 3, courage will drop and power will rise
 function timeCounter() {
   timeToGrowPower += 1 / 60; // Count down based on frame rate
-  if (timeToGrowPower > 3) {
+  if (timeToGrowPower > 3) { //if the counter reaches 3, energy will drop
     powerEnergy += 10;
     powerEnergy = constrain(powerEnergy, 0, 100); //constrain the power energy btw 0 and 100
     timeToGrowPower = 0;
   }
-  //if courage bar reaches 60, lower the courage by -10
+  //if courage bar reaches 3, lower the courage by -10
   timeBeforeCourageDrop += 1 / 60; // Count down based on frame rate
-  if (timeBeforeCourageDrop > 3) // If the counter reaches zero, courage should drop
+  if (timeBeforeCourageDrop > 3) // If the counter reaches 3, courage should drop
   {
     courageEnergy -= 10; // Drop courage
     timeBeforeCourageDrop = 0; // Reset timer to 3 seconds
@@ -261,8 +261,8 @@ function timeCounter() {
   textAlign(CENTER, RIGHT);
   textFont('Impact');
   textSize(30);
-  text("TIMER: " + floor(timeBeforeCourageDrop), 400, 90);
-  text("TIMER POWER: " + floor(timeToGrowPower), 200, 90);
+  text("COURAGE TIMER: " + floor(timeBeforeCourageDrop), 500, 90);
+  text("POWER TIMER: " + floor(timeToGrowPower), 200, 90);
   pop();
 }
 
